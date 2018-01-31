@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?><testsuite errors="0" failures="0" name="pytest" skips="0" tests="1" time="0.250"><testcase classname="tests.test_binding" file="tests/test_binding.py" line="34" name="test_resolve_all" time="0.0022954940795898438"><system-out>http://0.0.0.0:3904/events/INPUT_TOPIC_v1/DefaultGroup/1?timeout=15000
+</system-out></testcase></testsuite>
