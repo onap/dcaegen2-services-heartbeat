@@ -28,7 +28,7 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
   <!--- CHANGE THE FOLLOWING 3 OBJECTS for your own repo -->
   <groupId>org.onap.dcaegen2.platform</groupId>
   <artifactId>heartbeat</artifactId>
-  <name>dcaegen2-platform-heartbeat</name>
+  <name>dcaegen2-services-heartbeat</name>
   <version>2.0.0</version>
   <url>http://maven.apache.org</url>
   <properties>
