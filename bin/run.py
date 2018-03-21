@@ -17,6 +17,9 @@
 # ============LICENSE_END=========================================================
 #
 # ECOMP is a trademark and service mark of AT&T Intellectual Property.
+# 
+#  Author Gokul Singaraju gs244f@att.com 
+# 
 
 import sys
 import yaml
@@ -55,7 +58,7 @@ if __name__ == '__main__':
         #print(cfg['vnfs'][vnf][0])
         #print(cfg['vnfs'][vnf][1])
         #print(cfg['vnfs'][vnf][2])
-        #Start Heartbeat monitoring process on VNFs configured
+        #Start Heartbeat monitoring process worker thread on VNFs configured
         p = multiprocessing.Process(target=checkhtbt, args=(cfg['global']['message_router_url'],cfg['vnfs'][vnf][0],cfg['vnfs'][vnf][1],cfg['vnfs'][vnf][2],cfg['vnfs'][vnf][3]))
         jobs.append(p)
         p.start()
