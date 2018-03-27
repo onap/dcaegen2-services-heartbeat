@@ -3,3 +3,4 @@ connexion==1.1.12
 requests==2.18.2
 six==1.10.0
 PyYAML==3.12
+HTTPretty==0.8.14

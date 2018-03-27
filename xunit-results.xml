@@ -1,2 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?><testsuite errors="0" failures="0" name="pytest" skips="0" tests="1" time="0.250"><testcase classname="tests.test_binding" file="tests/test_binding.py" line="34" name="test_resolve_all" time="0.0022954940795898438"><system-out>http://0.0.0.0:3904/events/INPUT_TOPIC_v1/DefaultGroup/1?timeout=15000
-</system-out></testcase></testsuite>
+<?xml version="1.0" encoding="utf-8"?><testsuite errors="0" failures="0" name="pytest" skips="0" tests="1" time="0.303"><testcase classname="tests.test_binding" file="tests/test_binding.py" line="50" name="test_resolve_all" time="0.025246858596801758"><system-out>http://mrrouter.att.com:3904/events/VESCOLL-VNFNJ-SECHEARTBEAT-OUTPUT/DefaultGroup/1?timeout=15000
+&lt;Response [200]&gt;
+{&quot;event&quot;:{&quot;commonEventHeader&quot;:{&quot;startEpochMicrosec&quot;:1518616063564475,&quot;sourceId&quot;:&quot;587c14b3-72c0-4581-b5cb-6567310b9bb7&quot;,&quot;eventId&quot;:&quot;10048640&quot;,&quot;reportingEntityId&quot;:&quot;587c14b3-72c0-4581-b5cb-6567310b9bb7&quot;,&quot;priority&quot;:&quot;Normal&quot;,&quot;version&quot;:3,&quot;reportingEntityName&quot;:&quot;SWMSVM&quot;,&quot;sequence&quot;:10048640,&quot;domain&quot;:&quot;heartbeat&quot;,&quot;lastEpochMicrosec&quot;:1518616063564476,&quot;eventName&quot;:&quot;Heartbeat_vMrf&quot;,&quot;sourceName&quot;:&quot;SWMSVM&quot;,&quot;nfNamingCode&quot;:&quot;vMRF&quot;}}}
+Send URL : http://mytest.onap.org:3904/events/VESCOLL-VNFNJ-SECHEARTBEAT-OUTPUT/DefaultGroup/1?timeout=15000
+Policy URL : http://mytest.onap.org:3904/events/OUTPUT_TOPIC_v1/DefaultGroup/1?timeout=15000
+Message router url http://mytest.onap.org:3904 
+Policy url http://mytest.onap.org:3904 
+Interval 60.0 
+Input topic VESCOLL-VNFNJ-SECHEARTBEAT-OUTPUT 
+Output topic OUTPUT_TOPIC_v1 
+Checking... 2018-03-27 15:14:17.651127
+Getting :http://mytest.onap.org:3904/events/VESCOLL-VNFNJ-SECHEARTBEAT-OUTPUT/DefaultGroup/1?timeout=15000
+{&quot;event&quot;: {&quot;commonEventHeader&quot;: {&quot;startEpochMicrosec&quot;: 1518616063564475, &quot;sourceId&quot;: &quot;587c14b3-72c0-4581-b5cb-6567310b9bb7&quot;, &quot;eventId&quot;: &quot;10048640&quot;, &quot;reportingEntityId&quot;: &quot;587c14b3-72c0-4581-b5cb-6567310b9bb7&quot;, &quot;priority&quot;: &quot;Normal&quot;, &quot;version&quot;: 3, &quot;reportingEntityName&quot;: &quot;SWMSVM&quot;, &quot;sequence&quot;: 10048640, &quot;domain&quot;: &quot;heartbeat&quot;, &quot;lastEpochMicrosec&quot;: 1518616063564476, &quot;eventName&quot;: &quot;Heartbeat_vMrf&quot;, &quot;sourceName&quot;: &quot;SWMSVM&quot;, &quot;nfNamingCode&quot;: &quot;vMRF&quot;}}}
+Line:{&quot;event&quot;: {&quot;commonEventHeader&quot;: {&quot;startEpochMicrosec&quot;: 1518616063564475, &quot;sourceId&quot;: &quot;587c14b3-72c0-4581-b5cb-6567310b9bb7&quot;, &quot;eventId&quot;: &quot;10048640&quot;, &quot;reportingEntityId&quot;: &quot;587c14b3-72c0-4581-b5cb-6567310b9bb7&quot;, &quot;priority&quot;: &quot;Normal&quot;, &quot;version&quot;: 3, &quot;reportingEntityName&quot;: &quot;SWMSVM&quot;, &quot;sequence&quot;: 10048640, &quot;domain&quot;: &quot;heartbeat&quot;, &quot;lastEpochMicrosec&quot;: 1518616063564476, &quot;eventName&quot;: &quot;Heartbeat_vMrf&quot;, &quot;sourceName&quot;: &quot;SWMSVM&quot;, &quot;nfNamingCode&quot;: &quot;vMRF&quot;}}}
+Adding new source
+587c14b3-72c0-4581-b5cb-6567310b9bb7 10048640
+Returned 1
+</system-out><system-err>2018-03-27 15:14:17,645 | urllib3.connectionpool | connectionpool | _new_conn | 208 |  DEBUG | Starting new HTTP connection (1): mrrouter.att.com
+2018-03-27 15:14:17,648 | urllib3.connectionpool | connectionpool | _make_request | 396 |  DEBUG | http://mrrouter.att.com:3904 &quot;GET /events/VESCOLL-VNFNJ-SECHEARTBEAT-OUTPUT/DefaultGroup/1?timeout=15000 HTTP/1.1&quot; 200 415
+2018-03-27 15:14:17,652 | urllib3.connectionpool | connectionpool | _new_conn | 208 |  DEBUG | Starting new HTTP connection (1): mytest.onap.org
+2018-03-27 15:14:17,662 | urllib3.connectionpool | connectionpool | _make_request | 396 |  DEBUG | http://mytest.onap.org:3904 &quot;GET /events/VESCOLL-VNFNJ-SECHEARTBEAT-OUTPUT/DefaultGroup/1?timeout=15000 HTTP/1.1&quot; 200 442
+</system-err></testcase></testsuite>
