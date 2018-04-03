@@ -144,7 +144,7 @@ run_tox_test()
     pip freeze
     tox
     deactivate
-    #rm -rf ./venv-tox ./.tox
+    rm -rf ./venv-tox ./.tox
   done
 }
 
