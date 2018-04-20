@@ -251,10 +251,10 @@ def main(args):
     global mr_url, pol_url, missing_htbt, intvl, intopic, outopic
     mr_url = get_collector_uri()
     pol_url = get_policy_uri()
-    missing_htbt = int(args[2])
-    intvl = int(args[3])
-    intopic = args[4]
-    outopic = args[5]
+    missing_htbt = int(args[1])
+    intvl = int(args[2])
+    intopic = args[3]
+    outopic = args[4]
     print ("Message router url %s " % mr_url)
     print ("Policy router url %s " % pol_url)
     print ("Interval %s " % intvl)

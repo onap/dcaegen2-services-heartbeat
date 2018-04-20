@@ -18,7 +18,9 @@ RUN echo 4.5.6.7 > /tmp/config/pol_ip.txt
 RUN echo 4567 > /tmp/config/pol_port.txt 
 EXPOSE 10000
 
-ENV PYTHONPATH  /usr/local/lib/python3.6/site-packages
+#ENV PYTHONPATH="/usr/local/lib/python3.6:/usr/local/lib/python3.6/site-packages:${PATH}"
+#ENV PYTHONPATH="/usr/local/lib/python3.6/site-packages:/usr/local/lib/python3.6"
+ENV PYTHONPATH=/usr/local/lib/python3.6/site-packages
 #CMD run.py
 #ENTRYPOINT ["/bin/python", "./bin/run.py"]
 #ENTRYPOINT ["/usr/bin/python","./bin/run.py" ]

@@ -21,6 +21,7 @@
 #  Author Gokul Singaraju gs244f@att.com 
 # 
 
+import os
 import sys
 import yaml
 import multiprocessing
@@ -45,6 +46,10 @@ if __name__ == '__main__':
       multiprocessing.log_to_stderr()
       logger = multiprocessing.get_logger()
       logger.setLevel(logging.INFO)
+      my_env = os.environ.copy()
+      my_env["PYTHONPATH"] = my_env["PYTHONPATH"]+"/usr/local/lib/python3.6:"
+      p = subprocess.Popen(['./bin/check_health.py'],stdout=subprocess.PIPE,env=my_env)
+      #print(p.communicate())
       with open("./miss_htbt_service/config/config.yaml", 'r') as ymlfile:
          cfg = yaml.load(ymlfile)
       # Put some initial values into the queue
