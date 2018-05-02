@@ -16,7 +16,7 @@ RUN mkdir /tmp/config
 #RUN echo 1234 > /tmp/config/coll_port.txt 
 #RUN echo 4.5.6.7 > /tmp/config/pol_ip.txt 
 #RUN echo 4567 > /tmp/config/pol_port.txt 
-EXPOSE 10000
+EXPOSE 10001
 
 #ENV PYTHONPATH="/usr/local/lib/python3.6:/usr/local/lib/python3.6/site-packages:${PATH}"
 #ENV PYTHONPATH="/usr/local/lib/python3.6/site-packages:/usr/local/lib/python3.6"

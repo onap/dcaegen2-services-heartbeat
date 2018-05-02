@@ -13,16 +13,4 @@ vnfs:
         - VESCOLL-VNFNJ-SECHEARTBEAT-OUTPUT
         - DCAE-POLICY-HILOTCA-EVENT-OUTPUT
         - ControlLoopEvent1
-    vnfb:
-        - 3
-        - 30
-        - intopic1
-        - outtopic1
-        - ControlLoopEvent2
-    vnfc:
-        - 3
-        - 30
-        - intopic2
-        - outtopic2
-        - ControlLoopEvent3
 
