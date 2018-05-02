@@ -49,10 +49,10 @@ class PeriodicScheduler(object):
         self.scheduler = sched.scheduler(time.time, time.sleep)                   
                                                                             
     def setup(self, interval, action, actionargs=()):                             
+        #print("Args are :", locals())
         action(*actionargs)                                                       
-        self.scheduler.enter(interval, 1, self.setup,                             
-                        (interval, action, actionargs))                           
-    def run(self):                                                                
+        self.scheduler.enter(interval, 1, self.setup,(interval, action, actionargs))                           
+    def run(self): 
         self.scheduler.run()
 
     def stop(self):
@@ -101,13 +101,15 @@ def get_policy_uri():
 
 # Process the heartbeat event on input topic
 def periodic_event():  
-    global periodic_scheduler
-    global mr_url, pol_url, missing_htbt, intvl, intopic, outopic
-    ret = 0
-    print("Checking..." , datetime.datetime.now())
-    #Read heartbeat
-    get_url = mr_url+'/events/'+intopic+'/DefaultGroup/1?timeout=15000'
-    print("Getting :"+get_url)
+   global periodic_scheduler
+   global mr_url, pol_url, missing_htbt, intvl, intopic, outopic
+   ret = 0
+   #print("Args are :", locals())
+   print("Checking..." , datetime.datetime.now())
+   #Read heartbeat
+   get_url = mr_url+'/events/'+intopic+'/DefaultGroup/1?timeout=15000'
+   print("Getting :"+get_url)
+   try:
     res = requests.get(get_url)
     #print(res)
     #print(res.headers)
@@ -227,7 +229,9 @@ def periodic_event():
        del heartstate[chkey]
        del hearttrack[chkey]
        del heartflag[chkey]
-    return ret
+   except requests.exceptions.ConnectionError:
+      print("Connection refused ..")
+   return ret
 
 #test setup for coverage
 def test_setup(args):
@@ -249,19 +253,21 @@ def test_setup(args):
 def main(args):
     global periodic_scheduler
     global mr_url, pol_url, missing_htbt, intvl, intopic, outopic
-    mr_url = get_collector_uri()
-    pol_url = get_policy_uri()
-    missing_htbt = int(args[1])
-    intvl = int(args[2])
-    intopic = args[3]
-    outopic = args[4]
+    #mr_url = get_collector_uri()
+    #pol_url = get_policy_uri()
+    mr_url = args[0]
+    intopic = args[1]
+    pol_url = args[2]
+    outopic = args[3]
+    missing_htbt = int(args[4])
+    intvl = int(args[5])
     print ("Message router url %s " % mr_url)
     print ("Policy router url %s " % pol_url)
     print ("Interval %s " % intvl)
     #intvl = 60 # every second  
     #Start periodic scheduler runs every interval
     periodic_scheduler = PeriodicScheduler() 
-    periodic_scheduler.setup(intvl, periodic_event) # it executes the event just once  
+    periodic_scheduler.setup(intvl, periodic_event,) # it executes the event just once  
     periodic_scheduler.run() # it starts the scheduler  
 
 if __name__ == "__main__":

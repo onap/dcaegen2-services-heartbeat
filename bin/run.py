@@ -29,10 +29,15 @@ import logging
 import subprocess
 from miss_htbt_service import get_logger
 
+mr_url = 'http://mrrouter.onap.org:3904'
+pol_url = 'http://mrrouter.onap.org:3904'
+intopic = 'VESCOLL-VNFNJ-SECHEARTBEAT-OUTPUT'
+outopic = 'POLICY-HILOTCA-EVENT-OUTPUT'
+
 #Checks heartbeat by calling worker thread
-def checkhtbt(mr_url, misshtbt,intvl,intopic,outtopic):
-        print('Doing some work',mr_url, misshtbt,intvl,intopic,outtopic)
-        subprocess.call(["/usr/bin/python","./miss_htbt_service/htbtworker.py" , mr_url , str(misshtbt) , str(intvl) , intopic , outtopic])
+def checkhtbt(mr_url, intopic, pol_url, outopic, misshtbt,intvl):
+        print('Doing some work',mr_url, misshtbt,intvl,intopic,outopic)
+        subprocess.call(["/usr/bin/python","./miss_htbt_service/htbtworker.py" , mr_url , intopic, pol_url, outopic, str(misshtbt) , str(intvl) ])
         sys.stdout.flush()
         return
 
@@ -43,6 +48,15 @@ _logger = get_logger(__name__)
 if __name__ == '__main__':
     try:
       print("Heartbeat Microservice ...")
+      if "INURL" in os.environ.keys():
+        mr_url = os.environ['INURL']
+      if "INTOPIC" in os.environ.keys():
+        intopic = os.environ['INTOPIC']
+      if "OUTURL" in os.environ.keys():
+        pol_url = os.environ['OUTURL']
+      if "OUTOPIC" in os.environ.keys():
+        outopic = os.environ['OUTOPIC']
+      print(outopic)
       multiprocessing.log_to_stderr()
       logger = multiprocessing.get_logger()
       logger.setLevel(logging.INFO)
@@ -64,7 +78,8 @@ if __name__ == '__main__':
         #print(cfg['vnfs'][vnf][1])
         #print(cfg['vnfs'][vnf][2])
         #Start Heartbeat monitoring process worker thread on VNFs configured
-        p = multiprocessing.Process(target=checkhtbt, args=(cfg['global']['message_router_url'],cfg['vnfs'][vnf][0],cfg['vnfs'][vnf][1],cfg['vnfs'][vnf][2],cfg['vnfs'][vnf][3]))
+        logger.info("Starting threads...")
+        p = multiprocessing.Process(target=checkhtbt, args=( mr_url, intopic, pol_url, outopic, cfg['vnfs'][vnf][0],cfg['vnfs'][vnf][1]))
         jobs.append(p)
         p.start()
       for j in jobs:

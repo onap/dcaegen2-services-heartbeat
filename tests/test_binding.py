@@ -46,7 +46,7 @@ def package_contents(package_name):
 #mr_url = 'http://127.0.0.1:3904'
 mr_url = 'http://mrrouter.att.com:3904'
 intopic = 'VESCOLL-VNFNJ-SECHEARTBEAT-OUTPUT'
-outopic = 'OUTPUT_TOPIC_v1'
+outopic = 'POLICY-HILOTCA-EVENT-OUTPUT'
 
 @httpretty.activate
 def test_resolve_all(monkeypatch):

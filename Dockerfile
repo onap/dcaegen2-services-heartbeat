@@ -12,10 +12,10 @@ RUN pip install -r requirements.txt
 RUN pip install -e .
 
 RUN mkdir /tmp/config
-RUN echo 1.2.3.4 > /tmp/config/coll_ip.txt 
-RUN echo 1234 > /tmp/config/coll_port.txt 
-RUN echo 4.5.6.7 > /tmp/config/pol_ip.txt 
-RUN echo 4567 > /tmp/config/pol_port.txt 
+#RUN echo 1.2.3.4 > /tmp/config/coll_ip.txt 
+#RUN echo 1234 > /tmp/config/coll_port.txt 
+#RUN echo 4.5.6.7 > /tmp/config/pol_ip.txt 
+#RUN echo 4567 > /tmp/config/pol_port.txt 
 EXPOSE 10000
 
 #ENV PYTHONPATH="/usr/local/lib/python3.6:/usr/local/lib/python3.6/site-packages:${PATH}"
