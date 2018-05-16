@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_d1a2223e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 51
+      },
+      "writtenOn": "2018-05-16T04:30:21Z",
+      "side": 1,
+      "message": "The changes included in this submission are more than config changes.  Please add more message to describe what this submission is about.",
+      "revId": "36718ee672d9bb6395c9fecac279c2691b4601bf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a93c517_b1a7564f",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 51
+      },
+      "writtenOn": "2018-05-16T04:30:21Z",
+      "side": 1,
+      "message": "why all these code files are excluded from sonar scanning?",
+      "revId": "36718ee672d9bb6395c9fecac279c2691b4601bf",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
