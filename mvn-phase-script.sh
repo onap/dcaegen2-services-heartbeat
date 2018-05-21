@@ -138,7 +138,7 @@ run_tox_test()
     rm -rf ./venv-tox ./.tox
     virtualenv ./venv-tox
     source ./venv-tox/bin/activate
-    pip install pip==9.0.3
+    pip install pip==10.0.1
     pip install --upgrade argparse
     pip install tox==2.9.1
     pip freeze

@@ -17,7 +17,11 @@
 # ECOMP is a trademark and service mark of AT&T Intellectual Property.
 
 import os
+import string
+import sys
+import setuptools
 from setuptools import setup, find_packages
+
 #from pip.req import parse_requirements
 try: # for pip >= 10
     from pip._internal.req import parse_requirements
@@ -33,7 +37,19 @@ setup(
     name='miss_htbt_service',
     description='Missing heartbeat microservice to communicate with policy-engine',
     version='2.0.0',
-    packages=find_packages(exclude=["tests.*", "tests"]),
+    #packages=find_packages(exclude=["tests.*", "tests"]),
+    packages=find_packages(),
+    install_requires=[
+"request==1.0.1",
+"requests==2.18.3",
+"onap_dcae_cbs_docker_client==1.0.1",
+"six==1.10.0",
+"PyYAML==3.12",
+"httplib2==0.9.2",
+"HTTPretty==0.8.14",
+"pyOpenSSL==17.5.0",
+"Wheel==0.31.0"
+    ],
     author = "Gokul Singaraju",
     author_email = "gs244f@att.com",
     license = "",
