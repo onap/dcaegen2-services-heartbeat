@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a93c517_91024c08",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 51
+      },
+      "writtenOn": "2018-05-21T15:21:55Z",
+      "side": 1,
+      "message": "Why are these code files excluded?",
+      "revId": "5fee29e1278ba267fc7ec3cec652a737dd83a1eb",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
