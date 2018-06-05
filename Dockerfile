@@ -34,7 +34,7 @@ RUN mkdir -p ${APPDIR}/data \
  && chmod a+w ${APPDIR}/data \
  && chmod a+w ${APPDIR}/logs \
  && chmod a+w ${APPDIR}/tmp \
- && chmod 500 ${APPDIR}/etc \
+ && chmod a+w ${APPDIR}/etc \
  && chmod 500 ${APPDIR}/bin/*.py \
  && chmod 500 ${APPDIR}/bin/*.sh \
  && chmod 500 ${APPDIR}/bin/*/*.py
