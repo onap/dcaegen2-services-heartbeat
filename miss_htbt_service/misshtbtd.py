@@ -88,6 +88,7 @@ if __name__ == '__main__':
         print(msg)
         with open(current_runtime_config_file_name, 'w') as outfile:
             json.dump(tds.c_config, outfile)
+        jsfile = current_runtime_config_file_name
       else:
         msg = "CBS Config not available using local config"
         logger.error(msg)
