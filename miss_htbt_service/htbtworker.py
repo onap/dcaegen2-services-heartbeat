@@ -85,13 +85,18 @@ def periodic_event():
     # Process the DMaaP input message retreived
     for line in jlist:
        print("Line:"+line)
-       jobj = json.loads(line)
+       try:
+         jobj = json.loads(line)
+       except ValueError:
+         print('Decoding JSON has failed')
+         continue
        #print(jobj)
-       if( nfc != jobj['event']['commonEventHeader']['nfNamingCode']) :
-             continue
        srcid = (jobj['event']['commonEventHeader']['sourceId'])
        lastepo = (jobj['event']['commonEventHeader']['lastEpochMicrosec'])
        seqnum = (jobj['event']['commonEventHeader']['sequence'])
+       nfcode = (jobj['event']['commonEventHeader']['nfNamingCode'])
+       if( nfcode and nfc != nfcode):
+             continue
        if( srcid in hearttrack ):
          tdiff =  lastepo - hearttrack[srcid]
          sdiff =  seqnum - heartstate[srcid]
@@ -197,6 +202,7 @@ def main(args):
     cl_loop = args[7]
     print ("Message router url %s " % mr_url)
     print ("Policy router url %s " % pol_url)
+    print ("VNF %s " % nfc)
     print ("Interval %s " % intvl)
     if( cl_loop != "internal_test") :
       #intvl = 60 # every second  
