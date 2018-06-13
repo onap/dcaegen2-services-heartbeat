@@ -1,0 +1,7 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+2: Vijay Venkatesh Kumar <vv770d@att.com>
+Submitted-by: Vijay Venkatesh Kumar <vv770d@att.com>
+Submitted-at: Wed, 13 Jun 2018 21:30:47 +0000
+Reviewed-on: https://gerrit.onap.org/r/54683
+Project: dcaegen2/services/heartbeat
+Branch: refs/heads/master
