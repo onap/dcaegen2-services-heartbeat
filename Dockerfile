@@ -12,7 +12,7 @@ WORKDIR ${APPDIR}
 #ADD . /tmp
 #RUN mkdir /tmp/config
 
-EXPOSE 10001
+EXPOSE 10002
 
 COPY ./miss_htbt_service/ ./bin/
 COPY ./etc/ ./etc/
@@ -20,7 +20,7 @@ COPY requirements.txt ./
 COPY setup.py ./
 
 #need pip > 8 to have internal pypi repo in requirements.txt
-RUN pip install --upgrade pip 
+RUN pip install --upgrade pip
 #do the install
 #WORKDIR /tmp
 RUN pip install pyyaml --upgrade

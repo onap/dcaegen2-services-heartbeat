@@ -76,7 +76,7 @@ echo "MVN_RAWREPO_SERVERID is            [$MVN_RAWREPO_SERVERID]"
 echo "MVN_DOCKERREGISTRY_DAILY is        [$MVN_DOCKERREGISTRY_DAILY]"
 echo "MVN_DOCKERREGISTRY_RELEASE is      [$MVN_DOCKERREGISTRY_RELEASE]"
 
-expand_templates() 
+expand_templates()
 {
   # set up env variables, get ready for template resolution
   export ONAPTEMPLATE_RAWREPOURL_org_onap_ccsdk_platform_plugins_releases="$MVN_RAWREPO_BASEURL_DOWNLOAD/org.onap.ccsdk.plugins/releases"
@@ -127,8 +127,8 @@ expand_templates()
 }
 
 
-run_tox_test() 
-{ 
+run_tox_test()
+{
   set -x
   CURDIR=$(pwd)
   TOXINIS=$(find . -name "tox.ini")
@@ -148,7 +148,7 @@ run_tox_test()
   done
 }
 
-build_wagons() 
+build_wagons()
 {
   rm -rf ./*.wgn venv-pkg
 
@@ -174,7 +174,7 @@ build_wagons()
 }
 
 
-upload_raw_file() 
+upload_raw_file()
 {
   # Extract the username and password to the nexus repo from the settings file
   USER=$(xpath -q -e "//servers/server[id='$MVN_RAWREPO_SERVERID']/username/text()" "$SETTINGS_FILE")
@@ -221,7 +221,7 @@ upload_wagons_and_type_yamls()
     WAGON_NAME=$(echo "$WAGON" | cut -f1 -d '-')
     WAGON_VERSION=$(echo "$WAGON" | cut -f2 -d '-')
     WAGON_TYPEFILE=$(grep -rl "$WAGON_NAME" . | grep yaml | head -1)
-   
+
     upload_raw_file "$WAGON"
     upload_raw_file "$WAGON_TYPEFILE"
   done
@@ -329,4 +329,5 @@ deploy)
   echo "==> unprocessed phase"
   ;;
 esac
+
 

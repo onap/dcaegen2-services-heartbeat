@@ -25,12 +25,20 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
     <artifactId>dcaegen2</artifactId>
     <version>1.2.0-SNAPSHOT</version>
   </parent>
+
+<!--
+  <parent>
+    <groupId>org.onap.oparent</groupId>
+    <artifactId>oparent</artifactId>
+    <version>1.2.0</version>
+  </parent>
+-->
+
   <!--- CHANGE THE FOLLOWING 3 OBJECTS for your own repo -->
   <groupId>org.onap.dcaegen2.services</groupId>
   <artifactId>heartbeat</artifactId>
   <name>dcaegen2-services-heartbeat</name>
   <version>2.0.0</version>
-  <url>http://maven.apache.org</url>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <sonar.sources>.</sonar.sources>
@@ -128,7 +136,8 @@ ECOMP is a trademark and service mark of AT&T Intellectual Property.
           <artifactId>exec-maven-plugin</artifactId>
           <version>1.2.1</version>
           <configuration>
-            <executable>${session.executionRootDirectory}/mvn-phase-script.sh</executable>
+            <!--<executable>${session.executionRootDirectory}/mvn-phase-script.sh</executable>-->
+            <executable>mvn-phase-script.sh</executable>
             <environmentVariables>
               <!-- make mvn properties as env for our script -->
               <MVN_PROJECT_GROUPID>${project.groupId}</MVN_PROJECT_GROUPID>

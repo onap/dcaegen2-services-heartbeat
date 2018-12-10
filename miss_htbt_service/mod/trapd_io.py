@@ -36,7 +36,7 @@ import string
 import time
 import traceback
 import unicodedata
-
+sys.path.append('/home/ubuntu/HB_Nov5/miss_htbt_service/')
 # dcae_snmptrap
 import mod.trapd_settings as tds
 from mod.trapd_exit import cleanup_and_exit

@@ -28,6 +28,7 @@ __docformat__ = 'restructuredtext'
 import sys
 import os
 import string
+sys.path.append('/home/ubuntu/HB_Nov5/miss_htbt_service/')
 from mod.trapd_runtime_pid import save_pid, rm_pid
 
 prog_name = os.path.basename(__file__)

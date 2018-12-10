@@ -1,6 +1,6 @@
 import pytest
 import unittest
-import trapd_exit
+import test_trapd_exit
 
 pid_file="/tmp/test_pid_file"
 pid_file_dne="/tmp/test_pid_file_NOT"
@@ -36,7 +36,6 @@ class test_cleanup_and_exit(unittest.TestCase):
             result = True
         except:
             result = False
-
         self.assertEqual(result, True)
  
     def test_dns_cache_ip_to_name(self):
@@ -50,7 +49,6 @@ class test_cleanup_and_exit(unittest.TestCase):
             result = True
         except:
             result = False
-
         self.assertEqual(result, True)
 
     def test_dns_cache_ip_expires(self):
@@ -64,9 +62,8 @@ class test_cleanup_and_exit(unittest.TestCase):
             result = True
         except:
             result = False
-
         self.assertEqual(result, True)
 
-if __name__ == '__main__':
+#if __name__ == '__main__':
     # tds.init()
-    unittest.main()
+#    unittest.main()

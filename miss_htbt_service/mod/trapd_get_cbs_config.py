@@ -33,7 +33,7 @@ import string
 import time
 import traceback
 import collections
-
+sys.path.append('/home/ubuntu/HB_Nov5/miss_htbt_service/')
 import mod.trapd_settings as tds
 from onap_dcae_cbs_docker_client.client import get_config
 from mod.trapd_exit import cleanup,cleanup_and_exit
@@ -92,7 +92,7 @@ def get_cbs_config():
                 msg = "Unable to load CBS_HTBT_JSON " + _cbs_sim_json_file + \
                     " (invalid json?) - FATAL ERROR, exiting"
                 stdout_logger(msg)
-                cleanup_and_exit(1,None)
+                cleanup_and_exit(0,None)
 
     # recalc timeout, set default if not present
     try:

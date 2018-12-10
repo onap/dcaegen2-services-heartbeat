@@ -1,5 +1,7 @@
 import pytest
 import unittest
+import sys
+#sys.path.append('/home/ubuntu/HB_Nov5/miss_htbt_service/mod')
 import trapd_exit
 
 pid_file="/tmp/test_pid_file"
@@ -33,5 +35,5 @@ class test_cleanup_and_exit(unittest.TestCase):
             assert pytest_wrapped_sys_exit.type == SystemExit
             assert pytest_wrapped_sys_exit.value.code == 1
 
-if __name__ == '__main__':
-    unittest.main()
+#if __name__ == '__main__':
+#    unittest.main()

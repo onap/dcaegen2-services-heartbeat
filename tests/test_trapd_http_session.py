@@ -1,5 +1,7 @@
 import pytest
 import unittest
+import sys
+#sys.path.append('/home/ubuntu/HB_Nov5/miss_htbt_service/mod')
 import trapd_http_session
  
 class test_init_session_obj(unittest.TestCase):
@@ -16,5 +18,5 @@ class test_init_session_obj(unittest.TestCase):
         self.assertEqual(compare, True)
  
  
-if __name__ == '__main__':
-    unittest.main()
+#if __name__ == '__main__':
+#    unittest.main()

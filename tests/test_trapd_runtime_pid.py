@@ -1,8 +1,12 @@
 import pytest
 import unittest
+#import trapd_runtime_pid
+import sys
+#from /home/ubuntu/HB_Nov5/miss_htbt_service/mod/ import trapd_io
+#sys.path.append('/home/ubuntu/HB_Nov5/miss_htbt_service/mod/')
 import trapd_runtime_pid
-import trapd_io
- 
+import trapd_io 
+
 class test_save_pid(unittest.TestCase):
     """
     Test the save_pid mod
@@ -45,5 +49,5 @@ class test_rm_pid(unittest.TestCase):
         self.assertEqual(result, False)
  
  
-if __name__ == '__main__':
-    unittest.main()
+#if __name__ == '__main__':
+#    unittest.main()
