@@ -1,0 +1,441 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9adffdf1_df14cba1",
+        "filename": "miss_htbt_service/config_notif.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-12-10T18:27:13Z",
+      "side": 1,
+      "message": "should be 2018",
+      "range": {
+        "startLine": 2,
+        "startChar": 12,
+        "endLine": 2,
+        "endChar": 16
+      },
+      "revId": "0ecd5089c8016a9e9682a9a028036388fbbb5858",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_9f0ac377",
+        "filename": "miss_htbt_service/mod/trapd_exit.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-12-10T18:27:13Z",
+      "side": 1,
+      "message": "test path should be removed (provide relative path where required)",
+      "range": {
+        "startLine": 31,
+        "startChar": 17,
+        "endLine": 31,
+        "endChar": 56
+      },
+      "revId": "0ecd5089c8016a9e9682a9a028036388fbbb5858",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_bf0f8787",
+        "filename": "miss_htbt_service/mod/trapd_get_cbs_config.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-12-10T18:27:13Z",
+      "side": 1,
+      "message": "Test path to be removed",
+      "range": {
+        "startLine": 36,
+        "startChar": 17,
+        "endLine": 36,
+        "endChar": 55
+      },
+      "revId": "0ecd5089c8016a9e9682a9a028036388fbbb5858",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_5f28dbe1",
+        "filename": "miss_htbt_service/mod/trapd_io.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-12-10T18:27:13Z",
+      "side": 1,
+      "message": "local path to be removed",
+      "range": {
+        "startLine": 39,
+        "startChar": 17,
+        "endLine": 39,
+        "endChar": 56
+      },
+      "revId": "0ecd5089c8016a9e9682a9a028036388fbbb5858",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_7f3eff29",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-12-10T18:27:13Z",
+      "side": 1,
+      "message": "Change the version (2.1.0)",
+      "range": {
+        "startLine": 41,
+        "startChar": 11,
+        "endLine": 41,
+        "endChar": 16
+      },
+      "revId": "0ecd5089c8016a9e9682a9a028036388fbbb5858",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_1f47b3bd",
+        "filename": "pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-12-10T18:27:13Z",
+      "side": 1,
+      "message": "should be reverted",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 140,
+        "endChar": 56
+      },
+      "revId": "0ecd5089c8016a9e9682a9a028036388fbbb5858",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_7f259f07",
+        "filename": "requirements.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-12-10T18:27:13Z",
+      "side": 1,
+      "message": "specify the exact version required; will ensure new upgraded module doesn\u0027t break the component",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 8
+      },
+      "revId": "0ecd5089c8016a9e9682a9a028036388fbbb5858",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_1f1ed3bb",
+        "filename": "settings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-12-10T18:27:13Z",
+      "side": 1,
+      "message": "to be removed",
+      "range": {
+        "startLine": 5,
+        "startChar": 19,
+        "endLine": 5,
+        "endChar": 50
+      },
+      "revId": "0ecd5089c8016a9e9682a9a028036388fbbb5858",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_3f1b97cb",
+        "filename": "tests/test_binding.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-12-10T18:27:13Z",
+      "side": 1,
+      "message": "remove this lines",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 62
+      },
+      "revId": "0ecd5089c8016a9e9682a9a028036388fbbb5858",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_df7b6bf3",
+        "filename": "tests/test_binding.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-12-10T18:27:13Z",
+      "side": 1,
+      "message": "these ip\u0027s are not valid.. you can change to localhost",
+      "range": {
+        "startLine": 103,
+        "startChar": 31,
+        "endLine": 103,
+        "endChar": 41
+      },
+      "revId": "0ecd5089c8016a9e9682a9a028036388fbbb5858",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_9f8163c5",
+        "filename": "tests/test_binding.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-12-10T18:27:13Z",
+      "side": 1,
+      "message": "same comment as above",
+      "range": {
+        "startLine": 121,
+        "startChar": 31,
+        "endLine": 121,
+        "endChar": 41
+      },
+      "revId": "0ecd5089c8016a9e9682a9a028036388fbbb5858",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_bf86a7d9",
+        "filename": "tests/test_binding.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-12-10T18:27:13Z",
+      "side": 1,
+      "message": "remove this line",
+      "range": {
+        "startLine": 138,
+        "startChar": 2,
+        "endLine": 138,
+        "endChar": 52
+      },
+      "revId": "0ecd5089c8016a9e9682a9a028036388fbbb5858",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_5f6f7b2b",
+        "filename": "tests/test_binding.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-12-10T18:27:13Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 141,
+        "startChar": 4,
+        "endLine": 141,
+        "endChar": 99
+      },
+      "revId": "0ecd5089c8016a9e9682a9a028036388fbbb5858",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_7f6cbf35",
+        "filename": "tests/test_binding.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-12-10T18:27:13Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 152,
+        "startChar": 5,
+        "endLine": 152,
+        "endChar": 97
+      },
+      "revId": "0ecd5089c8016a9e9682a9a028036388fbbb5858",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_1f7573f9",
+        "filename": "tests/test_trapd_exit.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-12-10T18:27:13Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 62
+      },
+      "revId": "0ecd5089c8016a9e9682a9a028036388fbbb5858",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_ff674f4b",
+        "filename": "tests/test_trapd_get_cbs_config.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-12-10T18:27:13Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 63
+      },
+      "revId": "0ecd5089c8016a9e9682a9a028036388fbbb5858",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_3f72b711",
+        "filename": "tests/test_trapd_get_cbs_config.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-12-10T18:27:13Z",
+      "side": 1,
+      "message": "incorrect absolute path.",
+      "range": {
+        "startLine": 23,
+        "startChar": 3,
+        "endLine": 23,
+        "endChar": 63
+      },
+      "revId": "0ecd5089c8016a9e9682a9a028036388fbbb5858",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_9f58838b",
+        "filename": "tests/test_trapd_http_session.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-12-10T18:27:13Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 62
+      },
+      "revId": "0ecd5089c8016a9e9682a9a028036388fbbb5858",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_3f44f7b5",
+        "filename": "version.properties",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-12-10T18:27:13Z",
+      "side": 1,
+      "message": "should match pom.xml version (2.1.0)",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 7
+      },
+      "revId": "0ecd5089c8016a9e9682a9a028036388fbbb5858",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
