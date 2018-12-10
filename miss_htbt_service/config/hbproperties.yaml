@@ -1,0 +1,11 @@
+#Postgres database input
+#pg_ipAddress: 127.0.0.1
+pg_ipAddress: 10.0.4.1
+pg_portNum: 5432
+pg_userName: postgres
+pg_passwd: postgres
+pg_dbName: hb_vnf
+
+#Periodic polling of CBS config download
+CBS_polling_allowed: True
+CBS_polling_interval: 300

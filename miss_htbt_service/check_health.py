@@ -16,6 +16,7 @@
 # ============LICENSE_END=========================================================
 #
 # ECOMP is a trademark and service mark of AT&T Intellectual Property.
+
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib import parse
 
