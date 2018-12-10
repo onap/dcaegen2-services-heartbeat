@@ -1,7 +1,10 @@
 README.md
 setup.py
 miss_htbt_service/__init__.py
+miss_htbt_service/cbs_polling.py
 miss_htbt_service/check_health.py
+miss_htbt_service/config_notif.py
+miss_htbt_service/db_monitoring.py
 miss_htbt_service/get_logger.py
 miss_htbt_service/htbtworker.py
 miss_htbt_service/misshtbtd.py
@@ -18,5 +21,12 @@ miss_htbt_service/mod/trapd_http_session.py
 miss_htbt_service/mod/trapd_io.py
 miss_htbt_service/mod/trapd_runtime_pid.py
 miss_htbt_service/mod/trapd_settings.py
+miss_htbt_service/mod/trapd_vnf_table.py
 tests/__init__.py
 tests/test_binding.py
+tests/test_trapd_exit.py
+tests/test_trapd_get_cbs_config.py
+tests/test_trapd_http_session.py
+tests/test_trapd_runtime_pid.py
+tests/test_trapd_settings.py
+tests/test_trapd_vnf_table.py

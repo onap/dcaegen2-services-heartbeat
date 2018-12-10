@@ -1,5 +1,6 @@
 import pytest
 import unittest
+import sys
 import trapd_http_session
  
 class test_init_session_obj(unittest.TestCase):
@@ -16,5 +17,5 @@ class test_init_session_obj(unittest.TestCase):
         self.assertEqual(compare, True)
  
  
-if __name__ == '__main__':
-    unittest.main()
+#if __name__ == '__main__':
+#    unittest.main()

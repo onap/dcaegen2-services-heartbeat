@@ -1,0 +1,27 @@
+{
+    "event": {
+        "commonEventHeader": {
+            "vesEventListenerVersion": "7.0.2",
+            "domain": "heartbeat",
+            "eventId": "mvfs10",
+            "eventName": "Heartbeat_vFW",
+            "lastEpochMicrosec": 1544165792763,
+            "priority": "Normal",
+            "reportingEntityName": "ibcx0001vm002oam001",
+            "sequence": 1000,
+            "sourceName": "SOURCE_NAME2",
+            "startEpochMicrosec": 1544165792763,
+            "version": "4.0.2",
+            "reportingEntityId": "cc305d54-75b4-431b-adb2-eb6b9e541234",
+            "sourceId": "VNFB_SRC5",
+            "eventType": "platform",
+            "nfcNamingCode": "VNFB",
+            "nfNamingCode": "VNFB",
+            "timeZoneOffset": "UTC-05:30"
+        },
+        "heartbeatFields": {
+            "heartbeatInterval": 20,
+            "heartbeatFieldsVersion": "3.0"
+        }
+    }
+}

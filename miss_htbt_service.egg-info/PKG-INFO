@@ -3,8 +3,8 @@ Name: miss-htbt-service
 Version: 2.0.0
 Summary: Missing heartbeat microservice to communicate with policy-engine
 Home-page: https://gerrit.onap.org/r/#/admin/projects/dcaegen2/platform/heartbeat
-Author: Gokul Singaraju
-Author-email: gs244f@att.com
+Author: Srikanth Naidu
+Author-email: sn8492@att.com
 License: UNKNOWN
 Description: UNKNOWN
 Keywords: missing heartbeat microservice
