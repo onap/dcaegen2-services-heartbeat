@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "9adffdf1_5f8bfbc2",
+        "filename": "INFO.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-12-10T18:59:47Z",
+      "side": 1,
+      "message": "do not change this.. this is date repo was created and noted for LF tracking",
+      "range": {
+        "startLine": 3,
+        "startChar": 24,
+        "endLine": 3,
+        "endChar": 34
+      },
+      "revId": "0ecd5089c8016a9e9682a9a028036388fbbb5858",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_7f883fc5",
+        "filename": "commit-msg.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-12-10T18:59:47Z",
+      "side": 1,
+      "message": "This file should be removed.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 191,
+        "endChar": 12
+      },
+      "revId": "0ecd5089c8016a9e9682a9a028036388fbbb5858",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9adffdf1_1f91f3f0",
+        "filename": "miss_htbt_service.egg-info/PKG-INFO",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2018-12-10T18:59:47Z",
+      "side": 1,
+      "message": "Should be the submitter info.",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 28
+      },
+      "revId": "0ecd5089c8016a9e9682a9a028036388fbbb5858",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9adffdf1_df14cba1",
         "filename": "miss_htbt_service/config_notif.py",
         "patchSetId": 1
