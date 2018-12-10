@@ -36,7 +36,6 @@ import string
 import time
 import traceback
 import unicodedata
-
 # dcae_snmptrap
 import mod.trapd_settings as tds
 from mod.trapd_exit import cleanup_and_exit

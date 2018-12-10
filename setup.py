@@ -41,10 +41,10 @@ setup(
     packages=find_packages(),
     install_requires=[
 "request==1.0.1",
-"requests==2.19.1",
+"requests==2.18.3",
 "onap_dcae_cbs_docker_client==1.0.1",
-"six==1.11.0",
-"PyYAML==3.13",
+"six==1.10.0",
+"PyYAML==3.12",
 "httplib2==0.9.2",
 "HTTPretty==0.8.14",
 "pyOpenSSL==17.5.0",
