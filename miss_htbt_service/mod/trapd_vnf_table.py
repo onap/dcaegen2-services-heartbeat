@@ -35,9 +35,16 @@ import logging
 import get_logger
 import yaml
 import os.path as path
+import db_monitoring as dbmon
+import json
+from onap_dcae_cbs_docker_client.client import get_config
+import unittest
+import time
+import subprocess
 
 prog_name = os.path.basename(__file__)
 hb_properties_file =  path.abspath(path.join(__file__, "../../config/hbproperties.yaml"))
+_logger = get_logger.get_logger(__name__)
 
 def hb_properties():
 	#Read the hbproperties.yaml for postgress and CBS related data
@@ -54,7 +61,6 @@ def hb_properties():
 	s.close()
 	return ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval
 
-ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval = hb_properties()	
 	
 def verify_DB_creation_1(user_name,password,ip_address,port_num,db_name):
     connection_db = pm.postgres_db_open(user_name,password,ip_address,port_num,db_name)
@@ -99,8 +105,115 @@ def verify_cbsPolling_required():
 
 def verify_cbspolling():
     try:
-        _cbspolling=cbs.currentpidMain(10)
+        _cbspolling=cbs.pollCBS(10)
     except Exception as e:
         return None
         
     return _cbspolling
+
+def verify_fetch_json_file():
+    os.environ['pytest']='test'
+    os.environ['SERVICE_NAME']='mvp-dcaegen2-heartbeat-static'
+    #os.environ['CONSUL_HOST']='10.12.6.50' # Used this IP during testing
+    os.environ['CONSUL_HOST']='localhost'
+    os.environ['HOSTNAME']='mvp-dcaegen2-heartbeat-static'
+    try:
+       db.fetch_json_file()
+       result = True
+    except Exception as e:
+       result = False
+    print(result)
+    os.unsetenv('pytest')
+    os.unsetenv('SERVICE_NAME')
+    os.unsetenv('CONSUL_HOST')
+    os.unsetenv('HOSTNAME')
+    return result
+
+def verify_misshtbtdmain():
+    os.environ['pytest']='test'
+    os.environ['SERVICE_NAME']='mvp-dcaegen2-heartbeat-static'
+    os.environ['CONSUL_HOST']='localhost'
+    os.environ['HOSTNAME']='mvp-dcaegen2-heartbeat-static'
+
+    try:
+        db.main()
+        result = True
+    except Exception as e:
+        result = False
+    print(result)
+    os.unsetenv('pytest')
+    os.unsetenv('SERVICE_NAME')
+    os.unsetenv('CONSUL_HOST')
+    os.unsetenv('HOSTNAME')
+    return result
+
+def verify_dbmonitoring():
+    os.environ['pytest']='test'
+    os.environ['SERVICE_NAME']='mvp-dcaegen2-heartbeat-static'
+    os.environ['CONSUL_HOST']='localhost'
+    os.environ['HOSTNAME']='mvp-dcaegen2-heartbeat-static'
+    try:
+        ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval = hb_properties()
+        jsfile = db.fetch_json_file()
+        hbc_pid, hbc_state, hbc_srcName, hbc_time = db.read_hb_common(user_name,password,ip_address,port_num,db_name)
+        dbmon.db_monitoring(hbc_pid,jsfile,user_name,password,ip_address,port_num,db_name)
+        result = True
+    except Exception as e:
+        print("Message process error - ",e)
+        result = False
+    print(result)
+    os.unsetenv('pytest')
+    os.unsetenv('SERVICE_NAME')
+    os.unsetenv('CONSUL_HOST')
+    os.unsetenv('HOSTNAME')
+    return result
+
+def verify_dbmon_startup():
+    try:
+        p = subprocess.Popen(['./miss_htbt_service/db_monitoring.py'], stdout=subprocess.PIPE,shell=True)
+        time.sleep(1)
+    except Exception as e:
+        print( "Message process error - ",e)
+        return None
+    return True
+
+def verify_sendControlLoop_VNF_ONSET():
+    try:
+#        _CL_return = sendControlLoopEvent(CLType, pol_url,  policy_version, policy_name, policy_scope, target_type, srcName, epoc_time, closed_control_loop_name, version, target)
+        pol_url = "http://10.12.5.252:3904/events/unauthenticated.DCAE_CL_OUTPUT/"
+        _CL_return = dbmon.sendControlLoopEvent("ONSET", pol_url,  "1.0", "vFireWall", "pscope", "VNF", "srcname1", 1541234567, "SampleCLName", "1.0", "genVnfName")
+    except Exception as e:
+#        msg = "Message process error - ",err
+#        _logger.error(msg)
+        return None
+    return _CL_return
+
+def verify_sendControlLoop_VM_ONSET():
+    try:
+        pol_url = "http://10.12.5.252:3904/events/unauthenticated.DCAE_CL_OUTPUT/"
+        _CL_return = dbmon.sendControlLoopEvent("ONSET", pol_url,  "1.0", "vFireWall", "pscope", "VM", "srcname1", 1541234567, "SampleCLName", "1.0", "genVnfName")
+    except Exception as e:
+#        msg = "Message process error - ",err
+#        _logger.error(msg)
+        return None
+    return _CL_return
+
+def verify_sendControlLoop_VNF_ABATED():
+    try:
+        pol_url = "http://10.12.5.252:3904/events/unauthenticated.DCAE_CL_OUTPUT/"
+        _CL_return = dbmon.sendControlLoopEvent("ABATED", pol_url,  "1.0", "vFireWall", "pscope", "VNF", "srcname1", 1541234567, "SampleCLName", "1.0", "genVnfName")
+    except Exception as e:
+#        msg = "Message process error - ",err
+#        _logger.error(msg)
+        return None
+    return _CL_return
+
+def verify_sendControlLoop_VM_ABATED():
+    try:
+        pol_url = "http://10.12.5.252:3904/events/unauthenticated.DCAE_CL_OUTPUT/"
+        _CL_return = dbmon.sendControlLoopEvent("ABATED", pol_url,  "1.0", "vFireWall", "pscope", "VM", "srcname1", 1541234567, "SampleCLName", "1.0", "genVnfName")
+    except Exception as e:
+#        msg = "Message process error - ",err
+#        _logger.error(msg)
+        return None
+    return _CL_return

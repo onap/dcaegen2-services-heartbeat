@@ -292,8 +292,10 @@ def create_update_db(update_db, jsfile, ip_address, port_num, user_name, passwor
 def create_process(job_list, jsfile, pid_current):
     if(len(job_list) == 0):
         p1 =  multiprocessing.Process(target=hb_worker_process, args=(jsfile,))
+        time.sleep(1)
         p2 =  multiprocessing.Process(target=db_monitoring_process, args=(pid_current,jsfile,))
         p1.start()
+        time.sleep(1)
         p2.start()
         job_list.append(p1)
         job_list.append(p2)

@@ -1,6 +1,6 @@
 Metadata-Version: 1.0
 Name: miss-htbt-service
-Version: 2.0.0
+Version: 2.1.0
 Summary: Missing heartbeat microservice to communicate with policy-engine
 Home-page: https://gerrit.onap.org/r/#/admin/projects/dcaegen2/platform/heartbeat
 Author: Srikanth Naidu
