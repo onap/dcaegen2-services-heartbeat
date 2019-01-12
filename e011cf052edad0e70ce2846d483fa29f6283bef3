@@ -1,0 +1,7 @@
+Code-Review+2: Vijay Venkatesh Kumar <vv770d@att.com>
+Verified+1: Vijay Venkatesh Kumar <vv770d@att.com>
+Submitted-by: Vijay Venkatesh Kumar <vv770d@att.com>
+Submitted-at: Sat, 12 Jan 2019 15:54:16 +0000
+Reviewed-on: https://gerrit.onap.org/r/74905
+Project: dcaegen2/services/heartbeat
+Branch: refs/heads/pgcode-optimization
