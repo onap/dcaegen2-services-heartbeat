@@ -96,11 +96,17 @@ def verify_DB_creation_hb_common(user_name,password,ip_address,port_num,db_name)
     
     
 def verify_cbsPolling_required():
+    _cbspolling_status = True
+    os.environ['pytest']='test'
+    os.environ['SERVICE_NAME']='mvp-dcaegen2-heartbeat-static'
     try:
         _cbspolling_status=cf.config_notif_run()
     except Exception as e:
-        return None
+        print("Config_notify error - ",e)
+        #return None
         
+    os.unsetenv('pytest')
+    os.unsetenv('SERVICE_NAME')
     return _cbspolling_status
 
 def verify_cbspolling():
@@ -109,7 +115,7 @@ def verify_cbspolling():
     try:
         _cbspolling=cbs.pollCBS(10)
     except Exception as e:
-        print("CBSP error - ",e)
+        #print("CBSP error - ",e)
         return None
         
     os.unsetenv('pytest')
@@ -164,7 +170,7 @@ def verify_dbmonitoring():
         dbmon.db_monitoring(hbc_pid,jsfile,user_name,password,ip_address,port_num,db_name)
         result = True
     except Exception as e:
-        print("Message process error - ",e)
+        #print("Message process error - ",e)
         result = False
     print(result)
     os.unsetenv('pytest')
@@ -178,7 +184,7 @@ def verify_dbmon_startup():
         p = subprocess.Popen(['./miss_htbt_service/db_monitoring.py'], stdout=subprocess.PIPE,shell=True)
         time.sleep(1)
     except Exception as e:
-        print( "Message process error - ",e)
+        #print( "Message process error - ",e)
         return None
     return True
 
@@ -188,8 +194,8 @@ def verify_sendControlLoop_VNF_ONSET():
         pol_url = "http://10.12.5.252:3904/events/unauthenticated.DCAE_CL_OUTPUT/"
         _CL_return = dbmon.sendControlLoopEvent("ONSET", pol_url,  "1.0", "vFireWall", "pscope", "VNF", "srcname1", 1541234567, "SampleCLName", "1.0", "genVnfName")
     except Exception as e:
-#        msg = "Message process error - ",err
-#        _logger.error(msg)
+        #msg = "Message process error - ",err
+        #_logger.error(msg)
         return None
     return _CL_return
 
@@ -198,8 +204,8 @@ def verify_sendControlLoop_VM_ONSET():
         pol_url = "http://10.12.5.252:3904/events/unauthenticated.DCAE_CL_OUTPUT/"
         _CL_return = dbmon.sendControlLoopEvent("ONSET", pol_url,  "1.0", "vFireWall", "pscope", "VM", "srcname1", 1541234567, "SampleCLName", "1.0", "genVnfName")
     except Exception as e:
-#        msg = "Message process error - ",err
-#        _logger.error(msg)
+        #msg = "Message process error - ",err
+        #_logger.error(msg)
         return None
     return _CL_return
 
@@ -208,8 +214,8 @@ def verify_sendControlLoop_VNF_ABATED():
         pol_url = "http://10.12.5.252:3904/events/unauthenticated.DCAE_CL_OUTPUT/"
         _CL_return = dbmon.sendControlLoopEvent("ABATED", pol_url,  "1.0", "vFireWall", "pscope", "VNF", "srcname1", 1541234567, "SampleCLName", "1.0", "genVnfName")
     except Exception as e:
-#        msg = "Message process error - ",err
-#        _logger.error(msg)
+        #msg = "Message process error - ",err
+        #_logger.error(msg)
         return None
     return _CL_return
 
