@@ -34,6 +34,100 @@ import get_logger
 
 _logger = get_logger.get_logger(__name__)
 
+def sendControlLoopEvent(CLType, pol_url,  policy_version, policy_name, policy_scope, target_type, srcName, epoc_time, closed_control_loop_name, version, target):
+    msg="DBM:Time to raise Control Loop Event for Control loop typ /target type - ",CLType, target_type
+    _logger.info(msg)
+    if(CLType == "ONSET"):
+        _logger.info("DBM:Heartbeat not received, raising alarm event")
+        if(target_type == "VNF"):
+            json_object = json.dumps({
+                 "closedLoopEventClient": "DCAE_Heartbeat_MS",
+                 "policyVersion": policy_version,
+                 "policyName": policy_name,
+                 "policyScope": policy_scope,
+                 "target_type": target_type,
+                 "AAI": { "generic-vnf.vnf-name": srcName} ,
+                 "closedLoopAlarmStart": epoc_time,
+                 "closedLoopEventStatus": "ONSET",
+                 "closedLoopControlName": closed_control_loop_name,
+                 "version": version,
+                 "target": target,
+                 "requestID": "8c1b8bd8-06f7-493f-8ed7-daaa4cc481bc",
+                 "from": "DCAE"
+                 });
+        elif(target_type == "VM"):
+            json_object = json.dumps({
+                 "closedLoopEventClient": "DCAE_Heartbeat_MS",
+                 "policyVersion": policy_version,
+                 "policyName": policy_name,
+                 "policyScope": policy_scope,
+                 "target_type": target_type,
+                 "AAI": { "vserver.vserver-name": srcName} ,
+                 "closedLoopAlarmStart": epoc_time,
+                 "closedLoopEventStatus": "ONSET",
+                 "closedLoopControlName": closed_control_loop_name,
+                 "version": version,
+                 "target": target,
+                 "requestID": "8c1b8bd8-06f7-493f-8ed7-daaa4cc481bc",
+                 "from": "DCAE"
+                 });
+        else:
+            return True
+    elif(CLType == "ABATED"):
+        _logger.info("DBM:Heartbeat received, clearing alarm event")
+        #last_date_time = datetime.datetime.now()
+        if(target_type == "VNF"):
+            json_object = json.dumps({
+                "closedLoopEventClient": "DCAE_Heartbeat_MS",
+                "policyVersion": policy_version,
+                "policyName": policy_name,
+                "policyScope": policy_scope,
+                "target_type": target_type,
+                "AAI": { "generic-vnf.vnf-name": srcName} ,
+                "closedLoopAlarmStart": epoc_time,
+                "closedLoopEventStatus": "ABATED",
+                "closedLoopControlName": closed_control_loop_name,
+                "version": version,
+                "target": target,
+                "requestID": "8c1b8bd8-06f7-493f-8ed7-daaa4cc481bc",
+                "from": "DCAE"
+                });
+        elif(target_type == "VM"):
+            json_object = json.dumps({
+                "closedLoopEventClient": "DCAE_Heartbeat_MS",
+                "policyVersion": policy_version,
+                "policyName": policy_name,
+                "policyScope": policy_scope,
+                "target_type": target_type,
+                "AAI": { "vserver.vserver-name": srcName} ,
+                "closedLoopAlarmStart": epoc_time,
+                "closedLoopEventStatus": "ABATED",
+                "closedLoopControlName": closed_control_loop_name,
+                "version": version,
+                "target": target,
+                "requestID": "8c1b8bd8-06f7-493f-8ed7-daaa4cc481bc",
+                "from": "DCAE"
+                });
+        else:
+            return True
+    else:
+        return True
+    payload = json_object
+    msg="DBM: CL Json object is", json_object
+    _logger.info(msg)
+    #psend_url = pol_url+'DefaultGroup/1?timeout=15000'
+    psend_url = pol_url
+    msg="DBM:",psend_url
+    _logger.info(msg)
+    #Send response for policy on output topic
+    r = requests.post(psend_url, data=payload)
+    msg="DBM:",r.status_code, r.reason
+    _logger.info(msg)
+    ret = r.status_code
+    msg="DBM:Status code for sending the control loop event is",ret
+    _logger.info(msg)
+    return True
+
 def db_monitoring(current_pid,json_file,user_name,password,ip_address,port_num,db_name):
     while(True):
         time.sleep(20)
@@ -89,119 +183,14 @@ def db_monitoring(current_pid,json_file,user_name,password,ip_address,port_num,d
                         epoc_time_sec = row[0][0]
                         srcName = row[0][1]
                         cl_flag = row[0][2]
-                        vnfName = event_name
                         if((epoc_time-epoc_time_sec)>comparision_time and cl_flag ==0):
-                            msg="DBM:Time to raise Control Loop Event for target type - ", target_type
-                            _logger.info(msg)
-                            if(target_type == "VNF"):
-                                 json_object = json.dumps({ 
-                                          "closedLoopEventClient": "DCAE_Heartbeat_MS",
-                                          "policyVersion": policy_version,
-                                          "policyName": policy_name,
-                                          "policyScope": policy_scope,
-                                          "target_type": target_type,
-                                          "AAI": { "generic-vnf.vnf-name": srcName} ,
-                                          "closedLoopAlarmStart": epoc_time,
-                                          "closedLoopEventStatus": "ONSET",
-                                          "closedLoopControlName": closed_control_loop_name,
-                                          "version": version,
-                                          "target": target,
-                                          "requestID": "8c1b8bd8-06f7-493f-8ed7-daaa4cc481bc",
-                                          "from": "DCAE"
-                                          });
-                            elif(target_type == "VM"):
-                                 json_object = json.dumps({
-                                          "closedLoopEventClient": "DCAE_Heartbeat_MS",
-                                          "policyVersion": policy_version,
-                                          "policyName": policy_name,
-                                          "policyScope": policy_scope,
-                                          "target_type": target_type,
-                                          "AAI": { "vserver.vserver-name": srcName} ,
-                                          "closedLoopAlarmStart": epoc_time,
-                                          "closedLoopEventStatus": "ONSET",
-                                          "closedLoopControlName": closed_control_loop_name,
-                                          "version": version,
-                                          "target": target,
-                                          "requestID": "8c1b8bd8-06f7-493f-8ed7-daaa4cc481bc",
-                                          "from": "DCAE"
-                                          });
-                            else:
-                                 continue
-                            payload = json_object
-                            msg="DBM: CL Json object is", json_object
-                            _logger.info(msg)
-                            #psend_url = pol_url+'DefaultGroup/1?timeout=15000'
-                            psend_url = pol_url
-                            msg="DBM:",psend_url
-                            _logger.info(msg)
-                            msg="DBM:DB monitoring raising alarm event "+psend_url
-                            _logger.info(msg)
-                            #Send response for policy on output topic
-                            r = requests.post(psend_url, data=payload)
-                            msg="DBM:",r.status_code, r.reason
-                            _logger.info(msg)
-                            ret = r.status_code
-                            msg="DBM:Status code after raising the control loop event is",ret
-                            _logger.info(msg)
+                            sendControlLoopEvent("ONSET", pol_url,  policy_version, policy_name, policy_scope, target_type, srcName, epoc_time, closed_control_loop_name, version, target)
                             cl_flag = 1
                             update_query = "UPDATE vnf_table_2 SET CL_FLAG=%d where EVENT_NAME ='%s' and source_name_key=%d" %(cl_flag,event_name,(source_name_key+1))
                             cur.execute(update_query)
                             connection_db.commit()
                         elif((epoc_time - epoc_time_sec) < comparision_time and cl_flag ==1):
-                            msg="DBM:Time to clear Control Loop Event for target type - ", target_type
-                            _logger.info(msg)
-                            epoc_time = int(round(time.time()))
-                            #last_date_time = datetime.datetime.now()
-                            if(target_type == "VNF"):
-                                 json_object = json.dumps({ 
-                                          "closedLoopEventClient": "DCAE_Heartbeat_MS",
-                                          "policyVersion": policy_version,
-                                          "policyName": policy_name,
-                                          "policyScope": policy_scope,
-                                          "target_type": target_type,
-                                          "AAI": { "generic-vnf.vnf-name": srcName} ,
-                                          "closedLoopAlarmStart": epoc_time,
-                                          "closedLoopEventStatus": "ABATED",
-                                          "closedLoopControlName": closed_control_loop_name,
-                                          "version": version,
-                                          "target": target,
-                                          "requestID": "8c1b8bd8-06f7-493f-8ed7-daaa4cc481bc",
-                                          "from": "DCAE"
-                                          });
-                            elif(target_type == "VM"):
-                                 json_object = json.dumps({
-                                          "closedLoopEventClient": "DCAE_Heartbeat_MS",
-                                          "policyVersion": policy_version,
-                                          "policyName": policy_name,
-                                          "policyScope": policy_scope,
-                                          "target_type": target_type,
-                                          "AAI": { "vserver.vserver-name": srcName} ,
-                                          "closedLoopAlarmStart": epoc_time,
-                                          "closedLoopEventStatus": "ABATED",
-                                          "closedLoopControlName": closed_control_loop_name,
-                                          "version": version,
-                                          "target": target,
-                                          "requestID": "8c1b8bd8-06f7-493f-8ed7-daaa4cc481bc",
-                                          "from": "DCAE"
-                                          });
-                            else:
-                                 continue
-                            payload = json_object
-                            msg="DBM: CL Json object is", json_object
-                            _logger.info(msg)
-                            #psend_url = pol_url+'DefaultGroup/1?timeout=15000'
-                            psend_url = pol_url
-                            msg="DBM:",psend_url
-                            _logger.info(msg)
-                            msg="DBM:Heartbeat Dead raising alarm event "+psend_url
-                            _logger.info(msg)
-                            #Send response for policy on output topic
-                            r = requests.post(psend_url, data=payload)
-                            msg="DBM:",r.status_code, r.reason
-                            _logger.info(msg)
-                            ret = r.status_code
-                            msg="DBM:Status code after raising the control loop event is",ret
-                            _logger.info(msg)
+                            sendControlLoopEvent("ABATED", pol_url,  policy_version, policy_name, policy_scope, target_type, srcName, epoc_time, closed_control_loop_name, version, target)
                             cl_flag = 0
                             update_query = "UPDATE vnf_table_2 SET CL_FLAG=%d where EVENT_NAME ='%s' and source_name_key=%d" %(cl_flag,event_name,(source_name_key+1))
                             cur.execute(update_query)
@@ -211,9 +200,8 @@ def db_monitoring(current_pid,json_file,user_name,password,ip_address,port_num,d
                     msg="DBM:DB Monitoring is ignored for %s since validity flag is 0" %(event_name)
                     _logger.info(msg)
                     
-                    for source_name_key in range(source_name_count):
-                        delete_query_table2 = "DELETE FROM vnf_table_2 WHERE EVENT_NAME = '%s' and source_name_key=%d;" %(event_name,source_name_key)
-                        cur.execute(delete_query_table2)
+                    delete_query_table2 = "DELETE FROM vnf_table_2 WHERE EVENT_NAME = '%s';" %(event_name)
+                    cur.execute(delete_query_table2)
                     delete_query = "DELETE FROM vnf_table_1 WHERE EVENT_NAME = '%s';" %(event_name)
                     cur.execute(delete_query)
                     connection_db.commit()

@@ -44,7 +44,7 @@ def read_json_file(i):
 def process_msg(jsfile,user_name, password, ip_address, port_num, db_name):
     global mr_url
     i=0
-    sleep_duration = 10
+    sleep_duration = 20
     while(True):
         time.sleep(sleep_duration)
         with open(jsfile, 'r') as outfile:
@@ -61,6 +61,7 @@ def process_msg(jsfile,user_name, password, ip_address, port_num, db_name):
  
         if(os.getenv('pytest', "") == 'test'):
            eventnameList = ["Heartbeat_vDNS","Heartbeat_vFW","Heartbeat_xx"]
+           connection_db = 0
         else:
            connection_db = postgres_db_open(user_name, password, ip_address, port_num, db_name)
            cur = connection_db.cursor()
@@ -93,8 +94,6 @@ def process_msg(jsfile,user_name, password, ip_address, port_num, db_name):
            inputString = res.text
            #If mrstatus in message body indicates some information, not json msg.
            if ("mrstatus" in inputString):
-              if (sleep_duration < 60):
-                  sleep_duration = sleep_duration + 10
               continue
            jlist = inputString.split('\n');
            # Process the DMaaP input message retreived
