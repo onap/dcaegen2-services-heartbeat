@@ -33,7 +33,10 @@ def postgres_db_open(username,password,host,port,database_name):
     envPytest = os.getenv('pytest', "")
     if (envPytest == 'test'):
         return True
-    connection = psycopg2.connect(database=database_name, user = username, password = password, host = host, port =port)
+    try:
+       connection = psycopg2.connect(database=database_name, user = username, password = password, host = host, port =port)
+    except Exception as e:
+       print("HB_Notif::postgress connect error:", e)
     return connection
 
 def db_table_creation_check(connection_db,table_name):
