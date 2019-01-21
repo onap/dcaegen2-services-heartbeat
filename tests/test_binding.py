@@ -24,7 +24,7 @@ import sys
 from miss_htbt_service import htbtworker
 from miss_htbt_service import misshtbtd
 from miss_htbt_service import db_monitoring
-from miss_htbt_service import config_notif
+#from miss_htbt_service import config_notif
 from trapd_vnf_table import hb_properties
 import subprocess
 import pytest
@@ -94,5 +94,5 @@ def test_full():
     #print(r.status_code)
     #assert(r.status_code == 200)
 
-def test_conifg_notif():
-    config_notif.config_notif_run()
+#def test_conifg_notif():
+    #config_notif.config_notif_run()

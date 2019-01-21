@@ -120,12 +120,16 @@ def sendControlLoopEvent(CLType, pol_url,  policy_version, policy_name, policy_s
     msg="DBM:",psend_url
     _logger.info(msg)
     #Send response for policy on output topic
-    r = requests.post(psend_url, data=payload)
-    msg="DBM:",r.status_code, r.reason
-    _logger.info(msg)
-    ret = r.status_code
-    msg="DBM:Status code for sending the control loop event is",ret
-    _logger.info(msg)
+    try:
+        r = requests.post(psend_url, data=payload)
+        msg="DBM:",r.status_code, r.reason
+        _logger.info(msg)
+        ret = r.status_code
+        msg="DBM:Status code for sending the control loop event is",ret
+        _logger.info(msg)
+    except(Exception) as err:
+        msg='Message send failure : ', err
+        _logger.error(msg)
     return True
 
 def db_monitoring(current_pid,json_file,user_name,password,ip_address,port_num,db_name):
