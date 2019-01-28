@@ -98,6 +98,8 @@ def verify_DB_creation_hb_common(user_name,password,ip_address,port_num,db_name)
 def verify_cbsPolling_required():
     _cbspolling_status = True
     os.environ['pytest']='test'
+    #os.environ['CONSUL_HOST']='10.12.6.50' # Used this IP during testing
+    os.environ['CONSUL_HOST']='localhost'
     os.environ['SERVICE_NAME']='mvp-dcaegen2-heartbeat-static'
     try:
         _cbspolling_status=cf.config_notif_run()
@@ -106,6 +108,7 @@ def verify_cbsPolling_required():
         #return None
         
     os.unsetenv('pytest')
+    os.unsetenv('CONSUL_HOST')
     os.unsetenv('SERVICE_NAME')
     return _cbspolling_status
 
@@ -143,6 +146,7 @@ def verify_fetch_json_file():
 def verify_misshtbtdmain():
     os.environ['pytest']='test'
     os.environ['SERVICE_NAME']='mvp-dcaegen2-heartbeat-static'
+    #os.environ['CONSUL_HOST']='10.12.6.50'
     os.environ['CONSUL_HOST']='localhost'
     os.environ['HOSTNAME']='mvp-dcaegen2-heartbeat-static'
 
@@ -161,16 +165,17 @@ def verify_misshtbtdmain():
 def verify_dbmonitoring():
     os.environ['pytest']='test'
     os.environ['SERVICE_NAME']='mvp-dcaegen2-heartbeat-static'
+    #os.environ['CONSUL_HOST']='10.12.6.50'
     os.environ['CONSUL_HOST']='localhost'
     os.environ['HOSTNAME']='mvp-dcaegen2-heartbeat-static'
     try:
-        ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval = hb_properties()
         jsfile = db.fetch_json_file()
+        ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval = hb_properties()
         hbc_pid, hbc_state, hbc_srcName, hbc_time = db.read_hb_common(user_name,password,ip_address,port_num,db_name)
         dbmon.db_monitoring(hbc_pid,jsfile,user_name,password,ip_address,port_num,db_name)
         result = True
     except Exception as e:
-        #print("Message process error - ",e)
+        print("Message process error - ",e)
         result = False
     print(result)
     os.unsetenv('pytest')

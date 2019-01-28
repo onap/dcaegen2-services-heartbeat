@@ -135,16 +135,22 @@ def sendControlLoopEvent(CLType, pol_url,  policy_version, policy_name, policy_s
 def db_monitoring(current_pid,json_file,user_name,password,ip_address,port_num,db_name):
     while(True):
         time.sleep(20)
-        with open(json_file, 'r') as outfile:
-             cfg = json.load(outfile)
-        pol_url = str(cfg['streams_publishes']['ves_heartbeat']['dmaap_info']['topic_url'])
 
-        hbc_pid, hbc_state, hbc_srcName, hbc_time = db.read_hb_common(user_name,password,ip_address,port_num,db_name)
-        source_name = socket.gethostname()
-        source_name = source_name + "-" + str(os.getenv('SERVICE_NAME'))
         envPytest = os.getenv('pytest', "")
         if (envPytest == 'test'):
            break
+
+        try:
+             with open(json_file, 'r') as outfile:
+                  cfg = json.load(outfile)
+             pol_url = str(cfg['streams_publishes']['dcae_cl_out']['dmaap_info']['topic_url'])
+        except(Exception) as err:
+             msg='Json file process error : ', err
+             _logger.error(msg)
+
+        hbc_pid, hbc_state, hbc_srcName, hbc_time = db.read_hb_common(user_name,password,ip_address,port_num,db_name)
+        source_name = socket.gethostname()
+        source_name = source_name + "-" + str(os.getenv('SERVICE_NAME', ""))
         connection_db = pm.postgres_db_open(user_name,password,ip_address,port_num,db_name)
         cur = connection_db.cursor()
         if(int(current_pid)==int(hbc_pid) and source_name==hbc_srcName and hbc_state == "RUNNING"):
@@ -221,10 +227,13 @@ def db_monitoring(current_pid,json_file,user_name,password,ip_address,port_num,d
             
 if __name__ == "__main__":
     _logger.info("DBM: DBM Process started")
-    ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval = db.read_hb_properties()
     current_pid = sys.argv[1]
     jsfile = sys.argv[2]
+    ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval = db.read_hb_properties(jsfile)
     msg="DBM:Parent process ID and json file name",current_pid, jsfile
     _logger.info(msg)
     while (True):
         db_monitoring(current_pid,jsfile,user_name,password,ip_address,port_num,db_name)
+        envPytest = os.getenv('pytest', "")
+        if (envPytest == 'test'):
+           break
