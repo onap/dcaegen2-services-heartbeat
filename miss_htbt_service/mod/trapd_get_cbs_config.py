@@ -58,9 +58,9 @@ def get_cbs_config():
 
     # See if we are in a config binding service (CBS) /controller environment
     try:
+        msg = "Unable to fetch CBS config or it is erroneously empty - trying override/simulator config"
         tds.c_config = get_config()
         if tds.c_config == {}:
-            msg = "Unable to fetch CBS config or it is erroneously empty - trying override/simulator config"
             stdout_logger(msg)
 
     # if no CBS present, default to JSON config specified via CBS_HTBT_JSON env var
@@ -69,15 +69,15 @@ def get_cbs_config():
         stdout_logger(msg)
 
         try:
+            msg = "CBS_HTBT_JSON not defined - FATAL ERROR, exiting"
             _cbs_sim_json_file = os.getenv("CBS_HTBT_JSON", "None")
         except Exception as e:
-            msg = "CBS_HTBT_JSON not defined - FATAL ERROR, exiting"
             stdout_logger(msg)
             cleanup(1,None)
             return False
 
+        msg = "CBS_HTBT_JSON not defined - FATAL ERROR, exiting"
         if _cbs_sim_json_file == "None":
-            msg = "CBS_HTBT_JSON not defined - FATAL ERROR, exiting"
             stdout_logger(msg)
             cleanup(1,None)
             return False
@@ -85,11 +85,11 @@ def get_cbs_config():
             msg = ("ONAP controller override specified via CBS_HTBT_JSON: %s" %
                    _cbs_sim_json_file)
             stdout_logger(msg)
+            msg = "Unable to load CBS_HTBT_JSON " + _cbs_sim_json_file + \
+                    " (invalid json?) - FATAL ERROR, exiting"
             try:
                 tds.c_config = json.load(open(_cbs_sim_json_file))
             except Exception as e:
-                msg = "Unable to load CBS_HTBT_JSON " + _cbs_sim_json_file + \
-                    " (invalid json?) - FATAL ERROR, exiting"
                 stdout_logger(msg)
                 cleanup_and_exit(0,None)
 
