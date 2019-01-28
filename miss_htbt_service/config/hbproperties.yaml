@@ -4,7 +4,7 @@ pg_ipAddress: 10.0.4.1
 pg_portNum: 5432
 pg_userName: postgres
 pg_passwd: postgres
-pg_dbName: hb_vnf
+pg_dbName: postgres
 
 #Periodic polling of CBS config download
 CBS_polling_allowed: True
