@@ -32,8 +32,8 @@ _logger = get_logger.get_logger(__name__)
             
 
 def pollCBS(current_pid):
-
-    ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval = db.read_hb_properties()
+    jsfile = db.fetch_json_file()
+    ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval = db.read_hb_properties(jsfile)
     hbc_pid, hbc_state, hbc_srcName, hbc_time = db.read_hb_common(user_name,password,ip_address,port_num,db_name)
     msg="CBSP:Main process ID in hb_common is %d",hbc_pid
     _logger.info(msg)
@@ -41,12 +41,15 @@ def pollCBS(current_pid):
     _logger.info(msg)
     msg="CBSP:CBS Polling interval is %d", cbs_polling_interval
     _logger.info(msg)
-    time.sleep(cbs_polling_interval)
+    envPytest = os.getenv('pytest', "")
+    if (envPytest == 'test'):
+       cbs_polling_interval = "30"
+    time.sleep(int(cbs_polling_interval))
     hbc_pid, hbc_state, hbc_srcName, hbc_time = db.read_hb_common(user_name,password,ip_address,port_num,db_name)
     #connection_db = pm.postgres_db_open(user_name,password,ip_address,port_num,db_name)
     #cur = connection_db.cursor()
     source_name = socket.gethostname()
-    source_name = source_name + "-" + str(os.getenv('SERVICE_NAME'))
+    source_name = source_name + "-" + str(os.getenv('SERVICE_NAME', ""))
     result= True
     if(int(current_pid)==int(hbc_pid) and source_name==hbc_srcName and hbc_state == "RUNNING"):
         _logger.info("CBSP:ACTIVE Instance:Change the state to RECONFIGURATION")

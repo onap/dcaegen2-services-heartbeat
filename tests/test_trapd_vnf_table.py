@@ -18,7 +18,7 @@
 #
 # ECOMP is a trademark and service mark of AT&T Intellectual Property.
 #
-##  Author Kiran Mandal (km386e)
+##  Author Prakask H (ph553f)
 """
 test_trapd_vnf_table contains test cases related to DB Tables and cbs polling.
 """
@@ -29,8 +29,9 @@ import pytest
 import logging
 import misshtbtd as db
 import htbtworker as pm
+import db_monitoring as dbmon
 import get_logger
-from trapd_vnf_table import verify_DB_creation_1,verify_DB_creation_2,verify_DB_creation_hb_common,verify_cbsPolling_required,hb_properties,verify_cbspolling
+from trapd_vnf_table import verify_DB_creation_1,verify_DB_creation_2,verify_DB_creation_hb_common,verify_cbsPolling_required,hb_properties,verify_cbspolling,verify_sendControlLoop_VNF_ONSET, verify_sendControlLoop_VM_ONSET, verify_sendControlLoop_VNF_ABATED, verify_sendControlLoop_VM_ABATED, verify_fetch_json_file, verify_misshtbtdmain, verify_dbmonitoring, verify_dbmon_startup
 
 _logger = get_logger.get_logger(__name__)
 
@@ -53,66 +54,55 @@ class test_vnf_tables(unittest.TestCase):
         result =verify_DB_creation_hb_common(user_name,password,ip_address,port_num,db_name)
         self.assertEqual(result, True)
 
-  #  def test_validate_hbcommon_processId(self):
-  #      result =verify_DB_creation_hb_common(user_name,password,ip_address,port_num,db_name)
-  #      self.assertEqual(result, True)
-  #      connection_db = pm.postgres_db_open(user_name,password,ip_address,port_num,db_name)
-  #      #cur = connection_db.cursor()
-  #      query_value = "SELECT process_id,source_name,last_accessed_time,current_state FROM hb_common;"
-  #      cur.execute(query_value)
-  #      rows = cur.fetchall()
-  #      msg = "Common: row ", rows
-  #      _logger.info(msg)
-  #      hbc_pid = rows[0][0]
-  #      pm.commit_and_close_db(connection_db)
-  #      cur.close()
-  #      self.assertNotEqual(hbc_pid, None , msg="Process ID is not Present is hb_common")
-        
-  #  def test_validate_hbcommon_sourceName(self):
-  #      result =verify_DB_creation_hb_common(user_name,password,ip_address,port_num,db_name)
-  #      self.assertEqual(result, True)
-
-  #      connection_db = pm.postgres_db_open(user_name,password,ip_address,port_num,db_name)
-  #      cur = connection_db.cursor()
-  #      query_value = "SELECT process_id,source_name,last_accessed_time,current_state FROM hb_common;"
-  #      cur.execute(query_value)
-  #      rows = cur.fetchall()
-  #      msg = "Common: row ", rows
-  #      _logger.info(msg)
-  #      hbc_srcName = rows[0][1]
-  #      pm.commit_and_close_db(connection_db)
-  #      cur.close()
-  #      self.assertNotEqual(hbc_srcName, None , msg="Process ID is not Present is hb_common")
-        
-  ##  def test_validate_sourceidcount_table1(self):
-  #      result_connection =verify_DB_creation_1(user_name,password,ip_address,port_num,db_name)
-  #      self.assertEqual(result_connection, True)
-  #      #result=verify_sourceidcount_vnftable1(user_name,password,ip_address,port_num,db_name)
-  #      connection_db = pm.postgres_db_open(user_name,password,ip_address,port_num,db_name)
-  #      cur = connection_db.cursor()
-  #      try:
-  #          query = "select source_id_count from vnf_table_1;"
-  #          cur.execute(query)
-  #          rows = cur.fetchall()
-  #          q_count = "SELECT COUNT(*) FROM vnf_table_1;"
-  #          cur.execute(q_count)
-  #          r_count = cur.fetchall()
-  #          r_c = r_count[0][0]
-  #          for r in r_c:
-  #              output = rows[r][0]
-  #          for res in output:
-  #              self.assertNotEqual(output, 0)
-  #      except Exception as e:
-  #          return None       
             
     def test_validate_cbspolling_required(self):
         result = verify_cbsPolling_required()
         self.assertEqual(result, True)
     
-#    def test_cbspolling(self):
-#        result= verify_cbspolling()
-#        _logger.info(result)
-#        self.assertEqual(result, True)
-        
+    def test_cbspolling(self):
+        result= verify_cbspolling()
+        _logger.info(result)
+        self.assertEqual(result, True)
+
+    def test_fetch_json_file(self):
+        result= verify_fetch_json_file()
+        _logger.info(result)
+        self.assertEqual(result, True)
+
+    def test_misshtbtdmain(self):
+        result= verify_misshtbtdmain()
+        _logger.info(result)
+        self.assertEqual(result, True)
+
+    def test_dbmon_startup(self):
+        result= verify_dbmon_startup()
+        _logger.info(result)
+        self.assertEqual(result, True)
+
+    def test_dbmonitoring(self):
+        result= verify_dbmonitoring()
+        _logger.info(result)
+        self.assertEqual(result, True)
+
+    def test_sendControlLoop_VNF_ONSET(self):
+        result= verify_sendControlLoop_VNF_ONSET()
+        _logger.info(result)
+        self.assertEqual(result, True)        
+
+    def test_sendControlLoop_VM_ONSET(self):
+        result= verify_sendControlLoop_VM_ONSET()
+        _logger.info(result)
+        self.assertEqual(result, True)        
+
+    def test_sendControlLoop_VNF_ABATED(self):
+        result= verify_sendControlLoop_VNF_ABATED()
+        _logger.info(result)
+        self.assertEqual(result, True)        
+
+    def test_sendControlLoop_VM_ABATED(self):
+        result= verify_sendControlLoop_VM_ABATED()
+        _logger.info(result)
+        self.assertEqual(result, True)        
+
 #if __name__ == '__main__':
 #    unittest.main()

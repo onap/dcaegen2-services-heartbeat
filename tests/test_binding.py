@@ -21,12 +21,10 @@ import io
 import requests
 import httpretty
 import sys
-#import miss_htbt_service
 from miss_htbt_service import htbtworker
 from miss_htbt_service import misshtbtd
 from miss_htbt_service import db_monitoring
-from miss_htbt_service import config_notif
-#from miss_htbt_service.htbtworker import get_collector_uri,get_policy_uri
+#from miss_htbt_service import config_notif
 from trapd_vnf_table import hb_properties
 import subprocess
 import pytest
@@ -88,66 +86,13 @@ def test_resolve_all():
 def test_full():
     p = subprocess.Popen(['./miss_htbt_service/misshtbtd.py'], stdout=subprocess.PIPE,shell=True)
     #time.sleep(30)
-    #r = requests.get('http://127.0.0.1:10002')
-    #r = requests.get('http://localhost:10001')
+    #r = requests.get('http://localhost:10002')
     #print(r.status_code)
     #assert(r.status_code == 200)
-    #r = requests.post('http://127.0.0.1:10001',data={'number': '12524', 'health': 'good', 'action': 'show'})
+    #r = requests.post('http://127.0.0.1:10002',data={'number': '12524', 'health': 'good', 'action': 'show'})
+    #r = requests.post('http://localhost:10002',data={'number': '12524', 'health': 'good', 'action': 'show'})
     #print(r.status_code)
     #assert(r.status_code == 200)
 
-def test_fetch_json_file():
-    os.environ['pytest']='test'
-    os.environ['SERVICE_NAME']='mvp-dcaegen2-heartbeat-static'
-    #os.environ['CONSUL_HOST']='10.12.6.50' # Used this IP during testing
-    os.environ['CONSUL_HOST']='localhost'
-    os.environ['HOSTNAME']='mvp-dcaegen2-heartbeat-static'
-    try:
-       misshtbtd.fetch_json_file()
-       result = True
-    except Exception as e:
-       result = False
-    print(result)
-    os.unsetenv('pytest')
-    os.unsetenv('SERVICE_NAME')
-    os.unsetenv('CONSUL_HOST')
-    os.unsetenv('HOSTNAME')
-
-    assert(result == True)
-
-def test_misshtbtdmain():
-    os.environ['pytest']='test'
-    os.environ['SERVICE_NAME']='mvp-dcaegen2-heartbeat-static'
-    os.environ['CONSUL_HOST']='localhost'
-    os.environ['HOSTNAME']='mvp-dcaegen2-heartbeat-static'
-   
-    try:
-        misshtbtd.main()
-        result = True
-    except Exception as e:
-        result = False
-    print(result)
-    os.unsetenv('pytest')
-    os.unsetenv('SERVICE_NAME')
-    os.unsetenv('CONSUL_HOST')
-    os.unsetenv('HOSTNAME')
-    assert(result == True)
-       
-def test_dbmonitoring():
-    ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval = hb_properties()
-    jsfile = misshtbtd.fetch_json_file()
-    hbc_pid, hbc_state, hbc_srcName, hbc_time = misshtbtd.read_hb_common(user_name,password,ip_address,port_num,db_name)
-    db_monitoring.db_monitoring(hbc_pid,jsfile,user_name,password,ip_address,port_num,db_name)
-
-def test_htbtworker():
-    if os.environ['pytest'] == 'test':
-        print ('environ is set')
-    else:
-        print ('environ is not set')
-    ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval = hb_properties()
-    jsfile = "/home/ubuntu/HB_Nov5/etc/config.json"
-    hbc_pid, hbc_state, hbc_srcName, hbc_time = config_notif.read_hb_common(user_name,password,ip_address,port_num,db_name)
-    #htbtworker.process_msg(jsfile,user_name, password, ip_address, port_num, db_name)
-
-def test_conifg_notif():
-    config_notif.config_notif_run()
+#def test_conifg_notif():
+    #config_notif.config_notif_run()
