@@ -23,9 +23,12 @@ import string
 import sys
 import socket
 import yaml
+import json
 import psycopg2
 from pathlib import Path
 import os.path as path
+from mod.trapd_get_cbs_config import get_cbs_config
+import mod.trapd_settings as tds
 
 hb_properties_file =  path.abspath(path.join(__file__, "../config/hbproperties.yaml"))
 
@@ -72,7 +75,7 @@ def commit_and_close_db(connection_db):
     except(psycopg2.DatabaseError, e):
         return False
 
-def read_hb_properties():
+def read_hb_properties_default():
         #Read the hbproperties.yaml for postgress and CBS related data
         s=open(hb_properties_file, 'r')
         a=yaml.load(s)
@@ -93,6 +96,29 @@ def read_hb_properties():
         cbs_polling_interval = a['CBS_polling_interval']
         s.close()
         return ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval
+
+def read_hb_properties(jsfile):
+    try:
+        with open(jsfile, 'r') as outfile:
+           cfg = json.load(outfile)
+    except(Exception) as err:
+        print("Json file read error - %s",err)
+        return read_hb_properties_default()
+    try:
+        ip_address = str(cfg['pg_ipAddress'])
+        port_num = str(cfg['pg_portNum'])
+        user_name = str(cfg['pg_userName'])
+        password = str(cfg['pg_passwd'])
+        dbName = str(cfg['pg_dbName'])
+        db_name = dbName.lower()
+        cbs_polling_required = str(cfg['CBS_polling_allowed'])
+        cbs_polling_interval = str(cfg['CBS_polling_interval'])
+        if("SERVICE_NAME" in cfg.keys()):
+           os.environ['SERVICE_NAME'] = str(cfg['SERVICE_NAME'])
+    except(Exception) as err:
+        print("Json file read parameter error -%s ",err)
+        return read_hb_properties_default()
+    return ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval
 
 def read_hb_common(user_name,password,ip_address,port_num,db_name):
     envPytest = os.getenv('pytest', "")
@@ -119,7 +145,7 @@ def read_hb_common(user_name,password,ip_address,port_num,db_name):
 def update_hb_common(update_flg, process_id, state, user_name,password,ip_address,port_num,db_name):
     current_time = int(round(time.time()))
     source_name = socket.gethostname()
-    source_name = source_name + "-" + str(os.getenv('SERVICE_NAME'))
+    source_name = source_name + "-" + str(os.getenv('SERVICE_NAME', ""))
     envPytest = os.getenv('pytest', "")
     if (envPytest == 'test'):
         return True
@@ -131,9 +157,27 @@ def update_hb_common(update_flg, process_id, state, user_name,password,ip_addres
     cur.close()
     return True
 
+def fetch_json_file():
+    if get_cbs_config():
+        current_runtime_config_file_name = "../etc/download1.json"
+        envPytest = os.getenv('pytest', "")
+        if (envPytest == 'test'):
+            jsfile = "../etc/config.json"
+            return jsfile
+        print("Config_N:current config logged to : %s" % current_runtime_config_file_name)
+        with open(current_runtime_config_file_name, 'w') as outfile:
+            json.dump(tds.c_config, outfile)
+        jsfile = current_runtime_config_file_name
+    else:
+        print("MSHBD:CBS Config not available, using local config")
+        jsfile = "../etc/config.json"
+    print("Config_N: The json file is - %s", jsfile)
+    return jsfile
+
 #if __name__ == "__main__":
 def config_notif_run():
-   ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval = read_hb_properties()
+   jsfile = fetch_json_file()
+   ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval = read_hb_properties(jsfile)
    envPytest = os.getenv('pytest', "")
    if (envPytest == 'test'):
         return True

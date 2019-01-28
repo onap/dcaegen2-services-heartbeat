@@ -49,7 +49,7 @@ def process_msg(jsfile,user_name, password, ip_address, port_num, db_name):
         time.sleep(sleep_duration)
         with open(jsfile, 'r') as outfile:
             cfg = json.load(outfile)
-        mr_url = str(cfg['streams_subscribes']['ves_heartbeat']['dmaap_info']['topic_url'])
+        mr_url = str(cfg['streams_subscribes']['ves-heartbeat']['dmaap_info']['topic_url'])
 
         while(True):
             hbc_pid, hbc_state, hbc_srcName, hbc_time = db.read_hb_common(user_name,password,ip_address,port_num,db_name)
@@ -73,7 +73,7 @@ def process_msg(jsfile,user_name, password, ip_address, port_num, db_name):
         if "groupID" not in os.environ or "consumerID" not in os.environ:
            get_url = mr_url + 'DefaultGroup/1?timeout=15000'
         else:
-           get_url = mr_url + os.getenv('groupID') + '/' + os.getenv('consumerID') + '?timeout=15000'
+           get_url = mr_url + '/' + os.getenv('groupID', "") + '/' + os.getenv('consumerID', "") + '?timeout=15000'
         msg="HBT:Getting :"+get_url
         _logger.info(msg)
 
@@ -242,5 +242,5 @@ if __name__ == '__main__':
     _logger.info("HBT:HeartBeat thread Created")
     msg="HBT:The config file name passed is -%s", jsfile
     _logger.info(msg)
-    ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval= db.read_hb_properties()
+    ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval= db.read_hb_properties(jsfile)
     process_msg(jsfile,user_name, password, ip_address, port_num, db_name)

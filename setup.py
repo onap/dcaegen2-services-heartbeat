@@ -36,7 +36,7 @@ except ImportError: # for pip <= 9.0.3
 setup(
     name='miss_htbt_service',
     description='Missing heartbeat microservice to communicate with policy-engine',
-    version='2.0.0',
+    version='2.1.0',
     #packages=find_packages(exclude=["tests.*", "tests"]),
     packages=find_packages(),
     install_requires=[
@@ -50,8 +50,8 @@ setup(
 "pyOpenSSL==17.5.0",
 "Wheel==0.31.0"
     ],
-    author = "Gokul Singaraju",
-    author_email = "gs244f@att.com",
+    author = "Vijay Venkatesh Kumar",
+    author_email = "vv770d@att.com",
     license = "",
     keywords = "missing heartbeat microservice",
     url = "https://gerrit.onap.org/r/#/admin/projects/dcaegen2/platform/heartbeat",
