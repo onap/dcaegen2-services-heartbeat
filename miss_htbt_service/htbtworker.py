@@ -98,13 +98,17 @@ def process_msg(jsfile,user_name, password, ip_address, port_num, db_name):
               continue
            jlist = inputString.split('\n');
            # Process the DMaaP input message retreived
+           error = False
            for line in jlist:
                try:
                    jobj = json.loads(line)
                except ValueError:
                    msg='HBT:Decoding JSON has failed'
                    _logger.error(msg)
-                   continue
+                   error = True
+                   break
+           if (error == True):
+               continue
            if len(jobj) == 0:
                continue
         for item in jobj:
