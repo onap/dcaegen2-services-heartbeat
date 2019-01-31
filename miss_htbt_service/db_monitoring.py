@@ -147,6 +147,7 @@ def db_monitoring(current_pid,json_file,user_name,password,ip_address,port_num,d
         except(Exception) as err:
              msg='Json file process error : ', err
              _logger.error(msg)
+             continue
 
         hbc_pid, hbc_state, hbc_srcName, hbc_time = db.read_hb_common(user_name,password,ip_address,port_num,db_name)
         source_name = socket.gethostname()

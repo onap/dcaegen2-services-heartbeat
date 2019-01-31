@@ -71,7 +71,7 @@ def process_msg(jsfile,user_name, password, ip_address, port_num, db_name):
         msg="\n\nHBT:eventnameList values ", eventnameList
         _logger.info(msg)
         if "groupID" not in os.environ or "consumerID" not in os.environ:
-           get_url = mr_url + 'DefaultGroup/1?timeout=15000'
+           get_url = mr_url + '/DefaultGroup/1?timeout=15000'
         else:
            get_url = mr_url + '/' + os.getenv('groupID', "") + '/' + os.getenv('consumerID', "") + '?timeout=15000'
         msg="HBT:Getting :"+get_url
