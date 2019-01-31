@@ -18,6 +18,7 @@
 
 import os
 import logging
+import logging.handlers
 
 '''Configures the module root logger'''
 root = logging.getLogger()
@@ -28,6 +29,9 @@ formatter = logging.Formatter('%(asctime)s | %(name)s | %(module)s | %(funcName)
 handler = logging.StreamHandler()
 handler.setFormatter(formatter)
 root.addHandler(handler)
+fhandler = logging.handlers.RotatingFileHandler('../logs/hb_logs.txt', maxBytes=(1048576*5), backupCount=10)
+fhandler.setFormatter(formatter)
+root.addHandler(fhandler)
 root.setLevel("DEBUG")
 
 class BadEnviornmentENVNotFound(Exception):
