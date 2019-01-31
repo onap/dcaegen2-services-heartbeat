@@ -162,6 +162,27 @@ def verify_misshtbtdmain():
     os.unsetenv('HOSTNAME')
     return result
 
+def verify_misshtbtdmainV2():
+    os.environ['pytest']='test'
+    os.environ['cl_out_hb']='yes'
+    os.environ['SERVICE_NAME']='mvp-dcaegen2-heartbeat-static'
+    os.environ['CONSUL_HOST']='localhost'
+    os.environ['HOSTNAME']='mvp-dcaegen2-heartbeat-static'
+
+    try:
+        db.main()
+        result = True
+    except Exception as e:
+        print( "verify_misshtbtdmainV2 error - ", e)
+        result = False
+    print(result)
+    os.unsetenv('pytest')
+    os.unsetenv('cl_out_hb')
+    os.unsetenv('SERVICE_NAME')
+    os.unsetenv('CONSUL_HOST')
+    os.unsetenv('HOSTNAME')
+    return result
+
 def verify_dbmonitoring():
     os.environ['pytest']='test'
     os.environ['SERVICE_NAME']='mvp-dcaegen2-heartbeat-static'
@@ -229,7 +250,18 @@ def verify_sendControlLoop_VM_ABATED():
         pol_url = "http://10.12.5.252:3904/events/unauthenticated.DCAE_CL_OUTPUT/"
         _CL_return = dbmon.sendControlLoopEvent("ABATED", pol_url,  "1.0", "vFireWall", "pscope", "VM", "srcname1", 1541234567, "SampleCLName", "1.0", "genVnfName")
     except Exception as e:
-#        msg = "Message process error - ",err
-#        _logger.error(msg)
+        print("Message process error - ",e)
+        return None
+    return _CL_return
+
+def verify_sendControlLoopV2():
+    try:
+#        _CL_return = sendHBControlLoopEvent(CLType, pol_url,  policy_version, policy_name, policy_scope, target_type, srcName, epoc_time, closed_control_loop_name, version, target, last_recvd_hb_event)
+        pol_url = "http://10.12.5.252:3904/events/unauthenticated.DCAE_CL_OUTPUT/"
+        last_recvd_hb_event = '{ "event": { "commonEventHeader": { "vesEventListenerVersion": "7.0.2", "domain": "heartbeat", "eventId": "mvfs10", "eventName": "Heartbeat_S", "lastEpochMicrosec": 1538313727714, "priority": "Normal", "reportingEntityName": "ibcx0001vm002oam001", "sequence": 1000, "sourceName": "SOURCE_NAME1", "startEpochMicrosec": 1538313727714, "version": "4.0.2", "reportingEntityId": "cc305d54-75b4-431b-adb2-eb6b9e541234", "sourceId": "VNFA_SRC1", "eventType": "platform", "nfcNamingCode": "VNFA", "nfNamingCode": "VNFA", "timeZoneOffset": "UTC-05:30" }, "heartbeatFields": { "heartbeatInterval": 20, "heartbeatFieldsVersion": "3.0" } } }'
+
+        _CL_return = dbmon.sendHBControlLoopEventV2(pol_url, "SampleCLName", "CL_FLAG", "Policy_name", "Policy_type", last_recvd_hb_event)
+    except Exception as e:
+        print("Message process error - ",e)
         return None
     return _CL_return

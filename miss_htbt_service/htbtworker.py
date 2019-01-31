@@ -71,7 +71,7 @@ def process_msg(jsfile,user_name, password, ip_address, port_num, db_name):
         msg="\n\nHBT:eventnameList values ", eventnameList
         _logger.info(msg)
         if "groupID" not in os.environ or "consumerID" not in os.environ:
-           get_url = mr_url + 'DefaultGroup/1?timeout=15000'
+           get_url = mr_url + '/DefaultGroup/1?timeout=15000'
         else:
            get_url = mr_url + '/' + os.getenv('groupID', "") + '/' + os.getenv('consumerID', "") + '?timeout=15000'
         msg="HBT:Getting :"+get_url
@@ -129,7 +129,10 @@ def process_msg(jsfile,user_name, password, ip_address, port_num, db_name):
             if(db_table_creation_check(connection_db,"vnf_table_2") ==False):
                  msg="HBT:Creating vnf_table_2"
                  _logger.info(msg)
-                 cur.execute("CREATE TABLE vnf_table_2 (EVENT_NAME varchar , SOURCE_NAME_KEY integer , PRIMARY KEY(EVENT_NAME,SOURCE_NAME_KEY),LAST_EPO_TIME BIGINT, SOURCE_NAME varchar, CL_FLAG integer);")
+                 if(os.getenv('cl_out_hb', "") == 'yes'):
+                    cur.execute("CREATE TABLE vnf_table_2 (EVENT_NAME varchar , SOURCE_NAME_KEY integer , PRIMARY KEY(EVENT_NAME,SOURCE_NAME_KEY),LAST_EPO_TIME BIGINT, SOURCE_NAME varchar, CL_FLAG integer, LAST_RECVD_HB_EVENT varchar);")
+                 else:
+                    cur.execute("CREATE TABLE vnf_table_2 (EVENT_NAME varchar , SOURCE_NAME_KEY integer , PRIMARY KEY(EVENT_NAME,SOURCE_NAME_KEY),LAST_EPO_TIME BIGINT, SOURCE_NAME varchar, CL_FLAG integer);")
             else:
                  msg="HBT:vnf_table_2 is already there"  
                  _logger.info(msg)
@@ -147,7 +150,10 @@ def process_msg(jsfile,user_name, password, ip_address, port_num, db_name):
                     if(source_name_count==0):
                         msg="HBT: Insert entry in table_2,source_name_count=0 : ",row
                         _logger.info(msg)
-                        query_value = "INSERT INTO vnf_table_2 VALUES('%s',%d,%d,'%s',%d);" %(eventName,source_name_key,lastepo,srcname,cl_flag)
+                        if(os.getenv('cl_out_hb', "") == 'yes'):
+                            query_value = "INSERT INTO vnf_table_2 VALUES('%s',%d,%d,'%s',%d,'%s');" %(eventName,source_name_key,lastepo,srcname,cl_flag, str(item))
+                        else:
+                            query_value = "INSERT INTO vnf_table_2 VALUES('%s',%d,%d,'%s',%d);" %(eventName,source_name_key,lastepo,srcname,cl_flag)
                         cur.execute(query_value)
                         update_query = "UPDATE vnf_table_1 SET SOURCE_NAME_COUNT='%d' where EVENT_NAME ='%s'" %(source_name_key,eventName)
                         cur.execute(update_query)
@@ -166,7 +172,10 @@ def process_msg(jsfile,user_name, password, ip_address, port_num, db_name):
                             if (db_srcname == srcname):
                                 msg="HBT: Update vnf_table_2 : ",source_name_key, row
                                 _logger.info(msg)
-                                update_query = "UPDATE vnf_table_2 SET LAST_EPO_TIME='%d',SOURCE_NAME='%s' where EVENT_NAME='%s' and SOURCE_NAME_KEY=%d" %(lastepo,srcname,eventName,(source_name_key+1))
+                                if(os.getenv('cl_out_hb', "") == 'yes'):
+                                    update_query = "UPDATE vnf_table_2 SET LAST_EPO_TIME='%d',SOURCE_NAME='%s', LAST_RECVD_HB_EVENT='%s' where EVENT_NAME='%s' and SOURCE_NAME_KEY=%d" %(lastepo,srcname, str(item), eventName,(source_name_key+1))
+                                else:
+                                    update_query = "UPDATE vnf_table_2 SET LAST_EPO_TIME='%d',SOURCE_NAME='%s' where EVENT_NAME='%s' and SOURCE_NAME_KEY=%d" %(lastepo,srcname, eventName,(source_name_key+1))
                                 cur.execute(update_query)
                                 source_name_key = source_name_count
                                 break
@@ -178,7 +187,10 @@ def process_msg(jsfile,user_name, password, ip_address, port_num, db_name):
                             source_name_key = source_name_count+1
                             msg="HBT: Insert entry in table_2 : ",row
                             _logger.info(msg)
-                            insert_query = "INSERT INTO vnf_table_2 VALUES('%s',%d,%d,'%s',%d);" %(eventName,source_name_key,lastepo,srcname,cl_flag)
+                            if(os.getenv('cl_out_hb', "") == 'yes'):
+                                insert_query = "INSERT INTO vnf_table_2 VALUES('%s',%d,%d,'%s',%d, '%s');" %(eventName,source_name_key,lastepo,srcname,cl_flag,str(item))
+                            else:
+                                insert_query = "INSERT INTO vnf_table_2 VALUES('%s',%d,%d,'%s',%d);" %(eventName,source_name_key,lastepo,srcname,cl_flag)
                             cur.execute(insert_query)
                             update_query = "UPDATE vnf_table_1 SET SOURCE_NAME_COUNT='%d' where EVENT_NAME ='%s'" %(source_name_key,eventName)
                             cur.execute(update_query)

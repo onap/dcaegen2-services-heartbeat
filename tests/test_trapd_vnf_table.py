@@ -31,7 +31,7 @@ import misshtbtd as db
 import htbtworker as pm
 import db_monitoring as dbmon
 import get_logger
-from trapd_vnf_table import verify_DB_creation_1,verify_DB_creation_2,verify_DB_creation_hb_common,verify_cbsPolling_required,hb_properties,verify_cbspolling,verify_sendControlLoop_VNF_ONSET, verify_sendControlLoop_VM_ONSET, verify_sendControlLoop_VNF_ABATED, verify_sendControlLoop_VM_ABATED, verify_fetch_json_file, verify_misshtbtdmain, verify_dbmonitoring, verify_dbmon_startup
+from trapd_vnf_table import verify_DB_creation_1,verify_DB_creation_2,verify_DB_creation_hb_common,verify_cbsPolling_required,hb_properties,verify_cbspolling,verify_sendControlLoop_VNF_ONSET, verify_sendControlLoop_VM_ONSET, verify_sendControlLoop_VNF_ABATED, verify_sendControlLoop_VM_ABATED, verify_fetch_json_file, verify_misshtbtdmain, verify_dbmonitoring, verify_dbmon_startup, verify_misshtbtdmainV2, verify_sendControlLoopV2
 
 _logger = get_logger.get_logger(__name__)
 
@@ -74,6 +74,11 @@ class test_vnf_tables(unittest.TestCase):
         _logger.info(result)
         self.assertEqual(result, True)
 
+    def test_misshtbtdmainV2(self):
+        result= verify_misshtbtdmainV2()
+        _logger.info(result)
+        self.assertEqual(result, True)
+
     def test_dbmon_startup(self):
         result= verify_dbmon_startup()
         _logger.info(result)
@@ -103,6 +108,11 @@ class test_vnf_tables(unittest.TestCase):
         result= verify_sendControlLoop_VM_ABATED()
         _logger.info(result)
         self.assertEqual(result, True)        
+
+    def test_sendControlLoopV2(self):
+        result= verify_sendControlLoopV2()
+        _logger.info(result)
+        self.assertEqual(result, True)
 
 #if __name__ == '__main__':
 #    unittest.main()

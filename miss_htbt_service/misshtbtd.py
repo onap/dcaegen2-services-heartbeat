@@ -156,7 +156,10 @@ def create_update_vnf_table_1(jsfile,update_db,connection_db):
     else:
         cur = connection_db.cursor()
         if(heartbeat.db_table_creation_check(connection_db,"vnf_table_1") ==False):
-            cur.execute("CREATE TABLE vnf_table_1 (EVENT_NAME varchar primary key,HEARTBEAT_MISSED_COUNT integer,HEARTBEAT_INTERVAL integer,CLOSED_CONTROL_LOOP_NAME varchar,POLICY_VERSION varchar,POLICY_NAME varchar,POLICY_SCOPE varchar,TARGET_TYPE varchar,TARGET  varchar, VERSION varchar,SOURCE_NAME_COUNT integer,VALIDITY_FLAG integer);")
+            if(os.getenv('cl_out_hb', "") == 'yes'):
+                cur.execute("CREATE TABLE vnf_table_1 (EVENT_NAME varchar primary key,HEARTBEAT_MISSED_COUNT integer,HEARTBEAT_INTERVAL integer,CLOSED_CONTROL_LOOP_NAME varchar,POLICY_NAME varchar,POLICY_TYPE varchar,CLOSED_LOOP_FLAG varchar,SOURCE_NAME_COUNT integer,VALIDITY_FLAG integer);")
+            else:
+                cur.execute("CREATE TABLE vnf_table_1 (EVENT_NAME varchar primary key,HEARTBEAT_MISSED_COUNT integer,HEARTBEAT_INTERVAL integer,CLOSED_CONTROL_LOOP_NAME varchar,POLICY_VERSION varchar,POLICY_NAME varchar,POLICY_SCOPE varchar,TARGET_TYPE varchar,TARGET  varchar, VERSION varchar,SOURCE_NAME_COUNT integer,VALIDITY_FLAG integer);")
             _logger.info("MSHBT:Created vnf_table_1 table")
         if(update_db == 1):
             query_value = "UPDATE vnf_table_1 SET VALIDITY_FLAG=0 where VALIDITY_FLAG=1;"
@@ -174,17 +177,28 @@ def create_update_vnf_table_1(jsfile,update_db,connection_db):
         missed = vnf['heartbeatcountmissed']        
         intvl = vnf['heartbeatinterval']
         clloop = vnf['closedLoopControlName']
-        policyVersion = vnf['policyVersion']
         policyName = vnf['policyName']
-        policyScope = vnf['policyScope']
-        target_type = vnf['target_type']
-        target = vnf['target']
-        version = vnf['version']
+
+        if(os.getenv('cl_out_hb', "") == 'yes'):
+            closed_loop_flag = vnf['closedLoopFlag']
+            policyType = vnf['policyType']
+        else:
+            policyVersion = vnf['policyVersion']
+            policyScope = vnf['policyScope']
+            target_type = vnf['target_type']
+            target = vnf['target']
+            version = vnf['version']
 	
         if(nfc not in vnf_list): 
-            query_value = "INSERT INTO vnf_table_1 VALUES('%s',%d,%d,'%s','%s','%s','%s','%s','%s','%s',%d,%d);" %(nfc,missed,intvl,clloop,policyVersion,policyName,policyScope,target_type, target,version,source_name_count,validity_flag)
+            if(os.getenv('cl_out_hb', "") == 'yes'):
+                query_value = "INSERT INTO vnf_table_1 VALUES('%s',%d,%d,'%s','%s','%s','%s',%d,%d);" %(nfc,missed,intvl,clloop,policyName,policyType,closed_loop_flag,source_name_count,validity_flag)
+            else:
+                query_value = "INSERT INTO vnf_table_1 VALUES('%s',%d,%d,'%s','%s','%s','%s','%s','%s','%s',%d,%d);" %(nfc,missed,intvl,clloop,policyVersion,policyName,policyScope,target_type, target,version,source_name_count,validity_flag)
         else:
-            query_value = "UPDATE vnf_table_1 SET HEARTBEAT_MISSED_COUNT='%d',HEARTBEAT_INTERVAL='%d', CLOSED_CONTROL_LOOP_NAME='%s',POLICY_VERSION='%s',POLICY_NAME='%s', POLICY_SCOPE='%s',TARGET_TYPE='%s', TARGET='%s',VERSION='%s',VALIDITY_FLAG='%d' where EVENT_NAME='%s'" %(missed,intvl,clloop,policyVersion,policyName,policyScope,target_type,target,version,validity_flag,nfc)        
+            if(os.getenv('cl_out_hb', "") == 'yes'):
+                query_value = "UPDATE vnf_table_1 SET HEARTBEAT_MISSED_COUNT='%d',HEARTBEAT_INTERVAL='%d', CLOSED_CONTROL_LOOP_NAME='%s',POLICY_NAME='%s',POLICY_TYPE='%s', CLOSED_LOOP_FLAG='%s',VALIDITY_FLAG='%d' where EVENT_NAME='%s'" %(missed,intvl,clloop,policyName,policyType,closed_loop_flag,validity_flag,nfc)
+            else:
+                query_value = "UPDATE vnf_table_1 SET HEARTBEAT_MISSED_COUNT='%d',HEARTBEAT_INTERVAL='%d', CLOSED_CONTROL_LOOP_NAME='%s',POLICY_VERSION='%s',POLICY_NAME='%s', POLICY_SCOPE='%s',TARGET_TYPE='%s', TARGET='%s',VERSION='%s',VALIDITY_FLAG='%d' where EVENT_NAME='%s'" %(missed,intvl,clloop,policyVersion,policyName,policyScope,target_type,target,version,validity_flag,nfc)
         if (envPytest != 'test'):
             cur.execute(query_value)
     #heartbeat.commit_and_close_db(connection_db)
@@ -267,6 +281,11 @@ def read_hb_properties(jsfile):
         os.environ['groupID'] = group_id
         if("SERVICE_NAME" in cfg.keys()):
            os.environ['SERVICE_NAME'] = str(cfg['SERVICE_NAME'])
+        if("ves-cl-outputsupport" in cfg.keys()):
+           ves_cl_out = str(cfg['ves-cl-outputsupport'])
+           if (ves_cl_out == 'yes'):
+              os.environ['cl_out_hb'] = ves_cl_out
+
     except(Exception) as err:
         msg = "CBS Json file read parameter error - ",err
         _logger.error(msg)
@@ -288,17 +307,28 @@ def fetch_json_file():
         if os.getenv('pytest', "") == 'test':
            jsfile = current_runtime_config_file_name
         else:
-           jsfile = "../etc/config.json"
-           os.system('cp ../etc/download.json ../etc/config.json')
+           if(os.getenv('cl_out_hb', "") == 'yes'):
+              jsfile = "../etc/config_clout.json"
+              os.system('cp ../etc/download.json ../etc/config_clout.json')
+           else:
+              jsfile = "../etc/config.json"
+              os.system('cp ../etc/download.json ../etc/config.json')
            os.remove("../etc/download.json")
     else:
         msg = "MSHBD:CBS Config not available, using local config"
         _logger.warning(msg)
-        my_file = Path("./etc/config.json")
-        if my_file.is_file():
-            jsfile = "./etc/config.json"
+        if(os.getenv('cl_out_hb', "") == 'yes'):
+           my_file = Path("./etc/config_clout.json")
+           if my_file.is_file():
+               jsfile = "./etc/config_clout.json"
+           else:
+               jsfile = "../etc/config_clout.json"
         else:
-            jsfile = "../etc/config.json"
+           my_file = Path("./etc/config.json")
+           if my_file.is_file():
+               jsfile = "./etc/config.json"
+           else:
+               jsfile = "../etc/config.json"
     msg = "MSHBT: The json file is - ", jsfile
     _logger.info(msg)
     return jsfile
