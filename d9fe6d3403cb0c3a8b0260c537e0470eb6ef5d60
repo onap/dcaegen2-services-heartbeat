@@ -1,0 +1,7 @@
+Code-Review+2: Vijay Venkatesh Kumar <vv770d@att.com>
+Verified+1: Vijay Venkatesh Kumar <vv770d@att.com>
+Submitted-by: Vijay Venkatesh Kumar <vv770d@att.com>
+Submitted-at: Thu, 31 Jan 2019 18:50:43 +0000
+Reviewed-on: https://gerrit.onap.org/r/77627
+Project: dcaegen2/services/heartbeat
+Branch: refs/heads/ves-cl-outputsupport
