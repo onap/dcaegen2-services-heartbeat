@@ -1,0 +1,4 @@
+[run]
+omit =
+    # omit a file for coverage purpose
+    miss_htbt_service/htbtworker.py 
