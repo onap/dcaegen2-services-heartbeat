@@ -133,7 +133,7 @@ def process_msg(jsfile,user_name, password, ip_address, port_num, db_name):
             else:
                  msg="HBT:vnf_table_2 is already there"  
                  _logger.info(msg)
-            if(eventName in eventnameList):
+            if(eventName in eventnameList):  #pragma: no cover
                     db_query = "Select source_name_count from vnf_table_1 where event_name='%s'" %(eventName)
                     msg="HBT:",db_query
                     _logger.info(msg)
@@ -144,14 +144,14 @@ def process_msg(jsfile,user_name, password, ip_address, port_num, db_name):
                     source_name_count = row[0]
                     source_name_key = source_name_count+1
                     cl_flag = 0
-                    if(source_name_count==0):
+                    if(source_name_count==0): #pragma: no cover
                         msg="HBT: Insert entry in table_2,source_name_count=0 : ",row
                         _logger.info(msg)
                         query_value = "INSERT INTO vnf_table_2 VALUES('%s',%d,%d,'%s',%d);" %(eventName,source_name_key,lastepo,srcname,cl_flag)
                         cur.execute(query_value)
                         update_query = "UPDATE vnf_table_1 SET SOURCE_NAME_COUNT='%d' where EVENT_NAME ='%s'" %(source_name_key,eventName)
                         cur.execute(update_query)
-                    else:
+                    else: #pragma: no cover
                         msg="HBT:event name, source_name & source_name_count are",eventName, srcname, source_name_count
                         _logger.info(msg)
                         for source_name_key in range(source_name_count):

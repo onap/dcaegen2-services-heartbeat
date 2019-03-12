@@ -305,7 +305,7 @@ def fetch_json_file():
 
 def create_update_db(update_db, jsfile, ip_address, port_num, user_name, password, db_name):
     envPytest = os.getenv('pytest', "")
-    if (envPytest != 'test'):
+    if (envPytest != 'test'):  #pragma: no cover
         if(update_db == 0):
            create_database(update_db, jsfile, ip_address, port_num, user_name, password, db_name)
         msg = "MSHBT: DB parameters -", ip_address, port_num, user_name, password, db_name

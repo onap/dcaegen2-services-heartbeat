@@ -36,7 +36,7 @@ def postgres_db_open(username,password,host,port,database_name):
     envPytest = os.getenv('pytest', "")
     if (envPytest == 'test'):
         return True
-    try:
+    try: #pragma: no cover
        connection = psycopg2.connect(database=database_name, user = username, password = password, host = host, port =port)
     except Exception as e:
        print("HB_Notif::postgress connect error:", e)
@@ -47,7 +47,7 @@ def db_table_creation_check(connection_db,table_name):
     envPytest = os.getenv('pytest', "")
     if (envPytest == 'test'):
         return True
-    try:
+    try: #pragma: no cover
         cur = connection_db.cursor()
         query_db = "select * from information_schema.tables where table_name='%s'" %(table_name)
         cur.execute(query_db)
@@ -68,7 +68,7 @@ def commit_and_close_db(connection_db):
     envPytest = os.getenv('pytest', "")
     if (envPytest == 'test'):
         return True
-    try:
+    try: #pragma: no cover
         connection_db.commit() # <--- makes sure the change is shown in the database
         connection_db.close()
         return True
@@ -186,7 +186,7 @@ def config_notif_run():
    if(db_table_creation_check(connection_db,"hb_common") == False):
       print("HB_Notif::ERROR::hb_common table not exists - No config download")
       connection_db.close()
-   else:
+   else: #pragma: no cover
       hbc_pid, hbc_state, hbc_srcName, hbc_time = read_hb_common(user_name,password,ip_address,port_num,db_name)
       state = "RECONFIGURATION"
       update_flg = 1

@@ -207,7 +207,7 @@ def db_monitoring(current_pid,json_file,user_name,password,ip_address,port_num,d
                             cur.execute(update_query)
                             connection_db.commit()
                                 
-                else:
+                else:  #pragma: no cover
                     msg="DBM:DB Monitoring is ignored for %s since validity flag is 0" %(event_name)
                     _logger.info(msg)
                     
@@ -219,7 +219,7 @@ def db_monitoring(current_pid,json_file,user_name,password,ip_address,port_num,d
                     """
                     Delete the VNF entry in table1 and delete all the source ids related to vnfs in table2
                     """
-        else:
+        else:  #pragma: no cover
             msg="DBM:Inactive instance or hb_common state is not RUNNING"
             _logger.info(msg)
         pm.commit_and_close_db(connection_db)
