@@ -1,3 +1,5 @@
+# -*- indent-tabs-mode: nil -*- # vi: set expandtab:
+#
 # ============LICENSE_START====================================================
 # =============================================================================
 # Copyright (C) 2019 AT&T
@@ -18,18 +20,14 @@
 tosca_definitions_version: cloudify_dsl_1_3
 
 imports:
-<<<<<<< HEAD
-  - http://www.getcloudify.org/spec/cloudify/3.4/types.yaml
-=======
   - 'http://www.getcloudify.org/spec/cloudify/3.4/types.yaml'
->>>>>>> 36ad82b... Update heartbeat blueprints
   - https://nexus.onap.org/service/local/repositories/raw/content/org.onap.dcaegen2.platform.plugins/R4/k8splugin/1.4.13/k8splugin_types.yaml
   - https://nexus.onap.org/service/local/repositories/raw/content/org.onap.ccsdk.platform.plugins/type_files/pgaas/1.1.0/pgaas_types.yaml
 
 inputs:
   tag_version:
     type: string
-    default: 'nexus3.onap.org:10001/onap/org.onap.dcaegen2.services.heartbeat:2.1.0'
+    default: 'nexus.onap.org:10001/onap/org.onap.dcaegen2.services.heartbeat:2.1.0'
   heartbeat_name:
     type: string
     default: 'dcae-heartbeat-service'
@@ -61,13 +59,12 @@ inputs:
     default: '300'
   consumerID:
     type: string
-    default: '1'
+    default: "1"
   groupID:
     type: string
-    default: hbgrpID
+    default: groupID
   namespace:
     type: string
-    default: onap
   pg_dbName:
     type: string
     default: hb_vnf
@@ -79,16 +76,16 @@ inputs:
     default: pg-heartbeatpwd
   pg_portNum:
     type: string
-    default: '5432'
+    default: "5432"
   pg_userName:
     type: string
     default: heartbeat
   ves_heartbeat_publish_url:
     type: string
-    default: 'http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.SEC_HEARTBEAT_OUTPUT'
+    default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.SEC_HEARTBEAT_OUTPUT"
   dcae_CL_publish_url:
     type: string
-    default: 'http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.DCAE_CL_OUTPUT'
+    default: "http://message-router.onap.svc.cluster.local:3904/events/unauthenticated.DCAE_CL_OUTPUT"    
 node_templates:
   hbpostgres:
     type: dcae.nodes.ContainerizedApplication
@@ -111,7 +108,7 @@ node_templates:
               SERVICE_NAME:
                 "hbpostgres-write"
             ports:
-              - "5432:0"
+              - "5432:0"      
   heartbeat:
     interfaces:
       cloudify.interfaces.lifecycle:
@@ -135,10 +132,9 @@ node_templates:
               pg_userName:
                 get_input: pg_userName
               pg_dbName:
-                get_input: pg_dbName
+                get_input: pg_dbName                
             ports:
-              - "10002:0"
-                
+              - "10002:0"                
     properties:
       application_config:
         CBS_polling_allowed:
@@ -158,8 +154,8 @@ node_templates:
         pg_userName:
           get_input: pg_userName
         pg_dbName:
-          get_input: pg_dbName
-        heartbeat_config: '{"vnfs": [{"eventName": "Heartbeat_vDNS","heartbeatcountmissed": 3,"heartbeatinterval": 60,"closedLoopControlName": "ControlLoopEvent1",     "policyVersion": "1.0.0.5",     "policyName":"vFireWall","policyScope": "resource=sampleResource,type=sampletype,CLName=sampleCLName","target_type": "VNF",        "target": "genVnfName", "version": "1.0"}, {"eventName": "Heartbeat_vFW","heartbeatcountmissed": 3,     "heartbeatinterval": 60,"closedLoopControlName": "ControlLoopEvent1","policyVersion": "1.0.0.5","policyName": "vFireWall","policyScope": "resource=sampleResource,type=sampletype,CLName=sampleCLName",    "target_type":"VNF",    "target": "genVnfName",    "version": "1.0"}, {"eventName": "Heartbeat_xx","heartbeatcountmissed": 3,      "heartbeatinterval": 60,"closedLoopControlName": "ControlLoopEvent1","policyVersion": "1.0.0.5","policyName": "vFireWall",      "policyScope": "resource=sampleResource,type=sampletype,CLName=sampleCLName","target_type": "VNF","target": "genVnfName","version": "1.0"}]}'
+          get_input: pg_dbName       
+        heartbeat_config: '{"vnfs": [{"eventName": "Heartbeat_vDNS","heartbeatcountmissed": 3,"heartbeatinterval": 60,"closedLoopControlName": "ControlLoopEvent1",	"policyVersion": "1.0.0.5",	"policyName":"vFireWall","policyScope": "resource=sampleResource,type=sampletype,CLName=sampleCLName","target_type": "VNF",	"target": "genVnfName",	"version": "1.0"}, {"eventName": "Heartbeat_vFW","heartbeatcountmissed": 3,	"heartbeatinterval": 60,"closedLoopControlName": "ControlLoopEvent1","policyVersion": "1.0.0.5","policyName": "vFireWall","policyScope": "resource=sampleResource,type=sampletype,CLName=sampleCLName",	"target_type":"VNF",	"target": "genVnfName",	"version": "1.0"}, {"eventName": "Heartbeat_xx","heartbeatcountmissed": 3,	"heartbeatinterval": 60,"closedLoopControlName": "ControlLoopEvent1","policyVersion": "1.0.0.5","policyName": "vFireWall",	"policyScope": "resource=sampleResource,type=sampletype,CLName=sampleCLName","target_type": "VNF","target": "genVnfName","version": "1.0"}]}'
         streams_publishes:
           dcae_cl_out:
             dmaap_info:
@@ -172,19 +168,21 @@ node_templates:
                 topic_url:
                   get_input: ves_heartbeat_publish_url
               type: message_router
-      docker_config:
-        healthcheck:
-          type: http
-          endpoint: /
-          interval: 15s
-          timeout: 1s
-      service_component_type:
-          get_input: heartbeat_name
+#      docker_config:
+#        healthcheck:
+#          type: script
+#          script: "/opt/<msb>/healthcheck.sh"
+#          interval: 15s
+#          timeout: 2s
       image: { get_input: tag_version }
       replicas: { get_input: replicas }
+      name: { get_input: heartbeat_name }
+      dns_name: { get_input: heartbeat_name }
+      container_port: { get_input: container_port }
+      host_port: { get_input: host_port }
       log_info:
           log_directory: '/var/log/ONAP/dcae-heartbeat-services'
-    type: dcae.nodes.ContainerizedServiceComponent
+    type: dcae.nodes.ContainerizedPlatformComponent
     relationships:
     - type: cloudify.relationships.depends_on
       target: hbpostgres
