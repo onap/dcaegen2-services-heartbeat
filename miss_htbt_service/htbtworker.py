@@ -12,7 +12,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# 
+#
 #  Author  Prakash Hosangady(ph553f@att.com)
 #    Simple Microservice
 #    Tracks Heartbeat messages on input topic in DMaaP
@@ -21,11 +21,11 @@
 import psycopg2
 import requests
 import os
-import json,sys,time
-import misshtbtd as db
-import logging
-import get_logger
 import os.path as path
+import json,sys,time
+import logging
+from . import misshtbtd as db
+from . import get_logger
 
 _logger = get_logger.get_logger(__name__)
 
@@ -58,7 +58,7 @@ def process_msg(jsfile,user_name, password, ip_address, port_num, db_name):
                 time.sleep(10)
             else:
                 break
- 
+
         if(os.getenv('pytest', "") == 'test'):
            eventnameList = ["Heartbeat_vDNS","Heartbeat_vFW","Heartbeat_xx"]
            connection_db = 0
@@ -66,7 +66,7 @@ def process_msg(jsfile,user_name, password, ip_address, port_num, db_name):
            connection_db = postgres_db_open(user_name, password, ip_address, port_num, db_name)
            cur = connection_db.cursor()
            db_query = "Select event_name from vnf_table_1"
-           cur.execute(db_query) 
+           cur.execute(db_query)
            eventnameList = [item[0] for item in cur.fetchall()]
         msg="\n\nHBT:eventnameList values ", eventnameList
         _logger.info(msg)
@@ -131,7 +131,7 @@ def process_msg(jsfile,user_name, password, ip_address, port_num, db_name):
                  _logger.info(msg)
                  cur.execute("CREATE TABLE vnf_table_2 (EVENT_NAME varchar , SOURCE_NAME_KEY integer , PRIMARY KEY(EVENT_NAME,SOURCE_NAME_KEY),LAST_EPO_TIME BIGINT, SOURCE_NAME varchar, CL_FLAG integer);")
             else:
-                 msg="HBT:vnf_table_2 is already there"  
+                 msg="HBT:vnf_table_2 is already there"
                  _logger.info(msg)
             if(eventName in eventnameList):  #pragma: no cover
                     db_query = "Select source_name_count from vnf_table_1 where event_name='%s'" %(eventName)
@@ -188,9 +188,9 @@ def process_msg(jsfile,user_name, password, ip_address, port_num, db_name):
         commit_and_close_db(connection_db)
         if(os.getenv('pytest', "") != 'test'):
            cur.close()
-        
+
 def postgres_db_open(username,password,host,port,database_name):
-    
+
     if(os.getenv('pytest', "") == 'test'):
         return True
     connection = psycopg2.connect(database=database_name, user = username, password = password, host = host, port =port)
@@ -209,9 +209,9 @@ def db_table_creation_check(connection_db,table_name):
                 return True
         else:
             return False
-            
-    
-    except (psycopg2.DatabaseError, e):
+
+
+    except psycopg2.DatabaseError as e:
         msg = 'COMMON:Error %s' % e
         _logger.error(msg)
     finally:
@@ -223,7 +223,7 @@ def commit_db(connection_db):
     try:
         connection_db.commit() # <--- makes sure the change is shown in the database
         return True
-    except(psycopg2.DatabaseError, e):
+    except psycopg2.DatabaseError as e:
         msg =  'COMMON:Error %s' % e
         _logger.error(msg)
         return False
@@ -235,7 +235,7 @@ def commit_and_close_db(connection_db):
         connection_db.commit() # <--- makes sure the change is shown in the database
         connection_db.close()
         return True
-    except(psycopg2.DatabaseError, e):
+    except psycopg2.DatabaseError as e:
         msg = 'COMMON:Error %s' % e
         _logger.error(msg)
         return False

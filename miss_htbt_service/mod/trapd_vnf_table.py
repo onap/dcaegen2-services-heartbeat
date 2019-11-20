@@ -27,20 +27,21 @@ trapd_vnf_table verifies the successful creation of DB Tables.
 import psycopg2
 import os
 import sys
-import htbtworker as pm
-import misshtbtd as db
-import config_notif as cf
-import cbs_polling as cbs
 import logging
-import get_logger
 import yaml
 import os.path as path
-import db_monitoring as dbmon
 import json
-from onap_dcae_cbs_docker_client.client import get_config
-import unittest
 import time
 import subprocess
+from onap_dcae_cbs_docker_client.client import get_config
+
+from .. import get_logger
+from .. import db_monitoring as dbmon
+from .. import htbtworker as pm
+from .. import misshtbtd as db
+from .. import config_notif as cf
+from .. import cbs_polling as cbs
+
 
 prog_name = os.path.basename(__file__)
 hb_properties_file =  path.abspath(path.join(__file__, "../../config/hbproperties.yaml"))
@@ -52,8 +53,8 @@ def hb_properties():
 	a=yaml.load(s)
 	ip_address = a['pg_ipAddress']
 	port_num = a['pg_portNum']
-	user_name = a['pg_userName'] 
-	password = a['pg_passwd'] 
+	user_name = a['pg_userName']
+	password = a['pg_passwd']
 	dbName = a['pg_dbName']
 	db_name = dbName.lower()
 	cbs_polling_required = a['CBS_polling_allowed']
@@ -61,7 +62,7 @@ def hb_properties():
 	s.close()
 	return ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval
 
-	
+
 def verify_DB_creation_1(user_name,password,ip_address,port_num,db_name):
     connection_db = pm.postgres_db_open(user_name,password,ip_address,port_num,db_name)
    # cur = connection_db.cursor()
@@ -69,9 +70,9 @@ def verify_DB_creation_1(user_name,password,ip_address,port_num,db_name):
         _db_status=pm.db_table_creation_check(connection_db,"vnf_table_1")
     except Exception as e:
         return None
-    
+
     return _db_status
-    
+
 def verify_DB_creation_2(user_name,password,ip_address,port_num,db_name):
 
     connection_db = pm.postgres_db_open(user_name,password,ip_address,port_num,db_name)
@@ -80,9 +81,9 @@ def verify_DB_creation_2(user_name,password,ip_address,port_num,db_name):
         _db_status=pm.db_table_creation_check(connection_db,"vnf_table_2")
     except Exception as e:
         return None
-    
+
     return _db_status
-    
+
 def verify_DB_creation_hb_common(user_name,password,ip_address,port_num,db_name):
 
     connection_db = pm.postgres_db_open(user_name,password,ip_address,port_num,db_name)
@@ -91,10 +92,10 @@ def verify_DB_creation_hb_common(user_name,password,ip_address,port_num,db_name)
         _db_status=pm.db_table_creation_check(connection_db,"hb_common")
     except Exception as e:
         return None
-    
+
     return _db_status
-    
-    
+
+
 def verify_cbsPolling_required():
     _cbspolling_status = True
     os.environ['pytest']='test'
@@ -104,9 +105,9 @@ def verify_cbsPolling_required():
     try:
         _cbspolling_status=cf.config_notif_run()
     except Exception as e:
-        print("Config_notify error - ",e)
+        print("Config_notify error - %s" % e)
         #return None
-        
+
     os.unsetenv('pytest')
     os.unsetenv('CONSUL_HOST')
     os.unsetenv('SERVICE_NAME')
@@ -118,9 +119,9 @@ def verify_cbspolling():
     try:
         _cbspolling=cbs.pollCBS(10)
     except Exception as e:
-        #print("CBSP error - ",e)
+        #print("CBSP error - %s" % e)
         return None
-        
+
     os.unsetenv('pytest')
     os.unsetenv('SERVICE_NAME')
     return _cbspolling
@@ -175,7 +176,7 @@ def verify_dbmonitoring():
         dbmon.db_monitoring(hbc_pid,jsfile,user_name,password,ip_address,port_num,db_name)
         result = True
     except Exception as e:
-        print("Message process error - ",e)
+        print("Message process error - %s" % e)
         result = False
     print(result)
     os.unsetenv('pytest')
@@ -189,7 +190,7 @@ def verify_dbmon_startup():
         p = subprocess.Popen(['./miss_htbt_service/db_monitoring.py'], stdout=subprocess.PIPE,shell=True)
         time.sleep(1)
     except Exception as e:
-        #print( "Message process error - ",e)
+        #print("Message process error - %s" % e)
         return None
     return True
 

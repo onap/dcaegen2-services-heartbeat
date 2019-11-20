@@ -21,11 +21,6 @@ import io
 import requests
 import httpretty
 import sys
-from miss_htbt_service import htbtworker
-from miss_htbt_service import misshtbtd
-from miss_htbt_service import db_monitoring
-#from miss_htbt_service import config_notif
-from trapd_vnf_table import hb_properties
 import subprocess
 import pytest
 import json
@@ -35,6 +30,10 @@ import imp
 import time
 from pip._internal import main as _main
 from onap_dcae_cbs_docker_client.client import get_config
+from miss_htbt_service import htbtworker
+from miss_htbt_service import misshtbtd
+from miss_htbt_service import db_monitoring
+from miss_htbt_service.mod.trapd_vnf_table import hb_properties
 import unittest
 
 

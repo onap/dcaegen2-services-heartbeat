@@ -4,11 +4,11 @@ import os
 import sys
 
 from onap_dcae_cbs_docker_client.client import get_config
-from trapd_exit import cleanup_and_exit
-from trapd_io import stdout_logger
-import trapd_settings as tds
-import trapd_get_cbs_config
- 
+from miss_htbt_service.mod.trapd_exit import cleanup_and_exit
+from miss_htbt_service.mod.trapd_io import stdout_logger
+from miss_htbt_service.mod import trapd_settings as tds
+from miss_htbt_service.mod import trapd_get_cbs_config
+
 class test_get_cbs_config(unittest.TestCase):
     """
     Test the trapd_get_cbs_config mod
@@ -22,7 +22,7 @@ class test_get_cbs_config(unittest.TestCase):
     with open(pytest_json_config, 'w') as outfile:
         outfile.write(pytest_json_data)
 
- 
+
     def test_cbs_env_present(self):
         """
         Test that CONSUL_HOST env variable exists but fails to
@@ -40,7 +40,7 @@ class test_get_cbs_config(unittest.TestCase):
             assert pytest_wrapped_sys_exit.type == SystemExit
             # assert pytest_wrapped_sys_exit.value.code == 1
 
- 
+
 #    def test_cbs_override_env_invalid(self):
 #        """
 #        """
@@ -55,7 +55,7 @@ class test_get_cbs_config(unittest.TestCase):
 #            assert pytest_wrapped_sys_exit.type == SystemExit
 #            assert pytest_wrapped_sys_exit.value.code == 1
 
- 
+
     def test_cbs_fallback_env_present(self):
         """
         Test that CBS fallback env variable exists and we can get config
@@ -68,6 +68,6 @@ class test_get_cbs_config(unittest.TestCase):
         # compare = str(result).startswith("{'snmptrap': ")
         # self.assertEqual(compare, True)
         self.assertEqual(result, True)
- 
+
 #if __name__ == '__main__':
 #    unittest.main()
