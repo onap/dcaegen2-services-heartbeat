@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright 2018 AT&T Intellectual Property, Inc. All rights reserved.
+# Copyright (c) 2019 Pantheon.tech. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,7 +13,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# 
+#
 #  Author  Prakash Hosangady(ph553f@att.com)
 #    CBS Polling
 #    Set the hb_common table with state="RECONFIGURATION" periodically
@@ -24,12 +25,13 @@ import string
 import sys
 import os
 import socket
-import htbtworker as pm
-import misshtbtd as db
 import logging
-import get_logger
+from . import htbtworker as pm
+from . import misshtbtd as db
+from . import get_logger
+
 _logger = get_logger.get_logger(__name__)
-            
+
 
 def pollCBS(current_pid):
     jsfile = db.fetch_json_file()
@@ -58,7 +60,7 @@ def pollCBS(current_pid):
         db.create_update_hb_common(update_flg, hbc_pid, state, user_name,password,ip_address,port_num,db_name)
     else:
         _logger.info("CBSP:Inactive instance or hb_common state is not RUNNING")
-    return result 
+    return result
 if __name__ == "__main__":
     current_pid = sys.argv[1]
     while(True):

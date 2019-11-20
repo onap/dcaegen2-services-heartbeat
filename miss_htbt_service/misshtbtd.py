@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # ============LICENSE_START=======================================================
 # Copyright (c) 2017-2018 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2019 Pantheon.tech. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,7 +22,7 @@
 #    configuration file from CBS
 #  - Creates heartbeat worker process that receives the Heartbeat messages from VNF
 #  - Creates DB Monitoring process that generates Control loop event
-#  - Download the CBS configuration and populate the DB 
+#  - Download the CBS configuration and populate the DB
 #
 #  Author  Prakash Hosangady(ph553f@att.com)
 import traceback
@@ -36,17 +37,18 @@ import logging
 import subprocess
 import yaml
 import socket
-import get_logger
-from pathlib import Path
-import mod.trapd_settings as tds
-import htbtworker as heartbeat
 import os.path as path
+from pathlib import Path
+
+from . import htbtworker as heartbeat
+from . import get_logger
+from .mod import trapd_settings as tds
+from .mod.trapd_runtime_pid import save_pid, rm_pid
+from .mod.trapd_get_cbs_config import get_cbs_config
+from .mod.trapd_exit import cleanup_and_exit
+from .mod.trapd_http_session import init_session_obj
 
 hb_properties_file =  path.abspath(path.join(__file__, "../config/hbproperties.yaml"))
-from mod.trapd_runtime_pid import save_pid, rm_pid
-from mod.trapd_get_cbs_config import get_cbs_config
-from mod.trapd_exit import cleanup_and_exit
-from mod.trapd_http_session import init_session_obj
 ip_address = "localhost"
 port_num = 5432
 user_name = "postgres"
@@ -144,7 +146,7 @@ def create_update_hb_common(update_flg, process_id, state, user_name,password,ip
            cur.execute(query_value)
        heartbeat.commit_and_close_db(connection_db)
        cur.close()
-    
+
 def create_update_vnf_table_1(jsfile,update_db,connection_db):
     with open(jsfile, 'r') as outfile:
         cfg = json.load(outfile)
@@ -171,7 +173,7 @@ def create_update_vnf_table_1(jsfile,update_db,connection_db):
         #_logger.error("MSHBT:",nfc)
         validity_flag = 1
         source_name_count = 0
-        missed = vnf['heartbeatcountmissed']        
+        missed = vnf['heartbeatcountmissed']
         intvl = vnf['heartbeatinterval']
         clloop = vnf['closedLoopControlName']
         policyVersion = vnf['policyVersion']
@@ -180,11 +182,11 @@ def create_update_vnf_table_1(jsfile,update_db,connection_db):
         target_type = vnf['target_type']
         target = vnf['target']
         version = vnf['version']
-	
-        if(nfc not in vnf_list): 
+
+        if(nfc not in vnf_list):
             query_value = "INSERT INTO vnf_table_1 VALUES('%s',%d,%d,'%s','%s','%s','%s','%s','%s','%s',%d,%d);" %(nfc,missed,intvl,clloop,policyVersion,policyName,policyScope,target_type, target,version,source_name_count,validity_flag)
         else:
-            query_value = "UPDATE vnf_table_1 SET HEARTBEAT_MISSED_COUNT='%d',HEARTBEAT_INTERVAL='%d', CLOSED_CONTROL_LOOP_NAME='%s',POLICY_VERSION='%s',POLICY_NAME='%s', POLICY_SCOPE='%s',TARGET_TYPE='%s', TARGET='%s',VERSION='%s',VALIDITY_FLAG='%d' where EVENT_NAME='%s'" %(missed,intvl,clloop,policyVersion,policyName,policyScope,target_type,target,version,validity_flag,nfc)        
+            query_value = "UPDATE vnf_table_1 SET HEARTBEAT_MISSED_COUNT='%d',HEARTBEAT_INTERVAL='%d', CLOSED_CONTROL_LOOP_NAME='%s',POLICY_VERSION='%s',POLICY_NAME='%s', POLICY_SCOPE='%s',TARGET_TYPE='%s', TARGET='%s',VERSION='%s',VALIDITY_FLAG='%d' where EVENT_NAME='%s'" %(missed,intvl,clloop,policyVersion,policyName,policyScope,target_type,target,version,validity_flag,nfc)
         if (envPytest != 'test'):
             cur.execute(query_value)
     #heartbeat.commit_and_close_db(connection_db)
@@ -200,7 +202,7 @@ def hb_cbs_polling_process(pid_current):
 #          subprocess.call(["python3.6",ABSOLUTE_PATH4 , str(pid_current) ])
         sys.stdout.flush()
         _logger.info("MSHBT:Creaated CBS polling process")
-        return 
+        return
 def hb_worker_process(config_file_path):
         my_file = Path("./miss_htbt_service/htbtworker.py")
 #        if my_file.is_file():
@@ -251,8 +253,8 @@ def read_hb_properties(jsfile):
         msg = "CBS Json file load error - ",err
         _logger.error(msg)
         return read_hb_properties_default()
-        
-    try:  
+
+    try:
         ip_address = str(cfg['pg_ipAddress'])
         port_num = str(cfg['pg_portNum'])
         user_name = str(cfg['pg_userName'])
@@ -265,7 +267,7 @@ def read_hb_properties(jsfile):
         group_id  = str(cfg['groupID'])
         os.environ['consumerID'] = consumer_id
         os.environ['groupID'] = group_id
-        if("SERVICE_NAME" in cfg.keys()):
+        if "SERVICE_NAME" in cfg:
            os.environ['SERVICE_NAME'] = str(cfg['SERVICE_NAME'])
     except(Exception) as err:
         msg = "CBS Json file read parameter error - ",err
@@ -343,7 +345,7 @@ def main():
         job_list = []
         pid_current = os.getpid()
         jsfile = fetch_json_file()
-        ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval = read_hb_properties(jsfile) 
+        ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval = read_hb_properties(jsfile)
         msg = "MSHBT:HB Properties -", ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval
         _logger.info(msg)
         if(cbs_polling_required == 'True'):
@@ -397,7 +399,7 @@ def main():
                             state = "RUNNING"
                             update_flg = 1
                             create_update_hb_common(update_flg, pid_current, state, user_name,password,ip_address,port_num,db_name)
-                                             
+
                     else:
                         _logger.info("MSHBD:Inactive Instance: Process IDs are different, Keep Looping")
                         if(len(job_list)>=2):
@@ -442,12 +444,12 @@ def main():
                             job_list[0].join()
                             job_list.remove(job_list[0])
                         break
-                  
+
     except (Exception) as e:
         msg = "MSHBD:Exception as %s" %(str(traceback.format_exc()))
         _logger.error(msg)
 
-        msg = "Fatal error. Could not start missing heartbeat service due to: {0}".format(e) 
+        msg = "Fatal error. Could not start missing heartbeat service due to: {0}".format(e)
         _logger.error(msg)
 
 if __name__ == '__main__':

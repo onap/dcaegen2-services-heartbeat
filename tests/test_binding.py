@@ -1,5 +1,6 @@
 # ============LICENSE_START=======================================================
 # Copyright (c) 2017-2018 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2019 Pantheon.tech. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,11 +22,6 @@ import io
 import requests
 import httpretty
 import sys
-from miss_htbt_service import htbtworker
-from miss_htbt_service import misshtbtd
-from miss_htbt_service import db_monitoring
-#from miss_htbt_service import config_notif
-from trapd_vnf_table import hb_properties
 import subprocess
 import pytest
 import json
@@ -35,6 +31,10 @@ import imp
 import time
 from pip._internal import main as _main
 from onap_dcae_cbs_docker_client.client import get_config
+from miss_htbt_service import htbtworker
+from miss_htbt_service import misshtbtd
+from miss_htbt_service import db_monitoring
+from miss_htbt_service.mod.trapd_vnf_table import hb_properties
 import unittest
 
 
