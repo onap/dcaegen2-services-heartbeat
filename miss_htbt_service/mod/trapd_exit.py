@@ -2,6 +2,7 @@
 # org.onap.dcae
 # ================================================================================
 # Copyright (c) 2017-2018 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2019 Pantheon.tech. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -28,7 +29,7 @@ __docformat__ = 'restructuredtext'
 import sys
 import os
 import string
-from mod.trapd_runtime_pid import save_pid, rm_pid
+from .trapd_runtime_pid import save_pid, rm_pid
 
 prog_name = os.path.basename(__file__)
 

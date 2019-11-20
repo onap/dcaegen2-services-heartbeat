@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # Copyright 2018 AT&T Intellectual Property, Inc. All rights reserved.
+# Copyright (c) 2019 Pantheon.tech. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,25 +13,24 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# 
+#
 #  Author  Prakash Hosangady(ph553f)
 #    DB Monitoring
 #    Tracks Heartbeat messages on each of the VNFs stored in postgres DB
 #    and generates Missing Heartbeat signal for Policy Engine
 
-import requests
 import math
 import sched, datetime, time
 import json
 import string
 import sys
 import os
+import logging
 import socket
 import requests
-import htbtworker as pm
-import misshtbtd as db
-import logging
-import get_logger
+from . import htbtworker as pm
+from . import misshtbtd as db
+from . import get_logger
 
 _logger = get_logger.get_logger(__name__)
 
@@ -206,11 +206,11 @@ def db_monitoring(current_pid,json_file,user_name,password,ip_address,port_num,d
                             update_query = "UPDATE vnf_table_2 SET CL_FLAG=%d where EVENT_NAME ='%s' and source_name_key=%d" %(cl_flag,event_name,(source_name_key+1))
                             cur.execute(update_query)
                             connection_db.commit()
-                                
+
                 else:  #pragma: no cover
                     msg="DBM:DB Monitoring is ignored for %s since validity flag is 0" %(event_name)
                     _logger.info(msg)
-                    
+
                     delete_query_table2 = "DELETE FROM vnf_table_2 WHERE EVENT_NAME = '%s';" %(event_name)
                     cur.execute(delete_query_table2)
                     delete_query = "DELETE FROM vnf_table_1 WHERE EVENT_NAME = '%s';" %(event_name)
@@ -225,7 +225,7 @@ def db_monitoring(current_pid,json_file,user_name,password,ip_address,port_num,d
         pm.commit_and_close_db(connection_db)
         cur.close()
         break;
-            
+
 if __name__ == "__main__":
     _logger.info("DBM: DBM Process started")
     current_pid = sys.argv[1]

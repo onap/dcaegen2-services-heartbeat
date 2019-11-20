@@ -1,14 +1,33 @@
+# ============LICENSE_START=======================================================
+# Copyright (c) 2017-2018 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2019 Pantheon.tech. All rights reserved.
+# ================================================================================
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+# ============LICENSE_END=========================================================
+#
+# ECOMP is a trademark and service mark of AT&T Intellectual Property.
+
 import pytest
 import unittest
 import os
 import sys
 
 from onap_dcae_cbs_docker_client.client import get_config
-from trapd_exit import cleanup_and_exit
-from trapd_io import stdout_logger
-import trapd_settings as tds
-import trapd_get_cbs_config
- 
+from miss_htbt_service.mod.trapd_exit import cleanup_and_exit
+from miss_htbt_service.mod.trapd_io import stdout_logger
+from miss_htbt_service.mod import trapd_settings as tds
+from miss_htbt_service.mod import trapd_get_cbs_config
+
 class test_get_cbs_config(unittest.TestCase):
     """
     Test the trapd_get_cbs_config mod
@@ -22,7 +41,7 @@ class test_get_cbs_config(unittest.TestCase):
     with open(pytest_json_config, 'w') as outfile:
         outfile.write(pytest_json_data)
 
- 
+
     def test_cbs_env_present(self):
         """
         Test that CONSUL_HOST env variable exists but fails to
@@ -40,7 +59,7 @@ class test_get_cbs_config(unittest.TestCase):
             assert pytest_wrapped_sys_exit.type == SystemExit
             # assert pytest_wrapped_sys_exit.value.code == 1
 
- 
+
 #    def test_cbs_override_env_invalid(self):
 #        """
 #        """
@@ -55,7 +74,7 @@ class test_get_cbs_config(unittest.TestCase):
 #            assert pytest_wrapped_sys_exit.type == SystemExit
 #            assert pytest_wrapped_sys_exit.value.code == 1
 
- 
+
     def test_cbs_fallback_env_present(self):
         """
         Test that CBS fallback env variable exists and we can get config
@@ -68,6 +87,6 @@ class test_get_cbs_config(unittest.TestCase):
         # compare = str(result).startswith("{'snmptrap': ")
         # self.assertEqual(compare, True)
         self.assertEqual(result, True)
- 
+
 #if __name__ == '__main__':
 #    unittest.main()
