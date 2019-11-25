@@ -592,6 +592,24 @@
       "revId": "9be86b0d3b13f7de68626a030a8e48ab84a56ce2",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ed295dce_045680bd",
+        "filename": "tox.ini",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 6172
+      },
+      "writtenOn": "2019-11-25T14:51:17Z",
+      "side": 1,
+      "message": "Unfortunately, 3.7 isn\u0027t available to the verification job:\n14:32:24 ___________________________________ summary ____________________________________\n14:32:24   py36: commands succeeded\n14:32:24 ERROR:   py37: InterpreterNotFound: python3.7",
+      "parentUuid": "4ba79f8f_66e107b1",
+      "revId": "9be86b0d3b13f7de68626a030a8e48ab84a56ce2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
