@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9551f078_764893df",
+        "filename": "miss_htbt_service/cbs_polling.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 6172
+      },
+      "writtenOn": "2019-11-25T14:25:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "25a1fca1_64dfb7f4",
+      "revId": "9be86b0d3b13f7de68626a030a8e48ab84a56ce2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0d8cbf0a_4f7b7c1f",
         "filename": "miss_htbt_service/config_notif.py",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2019-11-21T14:42:01Z",
       "side": 1,
       "message": "update copyright for year and company putting in this fix",
+      "revId": "9be86b0d3b13f7de68626a030a8e48ab84a56ce2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "10a965c4_abb74138",
+        "filename": "miss_htbt_service/config_notif.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 6172
+      },
+      "writtenOn": "2019-11-25T14:25:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0d8cbf0a_4f7b7c1f",
       "revId": "9be86b0d3b13f7de68626a030a8e48ab84a56ce2",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -53,6 +89,41 @@
     },
     {
       "key": {
+        "uuid": "ebec51c7_366eac28",
+        "filename": "miss_htbt_service/config_notif.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 6172
+      },
+      "writtenOn": "2019-11-25T14:25:10Z",
+      "side": 1,
+      "message": "The point of these pedantic changes was to make the behavior exactly the same between python2 and python3.\nIn general, the guidance has been that python2 compatibility should not be lost just yet (i.e. no f-strings unless one is sure it\u0027s python3 code only).\n\nWithout an initial from __future__ import print_function, python2 would interpret the original code as to print the tuple (\"...\", e). If and only if there is a single value to print, do python2 print(...) \u0027calls\u0027 have the same behavior as in python3. It is likely that this code is now only used with python3, but I cannot assure that.\n\nPlease be aware that while there were movements to deprecate %-formatting, it is actually not deprecated, and there are no active plans to deprecate or ever remove it in python3. Even the language to prefer str.format has been softened over the years.\n\nI could change these to use format. It might be better to use logging instead in the future instead of prints, which defaults to, and is rather awkward to change away from, using %-formatting.",
+      "parentUuid": "d4bbada3_75a7c8ee",
+      "revId": "9be86b0d3b13f7de68626a030a8e48ab84a56ce2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19f204f8_de6a8db0",
+        "filename": "miss_htbt_service/config_notif.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 6172
+      },
+      "writtenOn": "2019-11-25T14:25:10Z",
+      "side": 1,
+      "message": "Leftover list(dict.keys()) from 2to3.",
+      "revId": "9be86b0d3b13f7de68626a030a8e48ab84a56ce2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "87469e45_d61e1917",
         "filename": "miss_htbt_service/db_monitoring.py",
         "patchSetId": 1
@@ -64,6 +135,24 @@
       "writtenOn": "2019-11-21T14:42:01Z",
       "side": 1,
       "message": "update copyright for year and company putting in this fix",
+      "revId": "9be86b0d3b13f7de68626a030a8e48ab84a56ce2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "27300bec_21fdaf8c",
+        "filename": "miss_htbt_service/db_monitoring.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 6172
+      },
+      "writtenOn": "2019-11-25T14:25:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87469e45_d61e1917",
       "revId": "9be86b0d3b13f7de68626a030a8e48ab84a56ce2",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -87,6 +176,24 @@
     },
     {
       "key": {
+        "uuid": "13d35d11_4f6eea1a",
+        "filename": "miss_htbt_service/htbtworker.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 6172
+      },
+      "writtenOn": "2019-11-25T14:25:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f73b62f1_8526046b",
+      "revId": "9be86b0d3b13f7de68626a030a8e48ab84a56ce2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "faeae292_9c93afcf",
         "filename": "miss_htbt_service/misshtbtd.py",
         "patchSetId": 1
@@ -98,6 +205,24 @@
       "writtenOn": "2019-11-21T14:42:01Z",
       "side": 1,
       "message": "update copyright for year and company putting in this fix",
+      "revId": "9be86b0d3b13f7de68626a030a8e48ab84a56ce2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9d6f177c_5ee5ab13",
+        "filename": "miss_htbt_service/misshtbtd.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 6172
+      },
+      "writtenOn": "2019-11-25T14:25:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "faeae292_9c93afcf",
       "revId": "9be86b0d3b13f7de68626a030a8e48ab84a56ce2",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -121,6 +246,24 @@
     },
     {
       "key": {
+        "uuid": "5e88c99c_06b861e4",
+        "filename": "miss_htbt_service/mod/trapd_exit.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 6172
+      },
+      "writtenOn": "2019-11-25T14:25:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6f55b41_8f8f37ae",
+      "revId": "9be86b0d3b13f7de68626a030a8e48ab84a56ce2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "10a73c57_a16c8180",
         "filename": "miss_htbt_service/mod/trapd_get_cbs_config.py",
         "patchSetId": 1
@@ -132,6 +275,24 @@
       "writtenOn": "2019-11-21T14:42:01Z",
       "side": 1,
       "message": "update copyright for year and company putting in this fix",
+      "revId": "9be86b0d3b13f7de68626a030a8e48ab84a56ce2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8788679a_034a3ca9",
+        "filename": "miss_htbt_service/mod/trapd_get_cbs_config.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 6172
+      },
+      "writtenOn": "2019-11-25T14:25:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "10a73c57_a16c8180",
       "revId": "9be86b0d3b13f7de68626a030a8e48ab84a56ce2",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -155,6 +316,24 @@
     },
     {
       "key": {
+        "uuid": "120fe9bd_1410cffa",
+        "filename": "miss_htbt_service/mod/trapd_io.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 6172
+      },
+      "writtenOn": "2019-11-25T14:25:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b0968e1e_ec6d3fa0",
+      "revId": "9be86b0d3b13f7de68626a030a8e48ab84a56ce2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "427d802e_295dc9ce",
         "filename": "miss_htbt_service/mod/trapd_vnf_table.py",
         "patchSetId": 1
@@ -166,6 +345,24 @@
       "writtenOn": "2019-11-21T14:42:01Z",
       "side": 1,
       "message": "update copyright for year and company putting in this fix",
+      "revId": "9be86b0d3b13f7de68626a030a8e48ab84a56ce2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e04dd580_60950c3c",
+        "filename": "miss_htbt_service/mod/trapd_vnf_table.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 6172
+      },
+      "writtenOn": "2019-11-25T14:25:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "427d802e_295dc9ce",
       "revId": "9be86b0d3b13f7de68626a030a8e48ab84a56ce2",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -206,6 +403,24 @@
     },
     {
       "key": {
+        "uuid": "ae3acc71_09089b30",
+        "filename": "tests/test_binding.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 6172
+      },
+      "writtenOn": "2019-11-25T14:25:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c5b3503_89aafdac",
+      "revId": "9be86b0d3b13f7de68626a030a8e48ab84a56ce2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3581143a_9eaf5fd5",
         "filename": "tests/test_trapd_exit.py",
         "patchSetId": 1
@@ -240,6 +455,24 @@
     },
     {
       "key": {
+        "uuid": "34555af2_6d1e4435",
+        "filename": "tests/test_trapd_get_cbs_config.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6172
+      },
+      "writtenOn": "2019-11-25T14:25:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9063de5a_a9c89a71",
+      "revId": "9be86b0d3b13f7de68626a030a8e48ab84a56ce2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2b2e904f_c8a18acc",
         "filename": "tests/test_trapd_http_session.py",
         "patchSetId": 1
@@ -251,6 +484,24 @@
       "writtenOn": "2019-11-21T14:42:01Z",
       "side": 1,
       "message": "missing license and copyright",
+      "revId": "9be86b0d3b13f7de68626a030a8e48ab84a56ce2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "520ad4bb_c98d3405",
+        "filename": "tests/test_trapd_http_session.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6172
+      },
+      "writtenOn": "2019-11-25T14:25:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2b2e904f_c8a18acc",
       "revId": "9be86b0d3b13f7de68626a030a8e48ab84a56ce2",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
@@ -274,6 +525,24 @@
     },
     {
       "key": {
+        "uuid": "9ea4e35b_d23b67c0",
+        "filename": "tests/test_trapd_runtime_pid.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6172
+      },
+      "writtenOn": "2019-11-25T14:25:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0b7f5f63_06b739d6",
+      "revId": "9be86b0d3b13f7de68626a030a8e48ab84a56ce2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b31a19c0_91315e62",
         "filename": "tests/test_trapd_settings.py",
         "patchSetId": 1
@@ -285,6 +554,24 @@
       "writtenOn": "2019-11-21T14:42:01Z",
       "side": 1,
       "message": "missing copyright and license",
+      "revId": "9be86b0d3b13f7de68626a030a8e48ab84a56ce2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7cfec368_5490e204",
+        "filename": "tests/test_trapd_settings.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6172
+      },
+      "writtenOn": "2019-11-25T14:25:10Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b31a19c0_91315e62",
       "revId": "9be86b0d3b13f7de68626a030a8e48ab84a56ce2",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
