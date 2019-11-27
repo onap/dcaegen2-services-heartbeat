@@ -107,6 +107,24 @@
     },
     {
       "key": {
+        "uuid": "09e7ab14_825803de",
+        "filename": "miss_htbt_service/config_notif.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 6172
+      },
+      "writtenOn": "2019-11-27T11:18:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebec51c7_366eac28",
+      "revId": "9be86b0d3b13f7de68626a030a8e48ab84a56ce2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "19f204f8_de6a8db0",
         "filename": "miss_htbt_service/config_notif.py",
         "patchSetId": 1
@@ -625,6 +643,24 @@
       "side": 1,
       "message": "That\u0027s odd. I had been told that python3.7 was loaded now.\n\nLet me check with the LF folks.\n\nhttps://jira.linuxfoundation.org/servicedesk/customer/portal/2/IT-18355\nhas been filed",
       "parentUuid": "ed295dce_045680bd",
+      "revId": "9be86b0d3b13f7de68626a030a8e48ab84a56ce2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "23497b3e_0a49b9a6",
+        "filename": "tox.ini",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 6172
+      },
+      "writtenOn": "2019-11-27T11:18:19Z",
+      "side": 1,
+      "message": "It has something to do with using older jobs/images. Please see https://jira.onap.org/browse/DCAEGEN2-1728 and the comment from Tommy Carpenter in https://gerrit.onap.org/r/c/dcaegen2/platform/plugins/+/98857\n\nQuote:\nthe 37 will work once this repo moves to the proper globaljjb python jjb; that supports more versions. I forgot the CICD management for this repo is on an old system, so yes we can wait for 37 support later (whenever, if ever, this repo transitions to the python tox verify)",
+      "parentUuid": "f3e34f5e_809d2181",
       "revId": "9be86b0d3b13f7de68626a030a8e48ab84a56ce2",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
