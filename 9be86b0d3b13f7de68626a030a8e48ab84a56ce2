@@ -610,6 +610,24 @@
       "revId": "9be86b0d3b13f7de68626a030a8e48ab84a56ce2",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f3e34f5e_809d2181",
+        "filename": "tox.ini",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2019-11-27T04:41:19Z",
+      "side": 1,
+      "message": "That\u0027s odd. I had been told that python3.7 was loaded now.\n\nLet me check with the LF folks.\n\nhttps://jira.linuxfoundation.org/servicedesk/customer/portal/2/IT-18355\nhas been filed",
+      "parentUuid": "ed295dce_045680bd",
+      "revId": "9be86b0d3b13f7de68626a030a8e48ab84a56ce2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
