@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a163784b_8eb5a141",
+        "filename": "miss_htbt_service/config_notif.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2019-11-27T04:41:19Z",
+      "side": 1,
+      "message": "If you want to maintain python2-compatibility for now, I think it would be better to add the\nfrom __future__ import print_function\n\nThis totally eliminates the possibility of (x,e) being treated as a tuple and works with both python2 and python3 just fine.\n\nFormat also has many advantages over % formatting.\n\nHowever, if you REALLY feel that % is the best choice here, I won\u0027t stand in the way.",
+      "revId": "be8eee466a5d17a4cf556ad42871b2437540f6d2",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
