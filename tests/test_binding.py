@@ -14,8 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ============LICENSE_END=========================================================
-#
-# ECOMP is a trademark and service mark of AT&T Intellectual Property.
 
 import os
 import io
@@ -36,7 +34,6 @@ from miss_htbt_service import misshtbtd
 from miss_htbt_service import db_monitoring
 from miss_htbt_service.mod.trapd_vnf_table import hb_properties
 import unittest
-
 
 MODULE_EXTENSIONS = ('.py', '.pyc', '.pyo')
 

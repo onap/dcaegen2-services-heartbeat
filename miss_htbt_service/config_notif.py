@@ -37,39 +37,42 @@ def postgres_db_open(username,password,host,port,database_name):
     envPytest = os.getenv('pytest', "")
     if (envPytest == 'test'):
         return True
-    try: #pragma: no cover
-       connection = psycopg2.connect(database=database_name, user = username, password = password, host = host, port =port)
+    try:
+        connection = psycopg2.connect(database=database_name, user = username, password = password, host = host, port =port)
     except Exception as e:
-       print("HB_Notif::postgress connect error: %s" % e)
-       connection = True
+        print("HB_Notif::postgress connect error: %s" % e)
+        connection = True
     return connection
 
 def db_table_creation_check(connection_db,table_name):
     envPytest = os.getenv('pytest', "")
     if (envPytest == 'test'):
         return True
-    try: #pragma: no cover
+    cur = None
+    try:
         cur = connection_db.cursor()
         query_db = "select * from information_schema.tables where table_name='%s'" %(table_name)
         cur.execute(query_db)
         database_names = cur.fetchone()
-        if(database_names is not None):
-            if(table_name in database_names):
-                print("HB_Notif::Postgres already has table - %s" % table_name)
-                return True
+        if (database_names is not None) and (table_name in database_names):
+            print(f"FOUND the table {table_name}")
+            print("HB_Notif::Postgres already has table - %s" % table_name)
+            return True
         else:
+            print(f"did NOT find the table {table_name}")
             print("HB_Notif::Postgres does not have table - %s" % table_name)
             return False
     except psycopg2.DatabaseError as e:
         print('COMMON:Error %s' % e)
     finally:
-        cur.close()
+        if cur:
+            cur.close()
 
 def commit_and_close_db(connection_db):
     envPytest = os.getenv('pytest', "")
     if (envPytest == 'test'):
         return True
-    try: #pragma: no cover
+    try:
         connection_db.commit() # <--- makes sure the change is shown in the database
         connection_db.close()
         return True
@@ -96,6 +99,8 @@ def read_hb_properties_default():
         cbs_polling_required = a['CBS_polling_allowed']
         cbs_polling_interval = a['CBS_polling_interval']
         s.close()
+        # TODO: there is a mismatch here between read_hb_properties_default and read_hb_properties.
+        # read_hb_properties() forces all of the variables returned here to be strings, while the code here does not.
         return ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval
 
 def read_hb_properties(jsfile):
@@ -187,7 +192,7 @@ def config_notif_run():
    if(db_table_creation_check(connection_db,"hb_common") == False):
       print("HB_Notif::ERROR::hb_common table not exists - No config download")
       connection_db.close()
-   else: #pragma: no cover
+   else:
       hbc_pid, hbc_state, hbc_srcName, hbc_time = read_hb_common(user_name,password,ip_address,port_num,db_name)
       state = "RECONFIGURATION"
       update_flg = 1
