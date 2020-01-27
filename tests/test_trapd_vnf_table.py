@@ -17,8 +17,6 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 #
-# ECOMP is a trademark and service mark of AT&T Intellectual Property.
-#
 ##  Author Prakask H (ph553f)
 """
 test_trapd_vnf_table contains test cases related to DB Tables and cbs polling.
@@ -68,6 +66,7 @@ class test_vnf_tables(unittest.TestCase):
 
     def test_cbspolling(self):
         result= verify_cbspolling()
+        # print(f"result={result}", file=sys.stderr) ## TH
         _logger.info(result)
         self.assertEqual(result, True)
 

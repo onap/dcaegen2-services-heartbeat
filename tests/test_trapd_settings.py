@@ -14,14 +14,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ============LICENSE_END=========================================================
-#
-# ECOMP is a trademark and service mark of AT&T Intellectual Property.
 
 import pytest
 import unittest
 
 from miss_htbt_service.mod import trapd_settings as tds
-
 
 pid_file="/tmp/test_pid_file"
 pid_file_dne="/tmp/test_pid_file_NOT"
