@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright 2018 AT&T Intellectual Property, Inc. All rights reserved.
+# Copyright 2018-2020 AT&T Intellectual Property, Inc. All rights reserved.
 # Copyright (c) 2019 Pantheon.tech. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -29,7 +29,9 @@ import psycopg2
 from pathlib import Path
 import os.path as path
 from .mod import trapd_settings as tds
-from .mod.trapd_get_cbs_config import get_cbs_config
+# use the fully qualified name here to let monkeypatching work
+# from .mod.trapd_get_cbs_config import get_cbs_config
+import miss_htbt_service.mod.trapd_get_cbs_config
 
 hb_properties_file =  path.abspath(path.join(__file__, "../config/hbproperties.yaml"))
 
@@ -37,39 +39,42 @@ def postgres_db_open(username,password,host,port,database_name):
     envPytest = os.getenv('pytest', "")
     if (envPytest == 'test'):
         return True
-    try: #pragma: no cover
-       connection = psycopg2.connect(database=database_name, user = username, password = password, host = host, port =port)
+    try:
+        connection = psycopg2.connect(database=database_name, user = username, password = password, host = host, port =port)
     except Exception as e:
-       print("HB_Notif::postgress connect error: %s" % e)
-       connection = True
+        print("HB_Notif::postgress connect error: %s" % e)
+        connection = True
     return connection
 
 def db_table_creation_check(connection_db,table_name):
     envPytest = os.getenv('pytest', "")
     if (envPytest == 'test'):
         return True
-    try: #pragma: no cover
+    cur = None
+    try:
         cur = connection_db.cursor()
         query_db = "select * from information_schema.tables where table_name='%s'" %(table_name)
         cur.execute(query_db)
         database_names = cur.fetchone()
-        if(database_names is not None):
-            if(table_name in database_names):
-                print("HB_Notif::Postgres already has table - %s" % table_name)
-                return True
+        if (database_names is not None) and (table_name in database_names):
+            print(f"FOUND the table {table_name}")
+            print("HB_Notif::Postgres already has table - %s" % table_name)
+            return True
         else:
+            print(f"did NOT find the table {table_name}")
             print("HB_Notif::Postgres does not have table - %s" % table_name)
             return False
     except psycopg2.DatabaseError as e:
         print('COMMON:Error %s' % e)
     finally:
-        cur.close()
+        if cur:
+            cur.close()
 
 def commit_and_close_db(connection_db):
     envPytest = os.getenv('pytest', "")
     if (envPytest == 'test'):
         return True
-    try: #pragma: no cover
+    try:
         connection_db.commit() # <--- makes sure the change is shown in the database
         connection_db.close()
         return True
@@ -96,6 +101,8 @@ def read_hb_properties_default():
         cbs_polling_required = a['CBS_polling_allowed']
         cbs_polling_interval = a['CBS_polling_interval']
         s.close()
+        # TODO: there is a mismatch here between read_hb_properties_default and read_hb_properties.
+        # read_hb_properties() forces all of the variables returned here to be strings, while the code here does not.
         return ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval
 
 def read_hb_properties(jsfile):
@@ -134,6 +141,7 @@ def read_hb_common(user_name,password,ip_address,port_num,db_name):
     query_value = "SELECT process_id,source_name,last_accessed_time,current_state FROM hb_common;"
     cur.execute(query_value)
     rows = cur.fetchall()
+    # TODO: What if rows returned None or empty?
     print("HB_Notif::hb_common contents - %s" % rows)
     hbc_pid = rows[0][0]
     hbc_srcName = rows[0][1]
@@ -158,9 +166,11 @@ def update_hb_common(update_flg, process_id, state, user_name,password,ip_addres
     cur.close()
     return True
 
-def fetch_json_file():
-    if get_cbs_config():
-        current_runtime_config_file_name = "../etc/download1.json"
+def fetch_json_file(download_json = "../etc/download1.json", config_json = "../etc/config.json"):
+    # use the fully qualified name here to let monkeypatching work
+    # if get_cbs_config():
+    if miss_htbt_service.mod.trapd_get_cbs_config.get_cbs_config():
+        current_runtime_config_file_name = download_json
         envPytest = os.getenv('pytest', "")
         if (envPytest == 'test'):
             jsfile = "../etc/config.json"
@@ -171,7 +181,7 @@ def fetch_json_file():
         jsfile = current_runtime_config_file_name
     else:
         print("MSHBD:CBS Config not available, using local config")
-        jsfile = "../etc/config.json"
+        jsfile = config_json
     print("Config_N: The json file is - %s" % jsfile)
     return jsfile
 
@@ -187,11 +197,12 @@ def config_notif_run():
    if(db_table_creation_check(connection_db,"hb_common") == False):
       print("HB_Notif::ERROR::hb_common table not exists - No config download")
       connection_db.close()
-   else: #pragma: no cover
+   else:
       hbc_pid, hbc_state, hbc_srcName, hbc_time = read_hb_common(user_name,password,ip_address,port_num,db_name)
       state = "RECONFIGURATION"
       update_flg = 1
       ret = update_hb_common(update_flg, hbc_pid, state, user_name,password,ip_address,port_num,db_name)
+      # TODO: There is no way for update_hb_common() to return false
       if (ret == True):
          print("HB_Notif::hb_common table updated with RECONFIGURATION state")
          commit_and_close_db(connection_db)

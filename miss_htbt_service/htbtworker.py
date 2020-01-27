@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright 2018 AT&T Intellectual Property, Inc. All rights reserved.
+# Copyright 2018-2020 AT&T Intellectual Property, Inc. All rights reserved.
 # Copyright (c) 2019 Pantheon.tech. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,19 +30,19 @@ from . import get_logger
 
 _logger = get_logger.get_logger(__name__)
 
-def read_json_file(i):
+def read_json_file(i, prefix="../../tests"):
     if (i==0):
-       with open (path.abspath(path.join(__file__, "../../tests/test1.json")), "r") as outfile:
+       with open (path.abspath(path.join(__file__, f"{prefix}/test1.json")), "r") as outfile:
           cfg = json.load(outfile)
     elif (i == 1):
-       with open (path.abspath(path.join(__file__, "../../tests/test2.json")), "r") as outfile:
+       with open (path.abspath(path.join(__file__, f"{prefix}/test2.json")), "r") as outfile:
           cfg = json.load(outfile)
     elif (i ==2):
-       with open( path.abspath(path.join(__file__, "../../tests/test3.json")), 'r') as outfile:
+       with open( path.abspath(path.join(__file__, f"{prefix}/test3.json")), 'r') as outfile:
           cfg = json.load(outfile)
     return cfg
 
-def process_msg(jsfile,user_name, password, ip_address, port_num, db_name):
+def process_msg(jsfile, user_name, password, ip_address, port_num, db_name):
     global mr_url
     i=0
     sleep_duration = 20
