@@ -16,7 +16,6 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 #
-# ECOMP is a trademark and service mark of AT&T Intellectual Property.
 #  This is a main process that does the following
 #  - Creates the CBS polling process that indicates the periodic download of
 #    configuration file from CBS
@@ -109,11 +108,11 @@ def create_database(update_db, jsfile, ip_address, port_num, user_name, password
 def read_hb_common(user_name,password,ip_address,port_num,db_name):
     envPytest = os.getenv('pytest', "")
     if (envPytest == 'test'):
-       hbc_pid = 10
-       hbc_srcName = "srvc_name"
-       hbc_time = 1584595881
-       hbc_state = "RUNNING"
-       return hbc_pid, hbc_state, hbc_srcName, hbc_time
+        hbc_pid = 10
+        hbc_srcName = "srvc_name"
+        hbc_time = 1584595881
+        hbc_state = "RUNNING"
+        return hbc_pid, hbc_state, hbc_srcName, hbc_time
     connection_db = heartbeat.postgres_db_open(user_name,password,ip_address,port_num,db_name)
     cur = connection_db.cursor()
     query_value = "SELECT process_id,source_name,last_accessed_time,current_state FROM hb_common;"
