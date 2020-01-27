@@ -30,19 +30,19 @@ from . import get_logger
 
 _logger = get_logger.get_logger(__name__)
 
-def read_json_file(i):
+def read_json_file(i, prefix="../../tests"):
     if (i==0):
-       with open (path.abspath(path.join(__file__, "../../tests/test1.json")), "r") as outfile:
+       with open (path.abspath(path.join(__file__, f"{prefix}/test1.json")), "r") as outfile:
           cfg = json.load(outfile)
     elif (i == 1):
-       with open (path.abspath(path.join(__file__, "../../tests/test2.json")), "r") as outfile:
+       with open (path.abspath(path.join(__file__, f"{prefix}/test2.json")), "r") as outfile:
           cfg = json.load(outfile)
     elif (i ==2):
-       with open( path.abspath(path.join(__file__, "../../tests/test3.json")), 'r') as outfile:
+       with open( path.abspath(path.join(__file__, f"{prefix}/test3.json")), 'r') as outfile:
           cfg = json.load(outfile)
     return cfg
 
-def process_msg(jsfile,user_name, password, ip_address, port_num, db_name):
+def process_msg(jsfile, user_name, password, ip_address, port_num, db_name):
     global mr_url
     i=0
     sleep_duration = 20
