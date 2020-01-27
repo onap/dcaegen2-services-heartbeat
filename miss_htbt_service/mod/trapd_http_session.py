@@ -15,9 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ============LICENSE_END=========================================================
-#
-# ECOMP is a trademark and service mark of AT&T Intellectual Property.
-#
+
 """
 trapd_http_session establishes an http session for future use in publishing
 messages to the dmaap cluster.
