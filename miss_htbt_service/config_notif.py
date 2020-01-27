@@ -96,6 +96,8 @@ def read_hb_properties_default():
         cbs_polling_required = a['CBS_polling_allowed']
         cbs_polling_interval = a['CBS_polling_interval']
         s.close()
+        # TODO: there is a mismatch here between read_hb_properties_default and read_hb_properties.
+        # read_hb_properties() forces all of the variables returned here to be strings, while the code here does not.
         return ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval
 
 def read_hb_properties(jsfile):

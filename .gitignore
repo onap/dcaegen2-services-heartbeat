@@ -1,0 +1,6 @@
+coverage.xml
+xunit-tests.xml
+*~
+*.sv
+.tox
+__pycache__
