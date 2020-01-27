@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # ============LICENSE_START=======================================================
-# Copyright (c) 2017-2018 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2017-2020 AT&T Intellectual Property. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,8 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ============LICENSE_END=========================================================
-#
-# ECOMP is a trademark and service mark of AT&T Intellectual Property.
 
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib import parse
@@ -45,18 +43,21 @@ class GetHandler(BaseHTTPRequestHandler):
             ])
         self.send_response(200)
         self.end_headers()
-        self.wfile.write(message)
+        # self.wfile.write(message)
+        self.wfile.write(bytes(message, 'utf-8'))
         return
 
     def do_POST(self):
-        content_len = int(self.headers.getheader('content-length'))
+        # content_len = int(self.headers.getheader('content-length'))
+        content_len = int(self.headers.get('content-length', 0))
         post_body = self.rfile.read(content_len)
         self.send_response(200)
         self.end_headers()
 
         data = json.loads(post_body)
 
-        self.wfile.write(data['health'])
+        # self.wfile.write(data['health'])
+        self.wfile.write(bytes(data['health'], 'utf-8'))
         return
 
 if __name__ == '__main__':
