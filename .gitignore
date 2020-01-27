@@ -1,0 +1,11 @@
+coverage.xml
+xunit-tests.xml
+*~
+*.sv
+.tox
+__pycache__
+htmlcov
+hb_logs.txt
+.coverage
+xunit-results.xml
+miss_htbt_service.egg-info

@@ -1,7 +1,7 @@
 # ============LICENSE_START=======================================================
 # org.onap.dcae
 # ================================================================================
-# Copyright (c) 2017-2018 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2017-2020 AT&T Intellectual Property. All rights reserved.
 # Copyright (c) 2019 Pantheon.tech. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,9 +17,8 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 #
-# ECOMP is a trademark and service mark of AT&T Intellectual Property.
-#
 ##  Author Kiran Mandal (km386e)
+
 """
 trapd_vnf_table verifies the successful creation of DB Tables.
 """
@@ -120,7 +119,9 @@ def verify_cbspolling():
     try:
         _cbspolling=cbs.pollCBS(10)
     except Exception as e:
-        #print("CBSP error - %s" % e)
+        # print("CBSP error - %s" % e)
+        # print("CBSP error - %s" % e, file=sys.stderr)
+        # print("Stack: {0}".format(traceback.format_exc()), file=sys.stderr)
         return None
 
     os.unsetenv('pytest')

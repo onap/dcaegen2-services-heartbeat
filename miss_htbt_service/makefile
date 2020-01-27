@@ -1,0 +1,2 @@
+runtox:
+	cd .. && $(MAKE) runtox
