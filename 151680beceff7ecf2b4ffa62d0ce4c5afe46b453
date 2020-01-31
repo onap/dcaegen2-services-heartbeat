@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "8a4c5a72_374b4519",
+        "filename": "miss_htbt_service/__init__.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-01-31T19:09:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8432d8ff_58f4dace",
+      "range": {
+        "startLine": 2,
+        "startChar": 16,
+        "endLine": 2,
+        "endChar": 20
+      },
+      "revId": "151680beceff7ecf2b4ffa62d0ce4c5afe46b453",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "58a35c96_ccdb5eff",
         "filename": "miss_htbt_service/check_health.py",
         "patchSetId": 10
@@ -59,6 +83,30 @@
       "writtenOn": "2020-01-31T14:58:30Z",
       "side": 1,
       "message": "all commented lines could be removed",
+      "range": {
+        "startLine": 46,
+        "startChar": 7,
+        "endLine": 46,
+        "endChar": 35
+      },
+      "revId": "151680beceff7ecf2b4ffa62d0ce4c5afe46b453",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3f3b0051_d9385fdc",
+        "filename": "miss_htbt_service/check_health.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-01-31T19:09:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "58a35c96_ccdb5eff",
       "range": {
         "startLine": 46,
         "startChar": 7,
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "851138fc_e73047f0",
+        "filename": "miss_htbt_service/config_notif.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-01-31T19:09:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36674e39_f88b9902",
+      "range": {
+        "startLine": 2,
+        "startChar": 12,
+        "endLine": 2,
+        "endChar": 16
+      },
+      "revId": "151680beceff7ecf2b4ffa62d0ce4c5afe46b453",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e3d540a1_bb47369b",
         "filename": "pom.xml",
         "patchSetId": 10
@@ -117,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "23f1171e_7ebd32eb",
+        "filename": "pom.xml",
+        "patchSetId": 10
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-01-31T19:09:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e3d540a1_bb47369b",
+      "range": {
+        "startLine": 48,
+        "startChar": 39,
+        "endLine": 48,
+        "endChar": 62
+      },
+      "revId": "151680beceff7ecf2b4ffa62d0ce4c5afe46b453",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "80a1df8c_86f82eea",
         "filename": "tests/test_trapd_vnf_table.py",
         "patchSetId": 10
@@ -128,6 +224,30 @@
       "writtenOn": "2020-01-31T14:58:30Z",
       "side": 1,
       "message": "to be removed",
+      "range": {
+        "startLine": 69,
+        "startChar": 8,
+        "endLine": 69,
+        "endChar": 58
+      },
+      "revId": "151680beceff7ecf2b4ffa62d0ce4c5afe46b453",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6005fd12_0e5abe90",
+        "filename": "tests/test_trapd_vnf_table.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-01-31T19:09:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "80a1df8c_86f82eea",
       "range": {
         "startLine": 69,
         "startChar": 8,
