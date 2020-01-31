@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d76a5a9f_a91a0db9",
+        "filename": "LICENSE.txt",
+        "patchSetId": 10
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-01-31T19:10:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "19f9c8eb_0f5f4891",
+      "range": {
+        "startLine": 4,
+        "startChar": 15,
+        "endLine": 4,
+        "endChar": 20
+      },
+      "revId": "151680beceff7ecf2b4ffa62d0ce4c5afe46b453",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8432d8ff_58f4dace",
         "filename": "miss_htbt_service/__init__.py",
         "patchSetId": 10
