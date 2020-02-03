@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bc5a31ea_3f3a1168",
+        "filename": "tox.ini",
+        "patchSetId": 13
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2020-02-03T14:22:14Z",
+      "side": 1,
+      "message": "15:32:08 ERROR: InterpreterNotFound: python3.7\n\nhttps://jenkins.onap.org/view/dcaegen2/job/dcaegen2-services-heartbeat-sonar/704/console",
+      "range": {
+        "startLine": 3,
+        "startChar": 14,
+        "endLine": 3,
+        "endChar": 19
+      },
+      "revId": "db08ae5dac684a1155dedfd199ae4e372c82e9df",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    }
+  ]
+}
