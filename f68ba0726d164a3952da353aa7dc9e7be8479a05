@@ -1,0 +1,8 @@
+Code-Review+1: Tony Hansen <tony@att.com>
+Code-Review+2: Lusheng Ji <lji@research.att.com>
+Verified+1: Lusheng Ji <lji@research.att.com>
+Submitted-by: Vijay Venkatesh Kumar <vv770d@att.com>
+Submitted-at: Thu, 23 Jul 2020 21:03:04 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/dcaegen2/services/heartbeat/+/110522
+Project: dcaegen2/services/heartbeat
+Branch: refs/heads/master
