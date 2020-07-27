@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # Copyright 2018-2020 AT&T Intellectual Property, Inc. All rights reserved.
 # Copyright (c) 2019 Pantheon.tech. All rights reserved.
+# Copyright 2020 Deutsche Telekom. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -28,10 +29,10 @@ import json
 import psycopg2
 from pathlib import Path
 import os.path as path
-from .mod import trapd_settings as tds
+import mod.trapd_settings as tds
 # use the fully qualified name here to let monkeypatching work
 # from .mod.trapd_get_cbs_config import get_cbs_config
-import miss_htbt_service.mod.trapd_get_cbs_config
+import mod.trapd_get_cbs_config
 
 hb_properties_file =  path.abspath(path.join(__file__, "../config/hbproperties.yaml"))
 
@@ -169,7 +170,7 @@ def update_hb_common(update_flg, process_id, state, user_name,password,ip_addres
 def fetch_json_file(download_json = "../etc/download1.json", config_json = "../etc/config.json"):
     # use the fully qualified name here to let monkeypatching work
     # if get_cbs_config():
-    if miss_htbt_service.mod.trapd_get_cbs_config.get_cbs_config():
+    if mod.trapd_get_cbs_config.get_cbs_config():
         current_runtime_config_file_name = download_json
         envPytest = os.getenv('pytest', "")
         if (envPytest == 'test'):

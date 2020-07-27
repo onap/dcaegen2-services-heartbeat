@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # Copyright 2018-2020 AT&T Intellectual Property, Inc. All rights reserved.
 # Copyright (c) 2019 Pantheon.tech. All rights reserved.
+# Copyright 2020 Deutsche Telekom. All rights reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -26,9 +27,9 @@ import sys
 import os
 import socket
 import logging
-from . import htbtworker as pm
-from . import misshtbtd as db
-from . import get_logger
+import htbtworker as pm
+import misshtbtd as db
+import get_logger
 
 _logger = get_logger.get_logger(__name__)
 

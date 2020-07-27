@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 #
 # ============LICENSE_START=======================================================
 # org.onap.dcae
@@ -19,13 +19,13 @@
 # ============LICENSE_END=========================================================
 
 # get to where we are supposed to be for startup
-cd /opt/app/misshtbt/bin
+cd /app/bin
 
 # include path to 3.6+ version of python that has required dependencies included
-export PATH=/usr/local/lib/python3.6/bin:$PATH:/opt/app/misshtbt/bin
+export PATH=/usr/local/lib/python3.8/bin:$PATH:/app/bin
 
 # expand search for python modules to include ./mod in runtime dir
-export PYTHONPATH=/usr/local/lib/python3.6/site-packages:./mod:./:$PYTHONPATH:/opt/app/misshtbt/bin
+export PYTHONPATH=/usr/local/lib/python3.8/site-packages:./mod:./:$PYTHONPATH:/app/bin
 
 # set location of SSL certificates
 export REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-bundle.crt

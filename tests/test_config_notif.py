@@ -1,5 +1,6 @@
 # ============LICENSE_START=======================================================
 # Copyright (c) 2020 AT&T Intellectual Property. All rights reserved.
+# Copyright 2020 Deutsche Telekom. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -14,10 +15,10 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 
-from miss_htbt_service import config_notif
+import config_notif
 # from miss_htbt_service.mod.trapd_get_cbs_config import get_cbs_config
-import miss_htbt_service.mod.trapd_get_cbs_config
-import miss_htbt_service.mod.trapd_settings
+import mod.trapd_get_cbs_config
+import mod.trapd_settings
 
 from . import monkey_psycopg2
 import psycopg2
@@ -204,7 +205,7 @@ def monkeypatch_get_cbs_config_False():
     Required side affect: c_config is set to a json value
     """
     print("monkeypatch_get_cbs_config_False()")
-    miss_htbt_service.mod.trapd_settings.c_config = { "patch": "false" }
+    mod.trapd_settings.c_config = { "patch": "false" }
     return False
 
 def monkeypatch_get_cbs_config_True():
@@ -213,14 +214,14 @@ def monkeypatch_get_cbs_config_True():
     Required side affect: c_config is set to a json value
     """
     print("monkeypatch_get_cbs_config_True()")
-    miss_htbt_service.mod.trapd_settings.c_config = { "patch": "true" }
+    mod.trapd_settings.c_config = { "patch": "true" }
     return True
 
 def test_fetch_json_file_get_cbs_config_is_true(monkeypatch):
     """
     test fetch_json_file() with get_cbs_config() returning True
     """
-    monkeypatch.setattr(miss_htbt_service.mod.trapd_get_cbs_config, 'get_cbs_config', monkeypatch_get_cbs_config_True)
+    monkeypatch.setattr(mod.trapd_get_cbs_config, 'get_cbs_config', monkeypatch_get_cbs_config_True)
     tmp1 = tempfile.NamedTemporaryFile(mode="w+")
     tmp2 = tempfile.NamedTemporaryFile(mode="w+")
     output = config_notif.fetch_json_file(download_json = tmp1.name, config_json = tmp2.name)
@@ -234,7 +235,7 @@ def test_fetch_json_file_get_cbs_config_is_false(monkeypatch):
     """
     test fetch_json_file() with get_cbs_config() returning False
     """
-    monkeypatch.setattr(miss_htbt_service.mod.trapd_get_cbs_config, 'get_cbs_config', monkeypatch_get_cbs_config_False)
+    monkeypatch.setattr(mod.trapd_get_cbs_config, 'get_cbs_config', monkeypatch_get_cbs_config_False)
     tmp1 = tempfile.NamedTemporaryFile(mode="w+")
     tmp2 = tempfile.NamedTemporaryFile(mode="w+")
     output = config_notif.fetch_json_file(download_json = tmp1.name, config_json = tmp2.name)
@@ -263,7 +264,7 @@ def test_config_notif_run_good(monkeypatch):
     everything good: "dbname" found (from below JSON info), "hb_common" listed in tables
     and hb_common has data.
     """
-    monkeypatch.setattr(miss_htbt_service.config_notif, 'fetch_json_file', monkeypatch_fetch_json_file)
+    monkeypatch.setattr(config_notif, 'fetch_json_file', monkeypatch_fetch_json_file)
 
     tmp = tempfile.NamedTemporaryFile(mode="w+")
     global FETCH_JSON_FILE
@@ -307,7 +308,7 @@ def test_config_notif_run_fail1(monkeypatch):
     Failure case 1: "dbname" NOT found (from below JSON info), "hb_common" listed in tables
     and hb_common has data.
     """
-    monkeypatch.setattr(miss_htbt_service.config_notif, 'fetch_json_file', monkeypatch_fetch_json_file)
+    monkeypatch.setattr(config_notif, 'fetch_json_file', monkeypatch_fetch_json_file)
 
     tmp = tempfile.NamedTemporaryFile(mode="w+")
     global FETCH_JSON_FILE
@@ -351,7 +352,7 @@ def test_config_notif_run_fail2(monkeypatch):
     Failure case 2: "dbname" found (from below JSON info), "hb_common" NOT listed in tables
     and hb_common has data.
     """
-    monkeypatch.setattr(miss_htbt_service.config_notif, 'fetch_json_file', monkeypatch_fetch_json_file)
+    monkeypatch.setattr(config_notif, 'fetch_json_file', monkeypatch_fetch_json_file)
 
     tmp = tempfile.NamedTemporaryFile(mode="w+")
     global FETCH_JSON_FILE
@@ -395,8 +396,8 @@ def test_config_notif_run_fail3(monkeypatch):
     Failure case 3: "dbname" found (from below JSON info), "hb_common" listed in tables
     and update_hb_common() fails
     """
-    monkeypatch.setattr(miss_htbt_service.config_notif, 'fetch_json_file', monkeypatch_fetch_json_file)
-    monkeypatch.setattr(miss_htbt_service.config_notif, 'update_hb_common', monkeypatch_return_False)
+    monkeypatch.setattr(config_notif, 'fetch_json_file', monkeypatch_fetch_json_file)
+    monkeypatch.setattr(config_notif, 'update_hb_common', monkeypatch_return_False)
 
     tmp = tempfile.NamedTemporaryFile(mode="w+")
     global FETCH_JSON_FILE

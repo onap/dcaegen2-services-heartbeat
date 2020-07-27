@@ -34,11 +34,10 @@ from setuptools import setup, find_packages
 setup(
     name='miss_htbt_service',
     description='Missing heartbeat microservice to communicate with policy-engine',
-    version='2.1.0',
+    version='2.1.1',
     #packages=find_packages(exclude=["tests.*", "tests"]),
     packages=find_packages(),
     install_requires=[
-"request==1.0.1",
 "requests==2.18.3",
 "onap_dcae_cbs_docker_client==1.0.1",
 "six==1.10.0",
@@ -46,7 +45,8 @@ setup(
 "httplib2==0.9.2",
 "HTTPretty==0.8.14",
 "pyOpenSSL==17.5.0",
-"Wheel==0.31.0"
+"Wheel==0.31.0",
+"psycopg2-binary==2.8.5"
     ],
     author = "Vijay Venkatesh Kumar",
     author_email = "vv770d@att.com",

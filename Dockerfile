@@ -1,13 +1,17 @@
-FROM python:3.6
+FROM python:3.8.2-alpine3.11
 MAINTAINER gs244f@att.com
 
-ENV INSROOT /opt/app
-ENV APPUSER misshtbt
-ENV APPDIR ${INSROOT}/${APPUSER}
+ARG user=onap
+ARG group=onap
 
-RUN useradd -d ${APPDIR} ${APPUSER}
-
-WORKDIR ${APPDIR}
+RUN addgroup -S $group && adduser -S -D -h /home/$user $user $group && \
+    chown -R $user:$group /home/$user &&  \
+    mkdir /var/log/$user && \
+    chown -R $user:$group /var/log/$user && \
+    mkdir /app && \
+    chown -R $user:$group /app
+	
+WORKDIR /app
 
 #ADD . /tmp
 #RUN mkdir /tmp/config
@@ -20,27 +24,27 @@ COPY requirements.txt ./
 COPY setup.py ./
 
 #need pip > 8 to have internal pypi repo in requirements.txt
-RUN pip install --upgrade pip
 #do the install
-#WORKDIR /tmp
-RUN pip install pyyaml --upgrade
-RUN pip install -r requirements.txt
-RUN pip install -e .
+RUN apk add build-base libffi-dev postgresql-dev && \
+    pip install --upgrade pip && \
+    pip install pyyaml --upgrade && \
+    pip install -r requirements.txt && \
+    pip install -e .
 
-RUN mkdir -p ${APPDIR}/data \
- && mkdir -p ${APPDIR}/logs \
- && mkdir -p ${APPDIR}/tmp \
- && chown -R ${APPUSER}:${APPUSER} ${APPDIR} \
- && chmod a+w ${APPDIR}/data \
- && chmod a+w ${APPDIR}/logs \
- && chmod a+w ${APPDIR}/tmp \
- && chmod a+w ${APPDIR}/etc \
- && chmod 500 ${APPDIR}/bin/*.py \
- && chmod 500 ${APPDIR}/bin/*.sh \
- && chmod 500 ${APPDIR}/bin/*/*.py
+RUN mkdir -p data \
+ && mkdir -p logs \
+ && mkdir -p tmp \
+ && chown -R $user:$group . \
+ && chmod a+w data \
+ && chmod a+w logs \
+ && chmod a+w tmp \
+ && chmod a+w etc \
+ && chmod 500 bin/*.py \
+ && chmod 500 bin/*.sh \
+ && chmod 500 bin/*/*.py
 
-USER ${APPUSER}
-VOLUME ${APPDIR}/logs
+USER $user
+VOLUME logs
 
 CMD ["./bin/misshtbt.sh"]
 
