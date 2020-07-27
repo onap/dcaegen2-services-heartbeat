@@ -33,9 +33,9 @@ import time
 import traceback
 import collections
 from onap_dcae_cbs_docker_client.client import get_config
-from . import trapd_settings as tds
-from .trapd_exit import cleanup,cleanup_and_exit
-from .trapd_io import stdout_logger
+from mod import trapd_settings as tds
+from mod.trapd_exit import cleanup,cleanup_and_exit
+from mod.trapd_io import stdout_logger
 
 prog_name = os.path.basename(__file__)
 

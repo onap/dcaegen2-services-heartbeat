@@ -27,7 +27,7 @@ __docformat__ = 'restructuredtext'
 import sys
 import os
 import string
-from .trapd_runtime_pid import save_pid, rm_pid
+from mod.trapd_runtime_pid import save_pid, rm_pid
 
 prog_name = os.path.basename(__file__)
 
