@@ -35,12 +35,12 @@ import time
 import subprocess
 from onap_dcae_cbs_docker_client.client import get_config
 
-from .. import get_logger
-from .. import db_monitoring as dbmon
-from .. import htbtworker as pm
-from .. import misshtbtd as db
-from .. import config_notif as cf
-from .. import cbs_polling as cbs
+import get_logger
+import db_monitoring as dbmon
+import htbtworker as pm
+import misshtbtd as db
+import config_notif as cf
+import cbs_polling as cbs
 
 
 prog_name = os.path.basename(__file__)

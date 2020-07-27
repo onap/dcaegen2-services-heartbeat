@@ -137,7 +137,7 @@ run_tox_test()
     source ./venv-tox/bin/activate
     pip install pip==10.0.1
     pip install --upgrade argparse
-    pip install tox==2.9.1
+    pip install tox==2.18.0
     pip freeze
     tox
     deactivate

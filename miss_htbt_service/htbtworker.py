@@ -25,8 +25,8 @@ import os
 import os.path as path
 import json,sys,time
 import logging
-from . import misshtbtd as db
-from . import get_logger
+import misshtbtd as db
+import get_logger
 
 _logger = get_logger.get_logger(__name__)
 
