@@ -36,8 +36,8 @@ import time
 import traceback
 import unicodedata
 # dcae_snmptrap
-from . import trapd_settings as tds
-from .trapd_exit import cleanup_and_exit
+import mod.trapd_settings as tds
+from mod.trapd_exit import cleanup_and_exit
 
 prog_name = os.path.basename(__file__)
 

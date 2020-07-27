@@ -36,7 +36,7 @@ limitations under the License.
   <groupId>org.onap.dcaegen2.services</groupId>
   <artifactId>heartbeat</artifactId>
   <name>dcaegen2-services-heartbeat</name>
-  <version>2.1.0</version>
+  <version>2.1.1</version>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <sonar.sources>.</sonar.sources>

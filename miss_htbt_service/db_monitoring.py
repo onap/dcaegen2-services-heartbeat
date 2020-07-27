@@ -28,9 +28,9 @@ import os
 import logging
 import socket
 import requests
-from . import htbtworker as pm
-from . import misshtbtd as db
-from . import get_logger
+import htbtworker as pm
+import misshtbtd as db
+import get_logger
 
 _logger = get_logger.get_logger(__name__)
 

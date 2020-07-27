@@ -39,13 +39,13 @@ import socket
 import os.path as path
 from pathlib import Path
 
-from . import htbtworker as heartbeat
-from . import get_logger
-from .mod import trapd_settings as tds
-from .mod.trapd_runtime_pid import save_pid, rm_pid
-from .mod.trapd_get_cbs_config import get_cbs_config
-from .mod.trapd_exit import cleanup_and_exit
-from .mod.trapd_http_session import init_session_obj
+import htbtworker as heartbeat
+import get_logger
+from mod import trapd_settings as tds
+from mod.trapd_runtime_pid import save_pid, rm_pid
+from mod.trapd_get_cbs_config import get_cbs_config
+from mod.trapd_exit import cleanup_and_exit
+from mod.trapd_http_session import init_session_obj
 
 hb_properties_file =  path.abspath(path.join(__file__, "../config/hbproperties.yaml"))
 ip_address = "localhost"
@@ -196,18 +196,18 @@ def create_update_vnf_table_1(jsfile,update_db,connection_db):
 def hb_cbs_polling_process(pid_current):
         my_file = Path("./miss_htbt_service/cbs_polling.py")
 #        if my_file.is_file():
-        subprocess.call(["python3.6",ABSOLUTE_PATH4 , str(pid_current) ])
+        subprocess.call(["python3.8",ABSOLUTE_PATH4 , str(pid_current) ])
 #        else:
-#          subprocess.call(["python3.6",ABSOLUTE_PATH4 , str(pid_current) ])
+#          subprocess.call(["python3.8",ABSOLUTE_PATH4 , str(pid_current) ])
         sys.stdout.flush()
         _logger.info("MSHBT:Creaated CBS polling process")
         return
 def hb_worker_process(config_file_path):
         my_file = Path("./miss_htbt_service/htbtworker.py")
 #        if my_file.is_file():
-        subprocess.call(["python3.6",ABSOLUTE_PATH1 , config_file_path ])
+        subprocess.call(["python3.8",ABSOLUTE_PATH1 , config_file_path ])
 #        else:
-#          subprocess.call(["python3.6",ABSOLUTE_PATH1 , config_file_path ])
+#          subprocess.call(["python3.8",ABSOLUTE_PATH1 , config_file_path ])
         sys.stdout.flush()
         _logger.info("MSHBT:Creaated Heartbeat worker process")
         return
@@ -215,9 +215,9 @@ def hb_worker_process(config_file_path):
 def db_monitoring_process(current_pid,jsfile):
         my_file = Path("./miss_htbt_service/db_monitoring.py")
 #        if my_file.is_file():
-        subprocess.call(["python3.6",ABSOLUTE_PATH2 , str(current_pid),jsfile])
+        subprocess.call(["python3.8",ABSOLUTE_PATH2 , str(current_pid),jsfile])
 #        else:
-#          subprocess.call(["python3.6",ABSOLUTE_PATH2 , str(current_pid),jsfile])
+#          subprocess.call(["python3.8",ABSOLUTE_PATH2 , str(current_pid),jsfile])
         sys.stdout.flush()
         _logger.info("MSHBT:Creaated DB Monitoring process")
         return
@@ -339,7 +339,7 @@ _logger = get_logger.get_logger(__name__)
 
 def main():
     try:
-        p = subprocess.Popen(['python3.6',ABSOLUTE_PATH3],stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+        p = subprocess.Popen(['python3.8',ABSOLUTE_PATH3],stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
         _logger.info("MSHBD:Execution Started")
         job_list = []
         pid_current = os.getpid()
