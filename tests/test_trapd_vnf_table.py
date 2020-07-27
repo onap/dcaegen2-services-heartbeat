@@ -26,11 +26,11 @@ import unittest
 import sys
 import pytest
 import logging
-from miss_htbt_service import misshtbtd as db
-from miss_htbt_service import htbtworker as pm
-from miss_htbt_service import db_monitoring as dbmon
-from miss_htbt_service import get_logger
-from miss_htbt_service.mod.trapd_vnf_table import (
+import misshtbtd as db
+import htbtworker as pm
+import db_monitoring as dbmon
+import get_logger
+from mod.trapd_vnf_table import (
     verify_DB_creation_1, verify_DB_creation_2, verify_DB_creation_hb_common,
     verify_cbsPolling_required, hb_properties, verify_cbspolling,
     verify_sendControlLoop_VNF_ONSET, verify_sendControlLoop_VM_ONSET,
