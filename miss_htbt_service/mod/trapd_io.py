@@ -3,6 +3,7 @@
 # ================================================================================
 # Copyright (c) 2018-2020 AT&T Intellectual Property. All rights reserved.
 # Copyright (c) 2019 Pantheon.tech. All rights reserved.
+# Copyright 2020 Deutsche Telekom. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -36,8 +37,8 @@ import time
 import traceback
 import unicodedata
 # dcae_snmptrap
-from . import trapd_settings as tds
-from .trapd_exit import cleanup_and_exit
+import mod.trapd_settings as tds
+from mod.trapd_exit import cleanup_and_exit
 
 prog_name = os.path.basename(__file__)
 
