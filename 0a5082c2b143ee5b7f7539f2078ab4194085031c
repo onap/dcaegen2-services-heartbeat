@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "90c34f9c_6361d770",
+        "filename": "miss_htbt_service/cbs_polling.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-07-28T12:36:04Z",
+      "side": 1,
+      "message": "add tmobile copyright 2020",
+      "revId": "0a5082c2b143ee5b7f7539f2078ab4194085031c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84a63832_92dec19c",
+        "filename": "miss_htbt_service/config_notif.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-07-28T12:36:04Z",
+      "side": 1,
+      "message": "add tmobile copyright 2020",
+      "revId": "0a5082c2b143ee5b7f7539f2078ab4194085031c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67c62413_89bb3f07",
+        "filename": "miss_htbt_service/db_monitoring.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-07-28T12:36:04Z",
+      "side": 1,
+      "message": "add tmobile copyright 2020",
+      "revId": "0a5082c2b143ee5b7f7539f2078ab4194085031c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f5c83a8_0a06c7da",
+        "filename": "miss_htbt_service/htbtworker.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-07-28T12:36:04Z",
+      "side": 1,
+      "message": "add tmobile copyright 2020",
+      "revId": "0a5082c2b143ee5b7f7539f2078ab4194085031c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4040fe4b_5f8766dd",
+        "filename": "miss_htbt_service/misshtbt.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-07-28T12:36:04Z",
+      "side": 1,
+      "message": "#!/bin/sh",
+      "revId": "0a5082c2b143ee5b7f7539f2078ab4194085031c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66a30552_f462c94e",
+        "filename": "miss_htbt_service/misshtbtd.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-07-28T12:36:04Z",
+      "side": 1,
+      "message": "add tmobile copyright 2020",
+      "revId": "0a5082c2b143ee5b7f7539f2078ab4194085031c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec308a39_0135283e",
+        "filename": "miss_htbt_service/mod/trapd_exit.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-07-28T12:36:04Z",
+      "side": 1,
+      "message": "add tmobile copyright 2020",
+      "revId": "0a5082c2b143ee5b7f7539f2078ab4194085031c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "520c389a_53e26afd",
+        "filename": "miss_htbt_service/mod/trapd_get_cbs_config.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-07-28T12:36:04Z",
+      "side": 1,
+      "message": "add tmobile copyright 2020",
+      "revId": "0a5082c2b143ee5b7f7539f2078ab4194085031c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "19136e1b_be1518a8",
+        "filename": "tests/test_config_notif.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-07-28T12:36:04Z",
+      "side": 1,
+      "message": "add tmobile copyright 2020",
+      "revId": "0a5082c2b143ee5b7f7539f2078ab4194085031c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb2f95bd_68586f04",
+        "filename": "tests/test_trapd_vnf_table.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-07-28T12:36:04Z",
+      "side": 1,
+      "message": "add tmobile copyright 2020",
+      "revId": "0a5082c2b143ee5b7f7539f2078ab4194085031c",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
