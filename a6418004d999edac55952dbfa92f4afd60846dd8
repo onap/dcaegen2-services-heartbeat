@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "824af082_f9fd86a0",
+        "filename": "miss_htbt_service/misshtbt.sh",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2020-07-31T12:38:05Z",
+      "side": 1,
+      "message": "Please double check this. Is it REALLY /usr/sh and not /bin/sh ?????\nIn 40 years of working with Unix+Linux, I\u0027ve never seen sh installed anywhere except /bin/sh.",
+      "revId": "a6418004d999edac55952dbfa92f4afd60846dd8",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
