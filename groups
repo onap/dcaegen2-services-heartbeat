@@ -1,4 +1,5 @@
 # UUID                                                                                      	Group Name
 #
+ae9ec7218ef3b01a6c15624a8c545690f912eebd                                                    	saml/onap-gerrit-dcaegen2-services-heartbeat-committers
 daebbf523be390041a1a9c0e340a6d833aae5043                                                    	GitHub Replication
 ldap:cn=onap-gerrit-dcaegen2-services-heartbeat-committers,ou=Groups,dc=freestandards,dc=org	ldap/onap-gerrit-dcaegen2-services-heartbeat-committers
