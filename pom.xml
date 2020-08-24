@@ -45,7 +45,7 @@ limitations under the License.
     <sonar.language>py</sonar.language>
     <sonar.pluginname>python</sonar.pluginname>
     <sonar.inclusions>**/**.py</sonar.inclusions>
-    <sonar.exclusions>tests/*,setup.py</sonar.exclusions>
+    <sonar.exclusions>tests/*,build/*,setup.py</sonar.exclusions>
   </properties>
   <build>
     <finalName>${project.artifactId}-${project.version}</finalName>
