@@ -22,10 +22,10 @@
 cd /app/bin
 
 # include path to 3.6+ version of python that has required dependencies included
-export PATH=/usr/local/lib/python3.8/bin:$PATH:/app/bin
+#export PATH=/usr/local/lib/python3.9/bin:$PATH:/app/bin
 
 # expand search for python modules to include ./mod in runtime dir
-export PYTHONPATH=/usr/local/lib/python3.8/site-packages:./mod:./:$PYTHONPATH:/app/bin
+#export PYTHONPATH=/usr/local/lib/python3.9/site-packages:./mod:./:$PYTHONPATH:/app/bin
 
 # set location of SSL certificates
 export REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-bundle.crt
@@ -49,5 +49,5 @@ export REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-bundle.crt
 # python misshtbtd.py
 
 # unbuffered io for logs and verbose logging? Use this:
-python -u misshtbtd.py -v
+python3 -u misshtbtd.py -v
 
