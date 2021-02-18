@@ -1,5 +1,6 @@
 # ============LICENSE_START=======================================================
 # Copyright (c) 2017-2018 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2021 Samsung Electronics. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -34,7 +35,7 @@ from setuptools import setup, find_packages
 setup(
     name='miss_htbt_service',
     description='Missing heartbeat microservice to communicate with policy-engine',
-    version='2.1.1',
+    version='2.2.0',
     #packages=find_packages(exclude=["tests.*", "tests"]),
     packages=find_packages(),
     install_requires=[
