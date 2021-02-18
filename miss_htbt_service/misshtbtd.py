@@ -50,18 +50,7 @@ from mod.trapd_exit import cleanup_and_exit
 from mod.trapd_http_session import init_session_obj
 
 hb_properties_file =  path.abspath(path.join(__file__, "../config/hbproperties.yaml"))
-ip_address = "localhost"
-port_num = 5432
-user_name = "postgres"
-password = "postgres"
-db_name = "hb_vnf"
-cbs_polling_required = "true"
-cbs_polling_interval = 300
-mr_url = None
-pol_url = None
-update_db = 0
-jsfile='empty'
-import sys
+
 ABSOLUTE_PATH1 = path.abspath(path.join(__file__, "../htbtworker.py"))
 ABSOLUTE_PATH2 = path.abspath(path.join(__file__, "../db_monitoring.py"))
 ABSOLUTE_PATH3 = path.abspath(path.join(__file__, "../check_health.py"))
@@ -69,7 +58,6 @@ ABSOLUTE_PATH4 = path.abspath(path.join(__file__, "../cbs_polling.py"))
 
 def create_database(update_db, jsfile, ip_address, port_num, user_name, password, db_name):
     from psycopg2 import connect
-    import sys
     try:
         con = connect(user=user_name, host = ip_address, password = password)
         database_name = db_name
@@ -196,30 +184,18 @@ def create_update_vnf_table_1(jsfile,update_db,connection_db):
     _logger.info("MSHBT:Updated vnf_table_1 as per the json configuration file")
 
 def hb_cbs_polling_process(pid_current):
-        my_file = Path("./miss_htbt_service/cbs_polling.py")
-#        if my_file.is_file():
-        subprocess.call(["python3.8",ABSOLUTE_PATH4 , str(pid_current) ])
-#        else:
-#          subprocess.call(["python3.8",ABSOLUTE_PATH4 , str(pid_current) ])
+        subprocess.call([ABSOLUTE_PATH4 , str(pid_current) ])
         sys.stdout.flush()
         _logger.info("MSHBT:Creaated CBS polling process")
         return
 def hb_worker_process(config_file_path):
-        my_file = Path("./miss_htbt_service/htbtworker.py")
-#        if my_file.is_file():
-        subprocess.call(["python3.8",ABSOLUTE_PATH1 , config_file_path ])
-#        else:
-#          subprocess.call(["python3.8",ABSOLUTE_PATH1 , config_file_path ])
+        subprocess.call([ABSOLUTE_PATH1 , config_file_path ])
         sys.stdout.flush()
         _logger.info("MSHBT:Creaated Heartbeat worker process")
         return
 
 def db_monitoring_process(current_pid,jsfile):
-        my_file = Path("./miss_htbt_service/db_monitoring.py")
-#        if my_file.is_file():
-        subprocess.call(["python3.8",ABSOLUTE_PATH2 , str(current_pid),jsfile])
-#        else:
-#          subprocess.call(["python3.8",ABSOLUTE_PATH2 , str(current_pid),jsfile])
+        subprocess.call([ABSOLUTE_PATH2 , str(current_pid),jsfile])
         sys.stdout.flush()
         _logger.info("MSHBT:Creaated DB Monitoring process")
         return
@@ -341,7 +317,7 @@ _logger = get_logger.get_logger(__name__)
 
 def main():
     try:
-        p = subprocess.Popen(['python3.8',ABSOLUTE_PATH3],stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+        subprocess.Popen([ABSOLUTE_PATH3], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         _logger.info("MSHBD:Execution Started")
         job_list = []
         pid_current = os.getpid()
