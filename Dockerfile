@@ -1,57 +1,50 @@
-FROM python:3.8.2-alpine3.11
-MAINTAINER gs244f@att.com
+FROM nexus3.onap.org:10001/onap/integration-python:8.0.0
+LABEL maintainer="gs244f@att.com"
 
-ARG user=onap
-ARG group=onap
+ARG user=heartbeat
+ARG group=heartbeat
 
+USER root
 RUN addgroup -S $group && adduser -S -D -h /home/$user $user $group && \
     chown -R $user:$group /home/$user &&  \
-    mkdir /var/log/$user && \
+    mkdir -p /var/log/$user && \
     chown -R $user:$group /var/log/$user && \
-    mkdir /app && \
+    mkdir -p /app && \
     chown -R $user:$group /app
-	
-WORKDIR /app
 
-#ADD . /tmp
-#RUN mkdir /tmp/config
+WORKDIR /app
 
 EXPOSE 10002
 
-COPY ./miss_htbt_service/ ./bin/
-COPY ./etc/ ./etc/
-COPY requirements.txt ./
-COPY setup.py ./
+COPY --chown=$user:$group ./miss_htbt_service/ ./bin/
+COPY --chown=$user:$group ./etc/ ./etc/
+COPY --chown=$user:$group requirements.txt ./
+COPY --chown=$user:$group setup.py ./
 
-#need pip > 8 to have internal pypi repo in requirements.txt
-#do the install
-RUN apk add build-base libffi-dev postgresql-dev && \
+# install build dependencies for python packages,
+# install python packages
+# remove build dependencies
+RUN apk add --no-cache --virtual build-deps \
+    build-base libffi-dev postgresql-dev \
+    openssl-dev musl-dev python3-dev curl && \
+    apk add --no-cache libpq && \
+    curl https://sh.rustup.rs -sSf | sh -s -- -y && \
+    export PATH="$HOME/.cargo/bin/:$PATH" && \
+    source $HOME/.cargo/env && \
     pip install --upgrade pip && \
-    pip install pyyaml --upgrade && \
     pip install -r requirements.txt && \
-    pip install -e .
-
-RUN mkdir -p data \
- && mkdir -p logs \
- && mkdir -p tmp \
- && chown -R $user:$group . \
- && chmod a+w data \
- && chmod a+w logs \
- && chmod a+w tmp \
- && chmod a+w etc \
- && chmod 500 bin/*.py \
- && chmod 500 bin/*.sh \
- && chmod 500 bin/*/*.py
+    mkdir -p data logs tmp && \
+    chown -R $user:$group . && \
+    chmod g+w data logs tmp etc && \
+    chmod -R 500 bin/*.py && \
+    chmod 500 bin/*.sh && \
+    apk del build-deps && \
+    rustup self uninstall -y
 
 USER $user
 VOLUME logs
 
 CMD ["./bin/misshtbt.sh"]
 
-#ENV PYTHONPATH="/usr/local/lib/python3.6:/usr/local/lib/python3.6/site-packages:${PATH}"
-#ENV PYTHONPATH="/usr/local/lib/python3.6/site-packages:/usr/local/lib/python3.6"
-#ENV PYTHONPATH=/usr/local/lib/python3.6/site-packages:.
-#ENTRYPOINT ["/bin/python", "./bin/run.py"]
-#ENTRYPOINT ["/usr/bin/python","./bin/run.py" ]
-#ENTRYPOINT ["/usr/local/bin/python","./bin/misshtbtd.py" ]
-#ENTRYPOINT ["/bin/ls","-lR", "."]
+ENV PYTHONPATH="$PYTHONPATH:/usr/local/lib/python3.9/site-packages:/app/bin/mod:/app/bin"
+ENV PATH="$PATH:/app/bin"
