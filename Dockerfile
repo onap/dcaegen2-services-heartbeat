@@ -1,4 +1,4 @@
-FROM python:3.8.2-alpine3.11
+FROM nexus3.onap.org:10001/onap/integration-python:8.0.0
 MAINTAINER gs244f@att.com
 
 ARG user=onap
