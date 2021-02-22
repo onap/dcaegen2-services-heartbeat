@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c8b10808_6fa970b4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2021-02-22T18:18:24Z",
+      "side": 1,
+      "message": "Add also Issue-ID: DCAEGEN2-2420",
+      "revId": "a153bd3fc3239949a389c35f0f7c08a1d9eee78b",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
