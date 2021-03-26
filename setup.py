@@ -1,5 +1,6 @@
 # ============LICENSE_START=======================================================
 # Copyright (c) 2017-2018 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2021 Sasmung Electronics. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -41,11 +42,11 @@ setup(
 "requests==2.18.3",
 "onap_dcae_cbs_docker_client==1.0.1",
 "six==1.10.0",
-"PyYAML==3.12",
-"httplib2==0.9.2",
-"HTTPretty==0.8.14",
+"PyYAML==3.13",
+"httplib2==0.19.0",
+"HTTPretty==1.0.5",
 "pyOpenSSL==17.5.0",
-"Wheel==0.31.0",
+"Wheel==0.36.2",
 "psycopg2-binary==2.8.5"
     ],
     author = "Vijay Venkatesh Kumar",
