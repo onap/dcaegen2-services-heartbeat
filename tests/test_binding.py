@@ -1,6 +1,7 @@
 # ============LICENSE_START=======================================================
 # Copyright (c) 2017-2020 AT&T Intellectual Property. All rights reserved.
 # Copyright (c) 2019 Pantheon.tech. All rights reserved.
+# Copyright 2021 Samsung Electronics. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -25,7 +26,6 @@ import pytest
 import json
 import base64
 import errno
-import imp
 import time
 from pip._internal import main as _main
 from onap_dcae_cbs_docker_client.client import get_config
@@ -36,15 +36,6 @@ from miss_htbt_service.mod.trapd_vnf_table import hb_properties
 import unittest
 
 MODULE_EXTENSIONS = ('.py', '.pyc', '.pyo')
-
-def package_contents(package_name):
-    file, pathname, description = imp.find_module(package_name)
-    if file:
-        raise ImportError('Not a package: %r', package_name)
-    # Use a set because some may be both source and compiled.
-    return set([os.path.splitext(module)[0]
-        for module in os.listdir(pathname)
-        if module.endswith(MODULE_EXTENSIONS)])
 
 #####
 # MONKEYPATCHES
