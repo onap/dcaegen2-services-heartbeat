@@ -41,7 +41,7 @@ setup(
 "requests==2.23.0",
 "onap_dcae_cbs_docker_client==1.0.1",
 "six==1.15.0",
-"PyYAML==3.13",
+"PyYAML==5.4",
 "httplib2==0.19.0",
 "HTTPretty==1.0.5",
 "pyOpenSSL==20.0.1",

@@ -4,6 +4,7 @@
 # Copyright (c) 2017-2020 AT&T Intellectual Property. All rights reserved.
 # Copyright (c) 2019 Pantheon.tech. All rights reserved.
 # Copyright 2020 Deutsche Telekom. All rights reserved.
+# Copyright 2021 Samsung Electronics. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -51,7 +52,7 @@ _logger = get_logger.get_logger(__name__)
 def hb_properties():
 	#Read the hbproperties.yaml for postgress and CBS related data
 	s=open(hb_properties_file, 'r')
-	a=yaml.load(s)
+	a=yaml.full_load(s)
 	ip_address = a['pg_ipAddress']
 	port_num = a['pg_portNum']
 	user_name = a['pg_userName']
