@@ -3,6 +3,7 @@
 # Copyright (c) 2017-2020 AT&T Intellectual Property. All rights reserved.
 # Copyright (c) 2019 Pantheon.tech. All rights reserved.
 # Copyright 2020 Deutsche Telekom. All rights reserved.
+# Copyright 2021 Samsung Electronics. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -225,7 +226,7 @@ def db_monitoring_process(current_pid,jsfile):
 def read_hb_properties_default():
         #Read the hbproperties.yaml for postgress and CBS related data
         s=open(hb_properties_file, 'r')
-        a=yaml.load(s)
+        a=yaml.full_load(s)
 
         if((os.getenv('pg_ipAddress') is None) or (os.getenv('pg_portNum') is None) or (os.getenv('pg_userName') is None) or (os.getenv('pg_passwd') is None)):
            ip_address = a['pg_ipAddress']
