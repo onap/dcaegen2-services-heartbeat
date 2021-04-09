@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "59c35a16_110789b6",
+        "filename": "setup.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-04-09T00:39:18Z",
+      "side": 1,
+      "message": "Sasmung \u003d\u003e Samsung",
+      "revId": "e6ee6eac646d5dcfef328d65a805c5fb80217f9f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
