@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9337f26f_aafeb4e5",
+        "filename": "setup.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-04-09T00:40:30Z",
+      "side": 1,
+      "message": "Samsung instead of Sasmung",
+      "revId": "15b05bc6076f2963c9d994de4c3eed5d208ebdd4",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
