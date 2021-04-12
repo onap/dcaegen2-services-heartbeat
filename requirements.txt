@@ -6,4 +6,4 @@ httplib2==0.19.0
 HTTPretty==1.0.5
 pyOpenSSL==20.0.1
 Wheel==0.36.2
-psycopg2-binary==2.8.6
+psycopg2==2.8.6 --no-binary psycopg2

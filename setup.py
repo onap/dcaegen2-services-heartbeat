@@ -47,7 +47,7 @@ setup(
 "HTTPretty==1.0.5",
 "pyOpenSSL==20.0.1",
 "Wheel==0.36.2",
-"psycopg2-binary==2.8.6"
+"psycopg2==2.8.6"
     ],
     author = "Vijay Venkatesh Kumar",
     author_email = "vv770d@att.com",
