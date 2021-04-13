@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5bfe80e7_fa0465be",
+        "filename": "Dockerfile",
+        "patchSetId": 7
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-04-13T22:26:35Z",
+      "side": 1,
+      "message": "Why is \"./\" in the path?\nWhy is \"./mod\" in the path rather than $PWD/mod?\nSee https://wiki.onap.org/display/DW/Secure+Programming+Practices for more details on PATH hygiene.",
+      "revId": "b7f7542aafdf2a4eb31db69b43c6df69a47e344e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
