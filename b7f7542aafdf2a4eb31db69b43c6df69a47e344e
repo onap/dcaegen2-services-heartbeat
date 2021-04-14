@@ -16,6 +16,24 @@
       "revId": "b7f7542aafdf2a4eb31db69b43c6df69a47e344e",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11d83448_bc6fb76b",
+        "filename": "Dockerfile",
+        "patchSetId": 7
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 7352
+      },
+      "writtenOn": "2021-04-14T07:57:45Z",
+      "side": 1,
+      "message": "Good catch, I missed that when moving the paths from script to Dockerfile.",
+      "parentUuid": "5bfe80e7_fa0465be",
+      "revId": "b7f7542aafdf2a4eb31db69b43c6df69a47e344e",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
