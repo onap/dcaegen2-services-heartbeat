@@ -87,6 +87,23 @@
     },
     {
       "key": {
+        "uuid": "28598e4a_9ccb09a5",
+        "filename": "miss_htbt_service/misshtbtd.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-05-06T00:43:26Z",
+      "side": 1,
+      "message": "these variables, ip_address down through and including jsfile, are unused and should be removed. \nAlso, specifying a password here is a security violation.",
+      "revId": "89d34f4b484309d3d57a4e4ca1c8440c1ae8b52d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2f00e59e_62dd11b2",
         "filename": "miss_htbt_service/misshtbtd.py",
         "patchSetId": 10
