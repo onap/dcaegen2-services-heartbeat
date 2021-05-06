@@ -1,0 +1,208 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d966e346_f755fc1b",
+        "filename": "miss_htbt_service/misshtbt.sh",
+        "patchSetId": 10
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-05-06T00:39:56Z",
+      "side": 1,
+      "message": "What happens if the cd fails?\n\nFrom running shellcheck:\n\nwarning: Use \u0027cd ... || exit\u0027 or \u0027cd ... || return\u0027 in case cd fails. [SC2164]",
+      "revId": "89d34f4b484309d3d57a4e4ca1c8440c1ae8b52d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9ff89418_0e2a99d6",
+        "filename": "miss_htbt_service/misshtbt.sh",
+        "patchSetId": 10
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-05-06T00:39:56Z",
+      "side": 1,
+      "message": "I think you SHOULD add /app/bin to $PATH:\n\nexport PATH\u003d\"$PATH\":/app/bin\n\nso that you can execute the executables there from the path.",
+      "revId": "89d34f4b484309d3d57a4e4ca1c8440c1ae8b52d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00625062_214aa693",
+        "filename": "miss_htbt_service/misshtbt.sh",
+        "patchSetId": 10
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-05-06T00:39:56Z",
+      "side": 1,
+      "message": "change python to python3",
+      "revId": "89d34f4b484309d3d57a4e4ca1c8440c1ae8b52d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbcd8b5d_2c07ea5a",
+        "filename": "miss_htbt_service/misshtbt.sh",
+        "patchSetId": 10
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-05-06T00:39:56Z",
+      "side": 1,
+      "message": "change to\n# misshtbtd.py -v",
+      "revId": "89d34f4b484309d3d57a4e4ca1c8440c1ae8b52d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe854f79_3bac672e",
+        "filename": "miss_htbt_service/misshtbt.sh",
+        "patchSetId": 10
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-05-06T00:39:56Z",
+      "side": 1,
+      "message": "change to\n# misshtbtd.py",
+      "revId": "89d34f4b484309d3d57a4e4ca1c8440c1ae8b52d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2f00e59e_62dd11b2",
+        "filename": "miss_htbt_service/misshtbtd.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-05-06T00:39:56Z",
+      "side": 1,
+      "message": "my_file is not used. Either comment out or remove entirely (preferred)",
+      "revId": "89d34f4b484309d3d57a4e4ca1c8440c1ae8b52d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8c48154_47821c65",
+        "filename": "miss_htbt_service/misshtbtd.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-05-06T00:39:56Z",
+      "side": 1,
+      "message": "These scripts all start with the proper #! and are properly executable.\nPlease remove the \"python3\" entirely from this list.",
+      "revId": "89d34f4b484309d3d57a4e4ca1c8440c1ae8b52d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96831bc9_efc37753",
+        "filename": "miss_htbt_service/misshtbtd.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-05-06T00:39:56Z",
+      "side": 1,
+      "message": "my_file is not used. Either comment out or remove entirely (preferred)",
+      "revId": "89d34f4b484309d3d57a4e4ca1c8440c1ae8b52d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8168390_915aae6d",
+        "filename": "miss_htbt_service/misshtbtd.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-05-06T00:39:56Z",
+      "side": 1,
+      "message": "These scripts all start with the proper #! and are properly executable.\nPlease remove the \"python3\" entirely from this list.",
+      "revId": "89d34f4b484309d3d57a4e4ca1c8440c1ae8b52d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "11ddae79_16106d00",
+        "filename": "miss_htbt_service/misshtbtd.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-05-06T00:39:56Z",
+      "side": 1,
+      "message": "my_file is not used. Either comment out or remove entirely (preferred)",
+      "revId": "89d34f4b484309d3d57a4e4ca1c8440c1ae8b52d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46e40bb3_26b30316",
+        "filename": "miss_htbt_service/misshtbtd.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-05-06T00:39:56Z",
+      "side": 1,
+      "message": "these scripts all start with the proper #!\n\nMake certain that they are installed with execution (chmod a+x) permissions, then remove the \"python3\" entirely from this list.",
+      "revId": "89d34f4b484309d3d57a4e4ca1c8440c1ae8b52d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02700943_1cc27846",
+        "filename": "miss_htbt_service/misshtbtd.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-05-06T00:39:56Z",
+      "side": 1,
+      "message": "These scripts all start with the proper #! and are properly executable.\nPlease remove the \"python3\" entirely from this list.\n\nAlso, p is unused after this. Should it be used for something? Or can you remove the declaration?",
+      "revId": "89d34f4b484309d3d57a4e4ca1c8440c1ae8b52d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
