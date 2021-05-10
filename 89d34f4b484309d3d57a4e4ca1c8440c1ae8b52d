@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "2f7e2412_efc83228",
+        "filename": "miss_htbt_service/misshtbt.sh",
+        "patchSetId": 10
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 7352
+      },
+      "writtenOn": "2021-05-10T23:28:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d966e346_f755fc1b",
+      "revId": "89d34f4b484309d3d57a4e4ca1c8440c1ae8b52d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ff89418_0e2a99d6",
         "filename": "miss_htbt_service/misshtbt.sh",
         "patchSetId": 10
@@ -33,6 +51,24 @@
       "revId": "89d34f4b484309d3d57a4e4ca1c8440c1ae8b52d",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d1987d7_347289c8",
+        "filename": "miss_htbt_service/misshtbt.sh",
+        "patchSetId": 10
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 7352
+      },
+      "writtenOn": "2021-05-10T23:28:23Z",
+      "side": 1,
+      "message": "removed as those are set now in the Dockerfile (without relative paths)",
+      "parentUuid": "9ff89418_0e2a99d6",
+      "revId": "89d34f4b484309d3d57a4e4ca1c8440c1ae8b52d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "c463c198_a677fceb",
+        "filename": "miss_htbt_service/misshtbt.sh",
+        "patchSetId": 10
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 7352
+      },
+      "writtenOn": "2021-05-10T23:28:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00625062_214aa693",
+      "revId": "89d34f4b484309d3d57a4e4ca1c8440c1ae8b52d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cbcd8b5d_2c07ea5a",
         "filename": "miss_htbt_service/misshtbt.sh",
         "patchSetId": 10
@@ -67,6 +121,24 @@
       "revId": "89d34f4b484309d3d57a4e4ca1c8440c1ae8b52d",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7cd4c23_9521089a",
+        "filename": "miss_htbt_service/misshtbt.sh",
+        "patchSetId": 10
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 7352
+      },
+      "writtenOn": "2021-05-10T23:28:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "cbcd8b5d_2c07ea5a",
+      "revId": "89d34f4b484309d3d57a4e4ca1c8440c1ae8b52d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "a9d7dc4a_2e0a8b82",
+        "filename": "miss_htbt_service/misshtbt.sh",
+        "patchSetId": 10
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 7352
+      },
+      "writtenOn": "2021-05-10T23:28:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fe854f79_3bac672e",
+      "revId": "89d34f4b484309d3d57a4e4ca1c8440c1ae8b52d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "28598e4a_9ccb09a5",
         "filename": "miss_htbt_service/misshtbtd.py",
         "patchSetId": 10
@@ -101,6 +191,24 @@
       "revId": "89d34f4b484309d3d57a4e4ca1c8440c1ae8b52d",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07f7a286_66983275",
+        "filename": "miss_htbt_service/misshtbtd.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 7352
+      },
+      "writtenOn": "2021-05-10T23:28:23Z",
+      "side": 1,
+      "message": "Yeah, this file alone gets a 0.87/10 score from pylint (with default values)\nThere are also:\n - unused imports\n - bad identation\n - superflous parenthesis\n - too long lines\n - too many arguments to functions\n - non pythonic variable names\n - bad import order etc\n - lack of docstrings",
+      "parentUuid": "28598e4a_9ccb09a5",
+      "revId": "89d34f4b484309d3d57a4e4ca1c8440c1ae8b52d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -121,6 +229,24 @@
     },
     {
       "key": {
+        "uuid": "4f7ddecd_1726682a",
+        "filename": "miss_htbt_service/misshtbtd.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 7352
+      },
+      "writtenOn": "2021-05-10T23:28:23Z",
+      "side": 1,
+      "message": "removed with accompanying commented-out code.",
+      "parentUuid": "2f00e59e_62dd11b2",
+      "revId": "89d34f4b484309d3d57a4e4ca1c8440c1ae8b52d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f8c48154_47821c65",
         "filename": "miss_htbt_service/misshtbtd.py",
         "patchSetId": 10
@@ -135,6 +261,24 @@
       "revId": "89d34f4b484309d3d57a4e4ca1c8440c1ae8b52d",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "74791e79_96252007",
+        "filename": "miss_htbt_service/misshtbtd.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 7352
+      },
+      "writtenOn": "2021-05-10T23:28:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f8c48154_47821c65",
+      "revId": "89d34f4b484309d3d57a4e4ca1c8440c1ae8b52d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -155,6 +299,24 @@
     },
     {
       "key": {
+        "uuid": "55366ae3_752070ea",
+        "filename": "miss_htbt_service/misshtbtd.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 7352
+      },
+      "writtenOn": "2021-05-10T23:28:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "96831bc9_efc37753",
+      "revId": "89d34f4b484309d3d57a4e4ca1c8440c1ae8b52d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a8168390_915aae6d",
         "filename": "miss_htbt_service/misshtbtd.py",
         "patchSetId": 10
@@ -169,6 +331,24 @@
       "revId": "89d34f4b484309d3d57a4e4ca1c8440c1ae8b52d",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "333c558a_16443335",
+        "filename": "miss_htbt_service/misshtbtd.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 7352
+      },
+      "writtenOn": "2021-05-10T23:28:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a8168390_915aae6d",
+      "revId": "89d34f4b484309d3d57a4e4ca1c8440c1ae8b52d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -189,6 +369,24 @@
     },
     {
       "key": {
+        "uuid": "bdc1afd1_bcfd99fe",
+        "filename": "miss_htbt_service/misshtbtd.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 7352
+      },
+      "writtenOn": "2021-05-10T23:28:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "11ddae79_16106d00",
+      "revId": "89d34f4b484309d3d57a4e4ca1c8440c1ae8b52d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "46e40bb3_26b30316",
         "filename": "miss_htbt_service/misshtbtd.py",
         "patchSetId": 10
@@ -206,6 +404,24 @@
     },
     {
       "key": {
+        "uuid": "4359c256_798a9e91",
+        "filename": "miss_htbt_service/misshtbtd.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 7352
+      },
+      "writtenOn": "2021-05-10T23:28:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "46e40bb3_26b30316",
+      "revId": "89d34f4b484309d3d57a4e4ca1c8440c1ae8b52d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "02700943_1cc27846",
         "filename": "miss_htbt_service/misshtbtd.py",
         "patchSetId": 10
@@ -220,6 +436,24 @@
       "revId": "89d34f4b484309d3d57a4e4ca1c8440c1ae8b52d",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fdc3f62_eb026305",
+        "filename": "miss_htbt_service/misshtbtd.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 344,
+      "author": {
+        "id": 7352
+      },
+      "writtenOn": "2021-05-10T23:28:23Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "02700943_1cc27846",
+      "revId": "89d34f4b484309d3d57a4e4ca1c8440c1ae8b52d",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
