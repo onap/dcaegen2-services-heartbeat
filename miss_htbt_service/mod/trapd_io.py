@@ -25,20 +25,9 @@ __docformat__ = 'restructuredtext'
 
 # basics
 import datetime
-import errno
-import inspect
-import json
-import logging
-import logging.handlers
 import os
-import sys
-import string
-import time
-import traceback
-import unicodedata
+
 # dcae_snmptrap
-import mod.trapd_settings as tds
-from mod.trapd_exit import cleanup_and_exit
 
 prog_name = os.path.basename(__file__)
 

@@ -23,11 +23,7 @@ PID of currently running trap receiver)
 
 __docformat__ = 'restructuredtext'
 
-import logging
 import os
-import string
-import time
-import traceback
 
 prog_name = os.path.basename(__file__)
 

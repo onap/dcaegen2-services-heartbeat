@@ -24,8 +24,8 @@ messages to the dmaap cluster.
 __docformat__ = 'restructuredtext'
 
 import os
+
 import requests
-import traceback
 
 prog_name = os.path.basename(__file__)
 

@@ -21,6 +21,9 @@
 
 __docformat__ = 'restructuredtext'
 
+c_config = None
+test_mode = False
+
 
 def init():
 
