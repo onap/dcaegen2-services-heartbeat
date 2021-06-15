@@ -38,9 +38,6 @@ class test_cleanup_and_exit(unittest.TestCase):
             assert pytest_wrapped_sys_exit.type == SystemExit
             assert pytest_wrapped_sys_exit.value.code == 0
 
-        # compare = str(result).startswith("SystemExit: 0")
-        # self.assertEqual(compare, True)
-
     def test_abnormal_exit(self):
         """
         Test exit with missing PID file exits non-zero
@@ -49,6 +46,3 @@ class test_cleanup_and_exit(unittest.TestCase):
             result = trapd_exit.cleanup_and_exit(0,pid_file_dne)
             assert pytest_wrapped_sys_exit.type == SystemExit
             assert pytest_wrapped_sys_exit.value.code == 1
-
-#if __name__ == '__main__':
-#    unittest.main()

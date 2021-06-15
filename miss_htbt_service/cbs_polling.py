@@ -45,8 +45,6 @@ def pollCBS(current_pid):
         cbs_polling_interval = "30"
     time.sleep(int(cbs_polling_interval))
     hbc_pid, hbc_state, hbc_srcName, hbc_time = db.read_hb_common(user_name, password, ip_address, port_num, db_name)
-    # connection_db = pm.postgres_db_open(user_name,password,ip_address,port_num,db_name)
-    # cur = connection_db.cursor()
     source_name = socket.gethostname()
     source_name = source_name + "-" + str(os.getenv('SERVICE_NAME', ""))
     result = True

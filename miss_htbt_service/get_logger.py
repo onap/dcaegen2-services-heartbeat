@@ -19,7 +19,6 @@ import logging.handlers
 '''Configures the module root logger'''
 root = logging.getLogger()
 if root.handlers:
-    # root.handlers.clear()
     del root.handlers[:]
 formatter = logging.Formatter('%(asctime)s | %(name)s | %(module)s | %(funcName)s | %(lineno)d |  %(levelname)s | %(message)s')
 handler = logging.StreamHandler()
@@ -29,10 +28,6 @@ fhandler = logging.handlers.RotatingFileHandler('./hb_logs.txt', maxBytes=(10485
 fhandler.setFormatter(formatter)
 root.addHandler(fhandler)
 root.setLevel("DEBUG")
-
-
-class BadEnviornmentENVNotFound(Exception):
-    pass
 
 
 def get_logger(module=None):

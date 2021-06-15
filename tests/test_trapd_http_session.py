@@ -30,7 +30,3 @@ class test_init_session_obj(unittest.TestCase):
         result = trapd_http_session.init_session_obj()
         compare = str(result).startswith("<requests.sessions.Session object at")
         self.assertEqual(compare, True)
-
-
-#if __name__ == '__main__':
-#    unittest.main()

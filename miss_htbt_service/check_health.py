@@ -59,7 +59,6 @@ class GetHandler(BaseHTTPRequestHandler):
 if __name__ == '__main__':
     from http.server import HTTPServer
 
-    # from BaseHTTPServer import HTTPServer
     server = HTTPServer(("", 10002), GetHandler)
     print('Starting server at http://localhost:10002')
     server.serve_forever()

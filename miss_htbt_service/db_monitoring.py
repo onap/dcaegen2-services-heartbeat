@@ -115,7 +115,6 @@ def sendControlLoopEvent(CLType, pol_url, policy_version, policy_name, policy_sc
     payload = json_object
     msg = "DBM: CL Json object is", json_object
     _logger.info(msg)
-    # psend_url = pol_url+'DefaultGroup/1?timeout=15000'
     psend_url = pol_url
     msg = "DBM:", psend_url
     _logger.info(msg)

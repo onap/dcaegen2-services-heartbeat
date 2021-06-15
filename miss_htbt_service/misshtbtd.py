@@ -69,26 +69,12 @@ def create_database(update_db, jsfile, ip_address, port_num, user_name, password
             cur.execute(query_value)
         else:
             _logger.info("MSHBD:Database already exists")
-        '''
-        con = None
-        con = connect(user=user_name, host = ip_address, password=password)
-        database_name = db_name
-        con.autocommit = True
-        cur = con.cursor()
-        cur.execute('CREATE DATABASE %s IF NOT EXISTS %s' %(database_name,database_name))
-        '''
         cur.close()
         con.close()
     except(Exception) as err:
         msg = "MSHBD:DB Creation -", err
         _logger.error(msg)
 
-
-# def get_pol_and_mr_urls(jsfile, pol_url, mr_url):
-#    with open(jsfile, 'r') as outfile:
-#        cfg = json.load(outfile)
-#    mr_url = str(cfg['streams_subscribes']['ves-heartbeat']['dmaap_info']['topic_url'])
-#    pol_url = str(cfg['streams_publishes']['dcae_cl_out']['dmaap_info']['topic_url'])
 
 def read_hb_common(user_name, password, ip_address, port_num, db_name):
     envPytest = os.getenv('pytest', "")
@@ -156,7 +142,6 @@ def create_update_vnf_table_1(jsfile, update_db, connection_db):
         vnf_list = [item[0] for item in cur.fetchall()]
     for vnf in (jhbcfg['vnfs']):
         nfc = vnf['eventName']
-        # _logger.error("MSHBT:",nfc)
         validity_flag = 1
         source_name_count = 0
         missed = vnf['heartbeatcountmissed']
@@ -175,7 +160,6 @@ def create_update_vnf_table_1(jsfile, update_db, connection_db):
             query_value = "UPDATE vnf_table_1 SET HEARTBEAT_MISSED_COUNT='%d',HEARTBEAT_INTERVAL='%d', CLOSED_CONTROL_LOOP_NAME='%s',POLICY_VERSION='%s',POLICY_NAME='%s', POLICY_SCOPE='%s',TARGET_TYPE='%s', TARGET='%s',VERSION='%s',VALIDITY_FLAG='%d' where EVENT_NAME='%s'" % (missed, intvl, clloop, policyVersion, policyName, policyScope, target_type, target, version, validity_flag, nfc)
         if (envPytest != 'test'):
             cur.execute(query_value)
-    # heartbeat.commit_and_close_db(connection_db)
     if (envPytest != 'test'):
         cur.close()
     _logger.info("MSHBT:Updated vnf_table_1 as per the json configuration file")
@@ -259,7 +243,6 @@ def read_hb_properties(jsfile):
 
 def fetch_json_file():
     if get_cbs_config():
-        # current_runtime_config_file_name = tds.c_config['files.runtime_base_dir'] + "../etc/download.json"
         envPytest = os.getenv('pytest', "")
         if (envPytest == 'test'):
             current_runtime_config_file_name = "/tmp/opt/app/miss_htbt_service/etc/config.json"

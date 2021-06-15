@@ -103,6 +103,3 @@ class test_vnf_tables(unittest.TestCase):
         result= verify_sendControlLoop_VM_ABATED()
         _logger.info(result)
         self.assertEqual(result, True)
-
-#if __name__ == '__main__':
-#    unittest.main()
