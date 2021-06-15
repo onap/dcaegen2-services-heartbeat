@@ -33,32 +33,34 @@ _logger = get_logger.get_logger(__name__)
 def pollCBS(current_pid):
     jsfile = db.fetch_json_file()
     ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval = db.read_hb_properties(jsfile)
-    hbc_pid, hbc_state, hbc_srcName, hbc_time = db.read_hb_common(user_name,password,ip_address,port_num,db_name)
-    msg="CBSP:Main process ID in hb_common is %d",hbc_pid
+    hbc_pid, hbc_state, hbc_srcName, hbc_time = db.read_hb_common(user_name, password, ip_address, port_num, db_name)
+    msg = "CBSP:Main process ID in hb_common is %d", hbc_pid
     _logger.info(msg)
-    msg="CBSP:My parent process ID is %d",current_pid
+    msg = "CBSP:My parent process ID is %d", current_pid
     _logger.info(msg)
-    msg="CBSP:CBS Polling interval is %d", cbs_polling_interval
+    msg = "CBSP:CBS Polling interval is %d", cbs_polling_interval
     _logger.info(msg)
     envPytest = os.getenv('pytest', "")
     if (envPytest == 'test'):
-       cbs_polling_interval = "30"
+        cbs_polling_interval = "30"
     time.sleep(int(cbs_polling_interval))
-    hbc_pid, hbc_state, hbc_srcName, hbc_time = db.read_hb_common(user_name,password,ip_address,port_num,db_name)
-    #connection_db = pm.postgres_db_open(user_name,password,ip_address,port_num,db_name)
-    #cur = connection_db.cursor()
+    hbc_pid, hbc_state, hbc_srcName, hbc_time = db.read_hb_common(user_name, password, ip_address, port_num, db_name)
+    # connection_db = pm.postgres_db_open(user_name,password,ip_address,port_num,db_name)
+    # cur = connection_db.cursor()
     source_name = socket.gethostname()
     source_name = source_name + "-" + str(os.getenv('SERVICE_NAME', ""))
-    result= True
-    if(int(current_pid)==int(hbc_pid) and source_name==hbc_srcName and hbc_state == "RUNNING"):
+    result = True
+    if (int(current_pid) == int(hbc_pid) and source_name == hbc_srcName and hbc_state == "RUNNING"):
         _logger.info("CBSP:ACTIVE Instance:Change the state to RECONFIGURATION")
         state = "RECONFIGURATION"
         update_flg = 1
-        db.create_update_hb_common(update_flg, hbc_pid, state, user_name,password,ip_address,port_num,db_name)
+        db.create_update_hb_common(update_flg, hbc_pid, state, user_name, password, ip_address, port_num, db_name)
     else:
         _logger.info("CBSP:Inactive instance or hb_common state is not RUNNING")
     return result
+
+
 if __name__ == "__main__":
     current_pid = sys.argv[1]
-    while(True):
+    while (True):
         pollCBS(current_pid)
