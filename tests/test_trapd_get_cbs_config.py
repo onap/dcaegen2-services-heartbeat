@@ -1,6 +1,7 @@
 # ============LICENSE_START=======================================================
 # Copyright (c) 2017-2020 AT&T Intellectual Property. All rights reserved.
 # Copyright (c) 2019 Pantheon.tech. All rights reserved.
+# Copyright 2021 Fujitsu Ltd.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,12 +19,7 @@
 import pytest
 import unittest
 import os
-import sys
 
-from onap_dcae_cbs_docker_client.client import get_config
-from miss_htbt_service.mod.trapd_exit import cleanup_and_exit
-from miss_htbt_service.mod.trapd_io import stdout_logger
-from miss_htbt_service.mod import trapd_settings as tds
 from miss_htbt_service.mod import trapd_get_cbs_config
 
 class test_get_cbs_config(unittest.TestCase):

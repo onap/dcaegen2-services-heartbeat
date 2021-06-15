@@ -35,7 +35,7 @@ from setuptools import setup, find_packages
 setup(
     name='miss_htbt_service',
     description='Missing heartbeat microservice to communicate with policy-engine',
-    version='2.2.0',
+    version='2.3.0',
     #packages=find_packages(exclude=["tests.*", "tests"]),
     packages=find_packages(),
     install_requires=[

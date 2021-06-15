@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [Unreleased]
+### Changed
+- Cleanup code
+  - Removed unused imports
+
 ## [2.2.0.] - 07/04/2021
 ### Changed
 - Switched to currently recommended version of docker integration-python:8.0.0.
