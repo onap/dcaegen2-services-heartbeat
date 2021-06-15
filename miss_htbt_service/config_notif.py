@@ -199,7 +199,6 @@ def fetch_json_file(download_json="../etc/download1.json", config_json="../etc/c
     return jsfile
 
 
-# if __name__ == "__main__":
 def config_notif_run():
     jsfile = fetch_json_file()
     ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval = read_hb_properties(

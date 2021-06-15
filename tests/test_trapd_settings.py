@@ -80,7 +80,3 @@ class test_cleanup_and_exit(unittest.TestCase):
         except:
             result = False
         self.assertEqual(result, True)
-
-#if __name__ == '__main__':
-    # tds.init()
-#    unittest.main()

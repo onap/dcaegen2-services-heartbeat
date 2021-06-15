@@ -56,11 +56,7 @@ def save_pid(_pid_file_name):
     except IOError:
         print("IOError saving PID file %s :" % _pid_file_name)
         return False
-    # except:
-    #     print("Error saving PID file %s :" % _pid_file_name)
-    #     return False
     else:
-        # print("Runtime PID file:    %s" % _pid_file_name)
         return True
 
 
