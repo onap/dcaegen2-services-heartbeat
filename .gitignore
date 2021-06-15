@@ -9,3 +9,4 @@ hb_logs.txt
 .coverage
 xunit-results.xml
 miss_htbt_service.egg-info
+target/
