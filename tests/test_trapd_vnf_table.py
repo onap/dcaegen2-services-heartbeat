@@ -4,6 +4,7 @@
 # Copyright (c) 2017-2020 AT&T Intellectual Property. All rights reserved.
 # Copyright (c) 2019 Pantheon.tech. All rights reserved.
 # Copyright 2020 Deutsche Telekom. All rights reserved.
+# Copyright 2021 Fujitsu Ltd.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -24,12 +25,6 @@ test_trapd_vnf_table contains test cases related to DB Tables and cbs polling.
 """
 
 import unittest
-import sys
-import pytest
-import logging
-import misshtbtd as db
-import htbtworker as pm
-import db_monitoring as dbmon
 import get_logger
 from mod.trapd_vnf_table import (
     verify_DB_creation_1, verify_DB_creation_2, verify_DB_creation_hb_common,

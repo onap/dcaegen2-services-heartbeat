@@ -5,6 +5,7 @@
 # Copyright (c) 2019 Pantheon.tech. All rights reserved.
 # Copyright 2020 Deutsche Telekom. All rights reserved.
 # Copyright 2021 Samsung Electronics. All rights reserved.
+# Copyright 2021 Fujitsu Ltd.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -25,17 +26,11 @@
 trapd_vnf_table verifies the successful creation of DB Tables.
 """
 
-
-import psycopg2
 import os
-import sys
-import logging
 import yaml
 import os.path as path
-import json
 import time
 import subprocess
-from onap_dcae_cbs_docker_client.client import get_config
 
 import get_logger
 import db_monitoring as dbmon
@@ -43,7 +38,6 @@ import htbtworker as pm
 import misshtbtd as db
 import config_notif as cf
 import cbs_polling as cbs
-
 
 prog_name = os.path.basename(__file__)
 hb_properties_file =  path.abspath(path.join(__file__, "../../config/hbproperties.yaml"))

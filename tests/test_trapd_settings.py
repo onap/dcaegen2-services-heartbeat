@@ -1,6 +1,7 @@
 # ============LICENSE_START=======================================================
 # Copyright (c) 2017-2020 AT&T Intellectual Property. All rights reserved.
 # Copyright (c) 2019 Pantheon.tech. All rights reserved.
+# Copyright 2021 Fujitsu Ltd.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +16,6 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 
-import pytest
 import unittest
 
 from miss_htbt_service.mod import trapd_settings as tds
