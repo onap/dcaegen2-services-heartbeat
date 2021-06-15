@@ -1,6 +1,7 @@
 # ============LICENSE_START=======================================================
 # Copyright (c) 2020 AT&T Intellectual Property. All rights reserved.
 # Copyright 2020 Deutsche Telekom. All rights reserved.
+# Copyright 2021 Fujitsu Ltd.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,13 +17,12 @@
 # ============LICENSE_END=========================================================
 
 import config_notif
-# from miss_htbt_service.mod.trapd_get_cbs_config import get_cbs_config
 import mod.trapd_get_cbs_config
 import mod.trapd_settings
 
 from . import monkey_psycopg2
 import psycopg2
-import tempfile, sys, json, os
+import tempfile, json, os
 
 def assert_default_values(ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval):
     """

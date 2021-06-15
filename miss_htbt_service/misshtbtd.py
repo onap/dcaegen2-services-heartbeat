@@ -4,6 +4,7 @@
 # Copyright (c) 2019 Pantheon.tech. All rights reserved.
 # Copyright 2020 Deutsche Telekom. All rights reserved.
 # Copyright 2021 Samsung Electronics. All rights reserved.
+# Copyright 2021 Fujitsu Ltd.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -26,28 +27,22 @@
 #  - Download the CBS configuration and populate the DB
 #
 #  Author  Prakash Hosangady(ph553f@att.com)
+
 import traceback
 import os
 import sys
 import json
-import datetime
 import time
-import math
 import multiprocessing
-import logging
 import subprocess
 import yaml
 import socket
 import os.path as path
 from pathlib import Path
-
 import htbtworker as heartbeat
 import get_logger
 from mod import trapd_settings as tds
-from mod.trapd_runtime_pid import save_pid, rm_pid
 from mod.trapd_get_cbs_config import get_cbs_config
-from mod.trapd_exit import cleanup_and_exit
-from mod.trapd_http_session import init_session_obj
 
 hb_properties_file =  path.abspath(path.join(__file__, "../config/hbproperties.yaml"))
 
