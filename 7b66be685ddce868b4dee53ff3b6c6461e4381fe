@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "55e846ef_78e061ca",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 6310
+      },
+      "writtenOn": "2021-06-15T09:47:04Z",
+      "side": 1,
+      "message": "Please split you commit to allow easier review. \nYou can split by four categories like in commit message.",
+      "revId": "7b66be685ddce868b4dee53ff3b6c6461e4381fe",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
