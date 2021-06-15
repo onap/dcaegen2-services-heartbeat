@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Cleanup code
   - Removed unused imports
+- Add target/ to .gitignore
+
 
 ## [2.2.0.] - 07/04/2021
 ### Changed
