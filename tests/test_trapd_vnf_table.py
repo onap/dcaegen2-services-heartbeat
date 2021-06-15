@@ -24,12 +24,6 @@ test_trapd_vnf_table contains test cases related to DB Tables and cbs polling.
 """
 
 import unittest
-import sys
-import pytest
-import logging
-import misshtbtd as db
-import htbtworker as pm
-import db_monitoring as dbmon
 import get_logger
 from mod.trapd_vnf_table import (
     verify_DB_creation_1, verify_DB_creation_2, verify_DB_creation_hb_common,

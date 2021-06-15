@@ -20,14 +20,15 @@
 #    Tracks Heartbeat messages on input topic in DMaaP
 #    and poppulate the information in postgres DB
 
-import psycopg2
-import requests
+import json
 import os
 import os.path as path
-import json,sys,time
-import logging
-import misshtbtd as db
+import sys
+import time
+import psycopg2
+import requests
 import get_logger
+import misshtbtd as db
 
 _logger = get_logger.get_logger(__name__)
 

@@ -18,12 +18,7 @@
 import pytest
 import unittest
 import os
-import sys
 
-from onap_dcae_cbs_docker_client.client import get_config
-from miss_htbt_service.mod.trapd_exit import cleanup_and_exit
-from miss_htbt_service.mod.trapd_io import stdout_logger
-from miss_htbt_service.mod import trapd_settings as tds
 from miss_htbt_service.mod import trapd_get_cbs_config
 
 class test_get_cbs_config(unittest.TestCase):

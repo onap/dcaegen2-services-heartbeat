@@ -15,9 +15,7 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 
-import pytest
 import unittest
-import sys
 from miss_htbt_service.mod import trapd_http_session
 
 class test_init_session_obj(unittest.TestCase):

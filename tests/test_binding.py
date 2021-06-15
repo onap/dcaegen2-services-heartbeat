@@ -16,24 +16,10 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 
-import os
-import io
 import requests
 import httpretty
-import sys
 import subprocess
-import pytest
 import json
-import base64
-import errno
-import time
-from pip._internal import main as _main
-from onap_dcae_cbs_docker_client.client import get_config
-from miss_htbt_service import htbtworker
-from miss_htbt_service import misshtbtd
-from miss_htbt_service import db_monitoring
-from miss_htbt_service.mod.trapd_vnf_table import hb_properties
-import unittest
 
 MODULE_EXTENSIONS = ('.py', '.pyc', '.pyo')
 

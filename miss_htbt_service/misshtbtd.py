@@ -26,28 +26,21 @@
 #  - Download the CBS configuration and populate the DB
 #
 #  Author  Prakash Hosangady(ph553f@att.com)
-import traceback
-import os
-import sys
 import json
-import datetime
-import time
-import math
 import multiprocessing
-import logging
-import subprocess
-import yaml
-import socket
+import os
 import os.path as path
+import socket
+import subprocess
+import sys
+import time
+import traceback
 from pathlib import Path
-
-import htbtworker as heartbeat
+import yaml
 import get_logger
+import htbtworker as heartbeat
 from mod import trapd_settings as tds
-from mod.trapd_runtime_pid import save_pid, rm_pid
 from mod.trapd_get_cbs_config import get_cbs_config
-from mod.trapd_exit import cleanup_and_exit
-from mod.trapd_http_session import init_session_obj
 
 hb_properties_file =  path.abspath(path.join(__file__, "../config/hbproperties.yaml"))
 

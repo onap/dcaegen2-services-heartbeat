@@ -17,7 +17,6 @@
 
 import pytest
 import unittest
-import sys
 from miss_htbt_service.mod import trapd_exit
 
 pid_file="/tmp/test_pid_file"

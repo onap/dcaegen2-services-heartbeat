@@ -15,12 +15,10 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 
-from http.server import HTTPServer, BaseHTTPRequestHandler
+import json
+from http.server import BaseHTTPRequestHandler
 from urllib import parse
 
-#from BaseHTTPServer import BaseHTTPRequestHandler
-#import urlparse
-import json
 
 class GetHandler(BaseHTTPRequestHandler):
 

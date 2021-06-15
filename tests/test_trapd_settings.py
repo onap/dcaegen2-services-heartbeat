@@ -15,7 +15,6 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 
-import pytest
 import unittest
 
 from miss_htbt_service.mod import trapd_settings as tds

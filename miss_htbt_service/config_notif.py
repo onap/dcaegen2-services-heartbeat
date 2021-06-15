@@ -20,20 +20,18 @@
 #  Read the hb_common table
 #  Update the state to RECONFIGURATION and save the hb_common table
 
-import os
-import sched, datetime, time
-import string
-import sys
-import socket
-import yaml
 import json
-import psycopg2
-from pathlib import Path
+import os
 import os.path as path
-import mod.trapd_settings as tds
+import socket
+import time
+import psycopg2
+import yaml
+
 # use the fully qualified name here to let monkeypatching work
 # from .mod.trapd_get_cbs_config import get_cbs_config
 import mod.trapd_get_cbs_config
+import mod.trapd_settings as tds
 
 hb_properties_file =  path.abspath(path.join(__file__, "../config/hbproperties.yaml"))
 

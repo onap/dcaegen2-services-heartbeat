@@ -20,18 +20,15 @@
 #    Tracks Heartbeat messages on each of the VNFs stored in postgres DB
 #    and generates Missing Heartbeat signal for Policy Engine
 
-import math
-import sched, datetime, time
 import json
-import string
-import sys
 import os
-import logging
 import socket
+import sys
+import time
 import requests
+import get_logger
 import htbtworker as pm
 import misshtbtd as db
-import get_logger
 
 _logger = get_logger.get_logger(__name__)
 

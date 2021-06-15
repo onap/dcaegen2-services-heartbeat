@@ -14,8 +14,6 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 
-import os
-import logging
 import logging.handlers
 
 '''Configures the module root logger'''

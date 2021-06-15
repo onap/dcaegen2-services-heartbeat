@@ -16,13 +16,12 @@
 # ============LICENSE_END=========================================================
 
 import config_notif
-# from miss_htbt_service.mod.trapd_get_cbs_config import get_cbs_config
 import mod.trapd_get_cbs_config
 import mod.trapd_settings
 
 from . import monkey_psycopg2
 import psycopg2
-import tempfile, sys, json, os
+import tempfile, json, os
 
 def assert_default_values(ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval):
     """

@@ -20,16 +20,12 @@
 #    Set the hb_common table with state="RECONFIGURATION" periodically
 #    to get the new configuration downloaded
 
-import requests
-import sched, datetime, time
-import string
-import sys
 import os
 import socket
-import logging
-import htbtworker as pm
-import misshtbtd as db
+import sys
+import time
 import get_logger
+import misshtbtd as db
 
 _logger = get_logger.get_logger(__name__)
 

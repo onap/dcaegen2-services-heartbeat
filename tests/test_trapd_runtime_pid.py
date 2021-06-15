@@ -15,11 +15,8 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 
-import pytest
 import unittest
-import sys
 from miss_htbt_service.mod import trapd_runtime_pid
-from miss_htbt_service.mod import trapd_io
 
 class test_save_pid(unittest.TestCase):
     """
