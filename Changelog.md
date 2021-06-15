@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Cleanup code
   - Removed unused imports
+  - Reformatted code whitespace
 - Add target/ to .gitignore
 
 

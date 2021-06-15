@@ -39,7 +39,7 @@ class GetHandler(BaseHTTPRequestHandler):
             'sys_version=%s' % self.sys_version,
             'protocol_version=%s' % self.protocol_version,
             '',
-            ])
+        ])
         self.send_response(200)
         self.end_headers()
         self.wfile.write(bytes(message, 'utf-8'))
@@ -56,9 +56,11 @@ class GetHandler(BaseHTTPRequestHandler):
         self.wfile.write(bytes(data['health'], 'utf-8'))
         return
 
+
 if __name__ == '__main__':
     from http.server import HTTPServer
-    #from BaseHTTPServer import HTTPServer
+
+    # from BaseHTTPServer import HTTPServer
     server = HTTPServer(("", 10002), GetHandler)
     print('Starting server at http://localhost:10002')
     server.serve_forever()

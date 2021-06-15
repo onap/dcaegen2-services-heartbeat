@@ -20,23 +20,22 @@ import logging.handlers
 '''Configures the module root logger'''
 root = logging.getLogger()
 if root.handlers:
-    #root.handlers.clear()
+    # root.handlers.clear()
     del root.handlers[:]
 formatter = logging.Formatter('%(asctime)s | %(name)s | %(module)s | %(funcName)s | %(lineno)d |  %(levelname)s | %(message)s')
 handler = logging.StreamHandler()
 handler.setFormatter(formatter)
 root.addHandler(handler)
-fhandler = logging.handlers.RotatingFileHandler('./hb_logs.txt', maxBytes=(1048576*5), backupCount=10)
+fhandler = logging.handlers.RotatingFileHandler('./hb_logs.txt', maxBytes=(1048576 * 5), backupCount=10)
 fhandler.setFormatter(formatter)
 root.addHandler(fhandler)
 root.setLevel("DEBUG")
 
+
 class BadEnviornmentENVNotFound(Exception):
     pass
+
 
 def get_logger(module=None):
     '''Returns a module-specific logger or global logger if the module is None'''
     return root if module is None else root.getChild(module)
-
-
-
