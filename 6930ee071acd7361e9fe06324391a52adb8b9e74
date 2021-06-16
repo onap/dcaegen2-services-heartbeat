@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "860d6474_45546162",
+        "filename": "miss_htbt_service/config_notif.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-06-16T15:13:49Z",
+      "side": 1,
+      "message": "The string passed to cur.execute() does NOT need a trailing \";\" as part of it.\nBut I\u0027m not sure if you want to remove the trailing \";\" as part of this cleanup. For example, this line becomes:\n\ncur.execute(\"SELECT process_id, source_name, last_accessed_time, current_state FROM hb_common\")\n\nIf you don\u0027t want to change this now, please write a JIRA ticket to clean that up and respond with the JIRA number.",
+      "revId": "6930ee071acd7361e9fe06324391a52adb8b9e74",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee6486f8_6654338f",
+        "filename": "miss_htbt_service/htbtworker.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-06-16T15:13:49Z",
+      "side": 1,
+      "message": "Why not use a multiline \"\"\" string, like you use elsewhere when you changed to multiple lines?\n\nIf you don\u0027t want to change it, just say so.",
+      "revId": "6930ee071acd7361e9fe06324391a52adb8b9e74",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
