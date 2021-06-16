@@ -159,20 +159,19 @@ def db_monitoring(current_pid, json_file, user_name, password, ip_address, port_
         cur = connection_db.cursor()
         if (int(current_pid) == int(hbc_pid) and source_name == hbc_srcName and hbc_state == "RUNNING"):
             _logger.info("DBM: Active DB Monitoring Instance")
-            db_query = "Select event_name from vnf_table_1"
-            cur.execute(db_query)
+            cur.execute("SELECT event_name FROM vnf_table_1")
             vnf_list = [item[0] for item in cur.fetchall()]
             for event_name in vnf_list:
-                query_value = "SELECT current_state FROM hb_common;"
-                cur.execute(query_value)
+                cur.execute("SELECT current_state FROM hb_common")
                 rows = cur.fetchall()
                 hbc_state = rows[0][0]
                 if (hbc_state == "RECONFIGURATION"):
                     _logger.info("DBM:Waiting for hb_common state to become RUNNING")
                     break
 
-                db_query = "Select validity_flag,source_name_count,heartbeat_interval,heartbeat_missed_count,closed_control_loop_name,policy_version, policy_name,policy_scope, target_type,target,version from vnf_table_1 where event_name= '%s'" % (event_name)
-                cur.execute(db_query)
+                cur.execute("SELECT validity_flag, source_name_count, heartbeat_interval, heartbeat_missed_count, "
+                            "closed_control_loop_name, policy_version, policy_name, policy_scope, target_type, "
+                            "target, version FROM vnf_table_1 WHERE event_name = %s", (event_name,))
                 rows = cur.fetchall()
                 validity_flag = rows[0][0]
                 source_name_count = rows[0][1]
@@ -189,8 +188,8 @@ def db_monitoring(current_pid, json_file, user_name, password, ip_address, port_
                 if (validity_flag == 1):
                     for source_name_key in range(source_name_count):
                         epoc_time = int(round(time.time() * 1000))
-                        epoc_query = "Select last_epo_time,source_name,cl_flag from vnf_table_2 where event_name= '%s' and source_name_key=%d" % (event_name, (source_name_key + 1))
-                        cur.execute(epoc_query)
+                        cur.execute("SELECT last_epo_time, source_name, cl_flag FROM vnf_table_2 WHERE "
+                                    "event_name = %s AND source_name_key = %s", (event_name, (source_name_key + 1)))
                         row = cur.fetchall()
                         if (len(row) == 0):
                             continue
@@ -202,26 +201,24 @@ def db_monitoring(current_pid, json_file, user_name, password, ip_address, port_
                                                  target_type, srcName, epoc_time, closed_control_loop_name, version,
                                                  target)
                             cl_flag = 1
-                            update_query = "UPDATE vnf_table_2 SET CL_FLAG=%d where EVENT_NAME ='%s' and source_name_key=%d" % (cl_flag, event_name, (source_name_key + 1))
-                            cur.execute(update_query)
+                            cur.execute("UPDATE vnf_table_2 SET CL_FLAG = %s WHERE EVENT_NAME = %s AND "
+                                        "source_name_key = %s", (cl_flag, event_name, (source_name_key + 1)))
                             connection_db.commit()
                         elif ((epoc_time - epoc_time_sec) < comparision_time and cl_flag == 1):
                             sendControlLoopEvent("ABATED", pol_url, policy_version, policy_name, policy_scope,
                                                  target_type, srcName, epoc_time, closed_control_loop_name, version,
                                                  target)
                             cl_flag = 0
-                            update_query = "UPDATE vnf_table_2 SET CL_FLAG=%d where EVENT_NAME ='%s' and source_name_key=%d" % (cl_flag, event_name, (source_name_key + 1))
-                            cur.execute(update_query)
+                            cur.execute("UPDATE vnf_table_2 SET CL_FLAG = %s WHERE EVENT_NAME = %s AND "
+                                        "source_name_key = %s", (cl_flag, event_name, (source_name_key + 1)))
                             connection_db.commit()
 
                 else:  # pragma: no cover
                     msg = "DBM:DB Monitoring is ignored for %s since validity flag is 0" % (event_name)
                     _logger.info(msg)
 
-                    delete_query_table2 = "DELETE FROM vnf_table_2 WHERE EVENT_NAME = '%s';" % (event_name)
-                    cur.execute(delete_query_table2)
-                    delete_query = "DELETE FROM vnf_table_1 WHERE EVENT_NAME = '%s';" % (event_name)
-                    cur.execute(delete_query)
+                    cur.execute("DELETE FROM vnf_table_2 WHERE EVENT_NAME = %s", (event_name,))
+                    cur.execute("DELETE FROM vnf_table_1 WHERE EVENT_NAME = %s", (event_name,))
                     connection_db.commit()
                     """
                     Delete the VNF entry in table1 and delete all the source ids related to vnfs in table2
@@ -231,7 +228,7 @@ def db_monitoring(current_pid, json_file, user_name, password, ip_address, port_
             _logger.info(msg)
         pm.commit_and_close_db(connection_db)
         cur.close()
-        break;
+        break
 
 
 if __name__ == "__main__":

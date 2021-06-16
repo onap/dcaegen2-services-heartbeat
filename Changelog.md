@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.3.1.] - 19/06/2021
+### Security
+- Fixed SQL injection vulnerability
+
+
 ## [2.3.0.] - 18/06/2021
 ### Changed
 - Cleanup code
