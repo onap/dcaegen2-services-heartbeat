@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dd88fe65_74c5d1a8",
+        "filename": "miss_htbt_service/get_logger.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-06-16T01:36:00Z",
+      "side": 1,
+      "message": "please add a copyright line for your company",
+      "revId": "07a1cfce59de5682533f81ee1af29deb73ff709a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
