@@ -73,8 +73,7 @@ def process_msg(jsfile, user_name, password, ip_address, port_num, db_name):
         else:
             connection_db = postgres_db_open(user_name, password, ip_address, port_num, db_name)
             cur = connection_db.cursor()
-            db_query = "Select event_name from vnf_table_1"
-            cur.execute(db_query)
+            cur.execute("SELECT event_name FROM vnf_table_1")
             eventnameList = [item[0] for item in cur.fetchall()]
         msg = "\n\nHBT:eventnameList values ", eventnameList
         _logger.info(msg)
@@ -137,17 +136,21 @@ def process_msg(jsfile, user_name, password, ip_address, port_num, db_name):
             if (db_table_creation_check(connection_db, "vnf_table_2") == False):
                 msg = "HBT:Creating vnf_table_2"
                 _logger.info(msg)
-                cur.execute("CREATE TABLE vnf_table_2 (EVENT_NAME varchar , SOURCE_NAME_KEY integer , PRIMARY KEY(EVENT_NAME,SOURCE_NAME_KEY),LAST_EPO_TIME BIGINT, SOURCE_NAME varchar, CL_FLAG integer);")
+                cur.execute("CREATE TABLE vnf_table_2 ("
+                            "   EVENT_NAME varchar, "
+                            "   SOURCE_NAME_KEY integer, "
+                            "   PRIMARY KEY(EVENT_NAME, SOURCE_NAME_KEY), "
+                            "   LAST_EPO_TIME BIGINT, "
+                            "   SOURCE_NAME varchar, "
+                            "   CL_FLAG integer"
+                            ");")
             else:
                 msg = "HBT:vnf_table_2 is already there"
                 _logger.info(msg)
             if (eventName in eventnameList):  # pragma: no cover
-                db_query = "Select source_name_count from vnf_table_1 where event_name='%s'" % (eventName)
-                msg = "HBT:", db_query
-                _logger.info(msg)
                 if (os.getenv('pytest', "") == 'test'):
                     break
-                cur.execute(db_query)
+                cur.execute("SELECT source_name_count FROM vnf_table_1 WHERE event_name = %s", (eventName,))
                 row = cur.fetchone()
                 source_name_count = row[0]
                 source_name_key = source_name_count + 1
@@ -155,20 +158,16 @@ def process_msg(jsfile, user_name, password, ip_address, port_num, db_name):
                 if (source_name_count == 0):  # pragma: no cover
                     msg = "HBT: Insert entry in table_2,source_name_count=0 : ", row
                     _logger.info(msg)
-                    query_value = "INSERT INTO vnf_table_2 VALUES('%s',%d,%d,'%s',%d);" % (
-                    eventName, source_name_key, lastepo, srcname, cl_flag)
-                    cur.execute(query_value)
-                    update_query = "UPDATE vnf_table_1 SET SOURCE_NAME_COUNT='%d' where EVENT_NAME ='%s'" % (
-                    source_name_key, eventName)
-                    cur.execute(update_query)
+                    cur.execute("INSERT INTO vnf_table_2 VALUES(%s,%s,%s,%s,%s);",
+                                (eventName, source_name_key, lastepo, srcname, cl_flag))
+                    cur.execute("UPDATE vnf_table_1 SET SOURCE_NAME_COUNT = %s where EVENT_NAME = %s",
+                                (source_name_key, eventName))
                 else:  # pragma: no cover
                     msg = "HBT:event name, source_name & source_name_count are", eventName, srcname, source_name_count
                     _logger.info(msg)
                     for source_name_key in range(source_name_count):
-                        epoc_query = "Select source_name from vnf_table_2 where event_name= '%s' and source_name_key=%d" % (eventName, (source_name_key + 1))
-                        msg = "HBT:eppc query is", epoc_query
-                        _logger.info(msg)
-                        cur.execute(epoc_query)
+                        cur.execute("SELECT source_name FROM vnf_table_2 WHERE event_name = %s AND "
+                                    "source_name_key = %s", (eventName, (source_name_key + 1)))
                         row = cur.fetchall()
                         if (len(row) == 0):
                             continue
@@ -176,8 +175,9 @@ def process_msg(jsfile, user_name, password, ip_address, port_num, db_name):
                         if (db_srcname == srcname):
                             msg = "HBT: Update vnf_table_2 : ", source_name_key, row
                             _logger.info(msg)
-                            update_query = "UPDATE vnf_table_2 SET LAST_EPO_TIME='%d',SOURCE_NAME='%s' where EVENT_NAME='%s' and SOURCE_NAME_KEY=%d" % (lastepo, srcname, eventName, (source_name_key + 1))
-                            cur.execute(update_query)
+                            cur.execute("UPDATE vnf_table_2 SET LAST_EPO_TIME = %s, SOURCE_NAME = %s "
+                                        "WHERE EVENT_NAME = %s AND SOURCE_NAME_KEY = %s",
+                                        (lastepo, srcname, eventName, (source_name_key + 1)))
                             source_name_key = source_name_count
                             break
                         else:
@@ -188,11 +188,10 @@ def process_msg(jsfile, user_name, password, ip_address, port_num, db_name):
                         source_name_key = source_name_count + 1
                         msg = "HBT: Insert entry in table_2 : ", row
                         _logger.info(msg)
-                        insert_query = "INSERT INTO vnf_table_2 VALUES('%s',%d,%d,'%s',%d);" % (
-                        eventName, source_name_key, lastepo, srcname, cl_flag)
-                        cur.execute(insert_query)
-                        update_query = "UPDATE vnf_table_1 SET SOURCE_NAME_COUNT='%d' where EVENT_NAME ='%s'" % (source_name_key, eventName)
-                        cur.execute(update_query)
+                        cur.execute("INSERT INTO vnf_table_2 VALUES(%s,%s,%s,%s,%s);",
+                                    (eventName, source_name_key, lastepo, srcname, cl_flag))
+                        cur.execute("UPDATE vnf_table_1 SET SOURCE_NAME_COUNT = %s WHERE EVENT_NAME = %s",
+                                    (source_name_key, eventName))
             else:
                 _logger.info("HBT:eventName is not being monitored, Igonoring JSON message")
         commit_db(connection_db)
@@ -213,8 +212,7 @@ def db_table_creation_check(connection_db, table_name):
         return True
     try:
         cur = connection_db.cursor()
-        query_db = "select * from information_schema.tables where table_name='%s'" % (table_name)
-        cur.execute(query_db)
+        cur.execute("SELECT * FROM information_schema.tables WHERE table_name = %s", (table_name,))
         database_names = cur.fetchone()
         if (database_names is not None):
             if (table_name in database_names):
