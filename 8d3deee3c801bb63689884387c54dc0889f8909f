@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "c9798bd1_23977722",
+        "filename": "miss_htbt_service/misshtbtd.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5233
+      },
+      "writtenOn": "2021-06-16T11:49:19Z",
+      "side": 1,
+      "message": "Yes, definitely I\u0027d like to fix these database security issue, but before working on that, this patch is just intended to reformatting code (insert whitespaces, etc) so I left it as it was in this patch.\nI\u0027ll make a separate commit for the security fix.",
+      "parentUuid": "31ee23a6_ac90e3f0",
+      "revId": "8d3deee3c801bb63689884387c54dc0889f8909f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "20ee0ff5_8032e14c",
         "filename": "miss_htbt_service/misshtbtd.py",
         "patchSetId": 1
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "473bac57_3b63948e",
+        "filename": "miss_htbt_service/misshtbtd.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 5233
+      },
+      "writtenOn": "2021-06-16T11:49:19Z",
+      "side": 1,
+      "message": "I\u0027ll make a separate commit for the security fix.",
+      "parentUuid": "20ee0ff5_8032e14c",
+      "revId": "8d3deee3c801bb63689884387c54dc0889f8909f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e0995f64_26a19feb",
         "filename": "miss_htbt_service/misshtbtd.py",
         "patchSetId": 1
@@ -47,6 +83,24 @@
       "writtenOn": "2021-06-16T01:57:19Z",
       "side": 1,
       "message": "Add to the JIRA ticket to please remove these \u0027\u0027\u0027 lines.\n\n\u0027\u0027\u0027 is not a comment convention. Plus the cur.execute() call has the same bug as described above.",
+      "revId": "8d3deee3c801bb63689884387c54dc0889f8909f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f902d73_06ed918e",
+        "filename": "miss_htbt_service/misshtbtd.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 5233
+      },
+      "writtenOn": "2021-06-16T11:49:19Z",
+      "side": 1,
+      "message": "done in the subsequent patch: https://gerrit.onap.org/r/c/dcaegen2/services/heartbeat/+/121928/2",
+      "parentUuid": "e0995f64_26a19feb",
       "revId": "8d3deee3c801bb63689884387c54dc0889f8909f",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
