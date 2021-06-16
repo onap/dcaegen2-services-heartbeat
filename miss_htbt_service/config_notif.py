@@ -58,8 +58,7 @@ def db_table_creation_check(connection_db, table_name):
     cur = None
     try:
         cur = connection_db.cursor()
-        query_db = "select * from information_schema.tables where table_name='%s'" % (table_name)
-        cur.execute(query_db)
+        cur.execute("SELECT * FROM information_schema.tables WHERE table_name = %s", (table_name,))
         database_names = cur.fetchone()
         if (database_names is not None) and (table_name in database_names):
             print(f"FOUND the table {table_name}")
@@ -148,8 +147,7 @@ def read_hb_common(user_name, password, ip_address, port_num, db_name):
         return hbc_pid, hbc_state, hbc_srcName, hbc_time
     connection_db = postgres_db_open(user_name, password, ip_address, port_num, db_name)
     cur = connection_db.cursor()
-    query_value = "SELECT process_id,source_name,last_accessed_time,current_state FROM hb_common;"
-    cur.execute(query_value)
+    cur.execute("SELECT process_id, source_name, last_accessed_time, current_state FROM hb_common")
     rows = cur.fetchall()
     # TODO: What if rows returned None or empty?
     print("HB_Notif::hb_common contents - %s" % rows)
@@ -171,9 +169,8 @@ def update_hb_common(update_flg, process_id, state, user_name, password, ip_addr
         return True
     connection_db = postgres_db_open(user_name, password, ip_address, port_num, db_name)
     cur = connection_db.cursor()
-    query_value = "UPDATE hb_common SET PROCESS_ID='%d',SOURCE_NAME='%s', LAST_ACCESSED_TIME='%d',CURRENT_STATE='%s'" % (
-    process_id, source_name, current_time, state)
-    cur.execute(query_value)
+    cur.execute("UPDATE hb_common SET LAST_ACCESSED_TIME = %s, CURRENT_STATE = %s WHERE "
+                "PROCESS_ID = %s AND SOURCE_NAME = %s", (current_time, state, process_id, source_name))
     commit_and_close_db(connection_db)
     cur.close()
     return True
