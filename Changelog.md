@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   - Removed unused code
   - Reformatted code whitespace
 - Add target/ to .gitignore
+### Security
+- Fixed SQL injection vulnerability
 
 
 ## [2.2.0.] - 07/04/2021
