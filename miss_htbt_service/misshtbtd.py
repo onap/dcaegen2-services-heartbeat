@@ -59,16 +59,14 @@ def create_database(update_db, jsfile, ip_address, port_num, user_name, password
         database_name = db_name
         con.autocommit = True
         cur = con.cursor()
-        query_value = "SELECT COUNT(*) = 0 FROM pg_catalog.pg_database WHERE datname = '%s'" % (database_name)
-        cur.execute(query_value)
+        cur.execute("SELECT COUNT(*) = 0 FROM pg_catalog.pg_database WHERE datname = %s", (database_name,))
         not_exists_row = cur.fetchone()
         msg = "MSHBT:Create_database:DB not exists? ", not_exists_row
         _logger.info(msg)
         not_exists = not_exists_row[0]
         if not_exists is True:
             _logger.info("MSHBT:Creating database ...")
-            query_value = "CREATE DATABASE %s" % (database_name)
-            cur.execute(query_value)
+            cur.execute("CREATE DATABASE %s", (database_name,))
         else:
             _logger.info("MSHBD:Database already exists")
         cur.close()
@@ -88,8 +86,7 @@ def read_hb_common(user_name, password, ip_address, port_num, db_name):
         return hbc_pid, hbc_state, hbc_srcName, hbc_time
     connection_db = heartbeat.postgres_db_open(user_name, password, ip_address, port_num, db_name)
     cur = connection_db.cursor()
-    query_value = "SELECT process_id,source_name,last_accessed_time,current_state FROM hb_common;"
-    cur.execute(query_value)
+    cur.execute("SELECT process_id, source_name, last_accessed_time, current_state FROM hb_common;")
     rows = cur.fetchall()
     hbc_pid = rows[0][0]
     hbc_srcName = rows[0][1]
@@ -109,14 +106,19 @@ def create_update_hb_common(update_flg, process_id, state, user_name, password, 
         connection_db = heartbeat.postgres_db_open(user_name, password, ip_address, port_num, db_name)
         cur = connection_db.cursor()
         if (heartbeat.db_table_creation_check(connection_db, "hb_common") == False):
-            cur.execute("CREATE TABLE hb_common (PROCESS_ID integer primary key,SOURCE_NAME varchar,LAST_ACCESSED_TIME integer,CURRENT_STATE varchar);")
-            query_value = "INSERT INTO hb_common VALUES(%d,'%s',%d,'%s');" % (process_id, source_name, current_time, state)
+            cur.execute("""
+                CREATE TABLE hb_common (
+                    PROCESS_ID integer primary key,
+                    SOURCE_NAME varchar,
+                    LAST_ACCESSED_TIME integer,
+                    CURRENT_STATE varchar
+                );""")
+            cur.execute("INSERT INTO hb_common VALUES(%s, %s, %s, %s);", (process_id, source_name, current_time, state))
             _logger.info("MSHBT:Created hb_common DB and updated new values")
-            cur.execute(query_value)
-        if (update_flg == 1):
-            query_value = "UPDATE hb_common SET PROCESS_ID='%d',SOURCE_NAME='%s', LAST_ACCESSED_TIME='%d',CURRENT_STATE='%s'" % (process_id, source_name, current_time, state)
+        elif (update_flg == 1):
+            cur.execute("UPDATE hb_common SET LAST_ACCESSED_TIME = %s, CURRENT_STATE = %s "
+                        "WHERE PROCESS_ID = %s AND SOURCE_NAME = %s", (current_time, state, process_id, source_name))
             _logger.info("MSHBT:Updated  hb_common DB with new values")
-            cur.execute(query_value)
         heartbeat.commit_and_close_db(connection_db)
         cur.close()
 
@@ -132,15 +134,27 @@ def create_update_vnf_table_1(jsfile, update_db, connection_db):
     else:
         cur = connection_db.cursor()
         if (heartbeat.db_table_creation_check(connection_db, "vnf_table_1") == False):
-            cur.execute("CREATE TABLE vnf_table_1 (EVENT_NAME varchar primary key,HEARTBEAT_MISSED_COUNT integer,HEARTBEAT_INTERVAL integer,CLOSED_CONTROL_LOOP_NAME varchar,POLICY_VERSION varchar,POLICY_NAME varchar,POLICY_SCOPE varchar,TARGET_TYPE varchar,TARGET  varchar, VERSION varchar,SOURCE_NAME_COUNT integer,VALIDITY_FLAG integer);")
+            cur.execute("""
+                CREATE TABLE vnf_table_1 (
+                    EVENT_NAME varchar primary key,
+                    HEARTBEAT_MISSED_COUNT integer,
+                    HEARTBEAT_INTERVAL integer,
+                    CLOSED_CONTROL_LOOP_NAME varchar,
+                    POLICY_VERSION varchar,
+                    POLICY_NAME varchar,
+                    POLICY_SCOPE varchar,
+                    TARGET_TYPE varchar,
+                    TARGET varchar,
+                    VERSION varchar,
+                    SOURCE_NAME_COUNT integer,
+                    VALIDITY_FLAG integer
+                );""")
             _logger.info("MSHBT:Created vnf_table_1 table")
         if (update_db == 1):
-            query_value = "UPDATE vnf_table_1 SET VALIDITY_FLAG=0 where VALIDITY_FLAG=1;"
-            cur.execute(query_value)
+            cur.execute("UPDATE vnf_table_1 SET VALIDITY_FLAG=0 WHERE VALIDITY_FLAG=1;")
             _logger.info("MSHBT:Set Validity flag to zero in vnf_table_1 table")
         # Put some initial values into the queue
-        db_query = "Select event_name from vnf_table_1"
-        cur.execute(db_query)
+        cur.execute("SELECT event_name FROM vnf_table_1;")
         vnf_list = [item[0] for item in cur.fetchall()]
     for vnf in (jhbcfg['vnfs']):
         nfc = vnf['eventName']
@@ -156,12 +170,20 @@ def create_update_vnf_table_1(jsfile, update_db, connection_db):
         target = vnf['target']
         version = vnf['version']
 
+        if (envPytest == 'test'):
+            # skip executing SQL in test
+            continue
         if (nfc not in vnf_list):
-            query_value = "INSERT INTO vnf_table_1 VALUES('%s',%d,%d,'%s','%s','%s','%s','%s','%s','%s',%d,%d);" % (nfc, missed, intvl, clloop, policyVersion, policyName, policyScope, target_type, target, version, source_name_count, validity_flag)
+            cur.execute("INSERT INTO vnf_table_1 VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);",
+                        (nfc, missed, intvl, clloop, policyVersion, policyName, policyScope, target_type, target,
+                         version, source_name_count, validity_flag))
+            _logger.debug("Inserted new event_name = %s into vnf_table_1", nfc)
         else:
-            query_value = "UPDATE vnf_table_1 SET HEARTBEAT_MISSED_COUNT='%d',HEARTBEAT_INTERVAL='%d', CLOSED_CONTROL_LOOP_NAME='%s',POLICY_VERSION='%s',POLICY_NAME='%s', POLICY_SCOPE='%s',TARGET_TYPE='%s', TARGET='%s',VERSION='%s',VALIDITY_FLAG='%d' where EVENT_NAME='%s'" % (missed, intvl, clloop, policyVersion, policyName, policyScope, target_type, target, version, validity_flag, nfc)
-        if (envPytest != 'test'):
-            cur.execute(query_value)
+            cur.execute("""UPDATE vnf_table_1 SET HEARTBEAT_MISSED_COUNT = %s, HEARTBEAT_INTERVAL = %s,
+                CLOSED_CONTROL_LOOP_NAME = %s, POLICY_VERSION = %s, POLICY_NAME = %s, POLICY_SCOPE = %s,
+                TARGET_TYPE = %s, TARGET = %s, VERSION = %s, VALIDITY_FLAG = %s where EVENT_NAME = %s""",
+                        (missed, intvl, clloop, policyVersion, policyName, policyScope, target_type, target, version,
+                         validity_flag, nfc))
     if (envPytest != 'test'):
         cur.close()
     _logger.info("MSHBT:Updated vnf_table_1 as per the json configuration file")
