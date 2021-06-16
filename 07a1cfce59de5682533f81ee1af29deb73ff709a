@@ -16,6 +16,24 @@
       "revId": "07a1cfce59de5682533f81ee1af29deb73ff709a",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f7922ac_ff681836",
+        "filename": "miss_htbt_service/get_logger.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5233
+      },
+      "writtenOn": "2021-06-16T11:51:06Z",
+      "side": 1,
+      "message": "done in the preceding patch: https://gerrit.onap.org/r/c/dcaegen2/services/heartbeat/+/121925/2",
+      "parentUuid": "dd88fe65_74c5d1a8",
+      "revId": "07a1cfce59de5682533f81ee1af29deb73ff709a",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
