@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "35e8f389_c9b7a4fe",
+        "filename": "miss_htbt_service/config_notif.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 5233
+      },
+      "writtenOn": "2021-06-17T13:14:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "860d6474_45546162",
+      "revId": "6930ee071acd7361e9fe06324391a52adb8b9e74",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ee6486f8_6654338f",
         "filename": "miss_htbt_service/htbtworker.py",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "6930ee071acd7361e9fe06324391a52adb8b9e74",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21d810c8_47626bb4",
+        "filename": "miss_htbt_service/htbtworker.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 5233
+      },
+      "writtenOn": "2021-06-17T13:14:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ee6486f8_6654338f",
+      "revId": "6930ee071acd7361e9fe06324391a52adb8b9e74",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
