@@ -22,6 +22,30 @@
       "revId": "4e3cf472205dbd731c4846b862a3555a331ffab6",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10711b66_8b279bb1",
+        "filename": "Changelog.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5233
+      },
+      "writtenOn": "2021-06-17T16:12:56Z",
+      "side": 1,
+      "message": "According to https://keepachangelog.com/en/1.0.0/, changes which have not released yet are added in \"Unreleased\" section.\nI think those should be moved to new version 2.3.0 section at release time when officially docker image are built.\nWhat do you think?",
+      "parentUuid": "26fa3e16_19ec4ec1",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 14
+      },
+      "revId": "4e3cf472205dbd731c4846b862a3555a331ffab6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
