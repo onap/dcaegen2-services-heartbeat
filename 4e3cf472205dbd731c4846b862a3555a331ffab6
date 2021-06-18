@@ -70,6 +70,30 @@
       "revId": "4e3cf472205dbd731c4846b862a3555a331ffab6",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b02f86d_fc5b0533",
+        "filename": "Changelog.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5233
+      },
+      "writtenOn": "2021-06-18T07:48:16Z",
+      "side": 1,
+      "message": "Thanks Vijay, I understand.\n\nUpdated Changelog.md section to 2.3.0.\nI presumed the date format is dd/mm/yyyy, correct me if I\u0027m wrong.",
+      "parentUuid": "67336cbd_3b1db2ad",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 14
+      },
+      "revId": "4e3cf472205dbd731c4846b862a3555a331ffab6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
