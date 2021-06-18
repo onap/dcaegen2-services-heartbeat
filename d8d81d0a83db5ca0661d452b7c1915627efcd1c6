@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e49b4e6d_433b7a49",
+        "filename": "miss_htbt_service/misshtbtd.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 6310
+      },
+      "writtenOn": "2021-06-18T06:56:01Z",
+      "side": 1,
+      "message": "Making code which depend on environment (production/test) is bad practice.",
+      "revId": "d8d81d0a83db5ca0661d452b7c1915627efcd1c6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
