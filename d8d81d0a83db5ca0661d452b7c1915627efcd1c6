@@ -16,6 +16,24 @@
       "revId": "d8d81d0a83db5ca0661d452b7c1915627efcd1c6",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "be7facb5_ce548068",
+        "filename": "miss_htbt_service/misshtbtd.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5233
+      },
+      "writtenOn": "2021-06-18T08:06:54Z",
+      "side": 1,
+      "message": "I fully agree.\nThe original code has a lot of \u0027pytest\u0027 environment var conditional branch.\nI\u0027ll try to remove them in DCAEGEN2-2838.",
+      "parentUuid": "e49b4e6d_433b7a49",
+      "revId": "d8d81d0a83db5ca0661d452b7c1915627efcd1c6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
