@@ -16,6 +16,24 @@
       "revId": "52557a0fcec714f3daab61228df78f822f2b6780",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "feedf21c_76d3baea",
+        "filename": "Changelog.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5233
+      },
+      "writtenOn": "2021-06-19T04:47:58Z",
+      "side": 1,
+      "message": "I\u0027m a little confused, is bumping version needed every time I submit a patch?",
+      "parentUuid": "e72f0830_5da34b04",
+      "revId": "52557a0fcec714f3daab61228df78f822f2b6780",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
