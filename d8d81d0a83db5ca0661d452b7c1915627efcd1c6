@@ -34,6 +34,24 @@
       "revId": "d8d81d0a83db5ca0661d452b7c1915627efcd1c6",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21a9492b_cf19b68a",
+        "filename": "miss_htbt_service/misshtbtd.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-06-19T00:26:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "be7facb5_ce548068",
+      "revId": "d8d81d0a83db5ca0661d452b7c1915627efcd1c6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
