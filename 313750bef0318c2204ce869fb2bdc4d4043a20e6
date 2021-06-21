@@ -1,0 +1,8 @@
+Verified+1: ONAP Jobbuilder <onap-jobbuilder@jenkins.onap.org>
+Code-Review+2: Tony Hansen <tony@att.com>
+Code-Review+1: Tomasz Wr�bel <tomasz.wrobel@nokia.com>
+Submitted-by: Tony Hansen <tony@att.com>
+Submitted-at: Mon, 21 Jun 2021 13:56:26 +0000
+Reviewed-on: https://gerrit.onap.org/r/c/dcaegen2/services/heartbeat/+/121928
+Project: dcaegen2/services/heartbeat
+Branch: refs/heads/master
