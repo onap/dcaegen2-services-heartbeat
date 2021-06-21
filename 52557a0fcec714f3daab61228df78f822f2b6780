@@ -34,6 +34,24 @@
       "revId": "52557a0fcec714f3daab61228df78f822f2b6780",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce3abe9b_c5ee2773",
+        "filename": "Changelog.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2021-06-21T13:41:15Z",
+      "side": 1,
+      "message": "No, version update is not required for every patch; it depends on type of patch being introduced (cosmetic/non-functional/functional/bug-fix) - for latter two, generally recommend version bump. \n\nAs this is addressing OJSI security fix, separate patch recommendation makes sense here (otherwise this could have also been rolled into either 2.3.0 as it is not released)\n\nNow that we have 2.3.1 - we can focus on test/rls of this version once the change is merged",
+      "parentUuid": "feedf21c_76d3baea",
+      "revId": "52557a0fcec714f3daab61228df78f822f2b6780",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
