@@ -52,6 +52,24 @@
       "revId": "52557a0fcec714f3daab61228df78f822f2b6780",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c75b6704_082e82da",
+        "filename": "Changelog.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-06-21T13:41:20Z",
+      "side": 1,
+      "message": "Normally it would be. But Vijay tells me that 2.3.0 has not been released anywhere yet.\n\nSo no, a version bump was not needed for this particularly situation.\n\nBut thank you.\n\nSince you are doing other updates to this same code, you can continue using 2.3.1 for each of those until you are done.",
+      "parentUuid": "feedf21c_76d3baea",
+      "revId": "52557a0fcec714f3daab61228df78f822f2b6780",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
