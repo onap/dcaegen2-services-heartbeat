@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - Cleanup code
   - Removed extraneous parentheses
+### Fixed
+- pytest fails if http\_proxy is set
 
 
 ## [2.3.0.] - 18/06/2021
