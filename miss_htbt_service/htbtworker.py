@@ -37,13 +37,13 @@ _logger = get_logger.get_logger(__name__)
 
 
 def read_json_file(i, prefix="../../tests"):
-    if (i == 0):
+    if i == 0:
         with open(path.abspath(path.join(__file__, f"{prefix}/test1.json")), "r") as outfile:
             cfg = json.load(outfile)
-    elif (i == 1):
+    elif i == 1:
         with open(path.abspath(path.join(__file__, f"{prefix}/test2.json")), "r") as outfile:
             cfg = json.load(outfile)
-    elif (i == 2):
+    elif i == 2:
         with open(path.abspath(path.join(__file__, f"{prefix}/test3.json")), 'r') as outfile:
             cfg = json.load(outfile)
     return cfg
@@ -53,21 +53,21 @@ def process_msg(jsfile, user_name, password, ip_address, port_num, db_name):
     global mr_url
     i = 0
     sleep_duration = 20
-    while (True):
+    while True:
         time.sleep(sleep_duration)
         with open(jsfile, 'r') as outfile:
             cfg = json.load(outfile)
         mr_url = str(cfg['streams_subscribes']['ves-heartbeat']['dmaap_info']['topic_url'])
 
-        while (True):
+        while True:
             hbc_pid, hbc_state, hbc_srcName, hbc_time = db.read_hb_common(user_name, password, ip_address, port_num, db_name)
-            if (hbc_state == "RECONFIGURATION"):
+            if hbc_state == "RECONFIGURATION":
                 _logger.info("HBT:Waiting for hb_common state to become RUNNING")
                 time.sleep(10)
             else:
                 break
 
-        if (os.getenv('pytest', "") == 'test'):
+        if os.getenv('pytest', "") == 'test':
             eventnameList = ["Heartbeat_vDNS", "Heartbeat_vFW", "Heartbeat_xx"]
             connection_db = 0
         else:
@@ -84,14 +84,14 @@ def process_msg(jsfile, user_name, password, ip_address, port_num, db_name):
         msg = "HBT:Getting :" + get_url
         _logger.info(msg)
 
-        if (os.getenv('pytest', "") == 'test'):
+        if os.getenv('pytest', "") == 'test':
             jsonobj = read_json_file(i)
             jobj = []
             jobj.append(jsonobj)
             i = i + 1
             msg = "HBT:newly received test message", jobj
             _logger.info(msg)
-            if (i >= 3):
+            if i >= 3:
                 i = 0
                 break
         else:
@@ -100,9 +100,9 @@ def process_msg(jsfile, user_name, password, ip_address, port_num, db_name):
             _logger.info(msg)
             inputString = res.text
             # If mrstatus in message body indicates some information, not json msg.
-            if ("mrstatus" in inputString):
+            if "mrstatus" in inputString:
                 continue
-            jlist = inputString.split('\n');
+            jlist = inputString.split('\n')
             # Process the DMaaP input message retreived
             error = False
             for line in jlist:
@@ -113,13 +113,13 @@ def process_msg(jsfile, user_name, password, ip_address, port_num, db_name):
                     _logger.error(msg)
                     error = True
                     break
-            if (error == True):
+            if error:
                 continue
             if len(jobj) == 0:
                 continue
         for item in jobj:
             try:
-                if (os.getenv('pytest', "") == 'test'):
+                if os.getenv('pytest', "") == 'test':
                     jitem = jsonobj
                 else:
                     jitem = json.loads(item)
@@ -127,13 +127,13 @@ def process_msg(jsfile, user_name, password, ip_address, port_num, db_name):
                 lastepo = (jitem['event']['commonEventHeader']['lastEpochMicrosec'])
                 seqnum = (jitem['event']['commonEventHeader']['sequence'])
                 eventName = (jitem['event']['commonEventHeader']['eventName'])
-            except(Exception) as err:
+            except Exception as err:
                 msg = "HBT message process error - ", err
                 _logger.error(msg)
                 continue
             msg = "HBT:Newly received HB event values ::", eventName, lastepo, srcname
             _logger.info(msg)
-            if (db_table_creation_check(connection_db, "vnf_table_2") == False):
+            if db_table_creation_check(connection_db, "vnf_table_2") is False:
                 msg = "HBT:Creating vnf_table_2"
                 _logger.info(msg)
                 cur.execute("""
@@ -148,15 +148,15 @@ def process_msg(jsfile, user_name, password, ip_address, port_num, db_name):
             else:
                 msg = "HBT:vnf_table_2 is already there"
                 _logger.info(msg)
-            if (eventName in eventnameList):  # pragma: no cover
-                if (os.getenv('pytest', "") == 'test'):
+            if eventName in eventnameList:  # pragma: no cover
+                if os.getenv('pytest', "") == 'test':
                     break
                 cur.execute("SELECT source_name_count FROM vnf_table_1 WHERE event_name = %s", (eventName,))
                 row = cur.fetchone()
                 source_name_count = row[0]
                 source_name_key = source_name_count + 1
                 cl_flag = 0
-                if (source_name_count == 0):  # pragma: no cover
+                if source_name_count == 0:  # pragma: no cover
                     msg = "HBT: Insert entry in table_2,source_name_count=0 : ", row
                     _logger.info(msg)
                     cur.execute("INSERT INTO vnf_table_2 VALUES(%s,%s,%s,%s,%s)",
@@ -170,10 +170,10 @@ def process_msg(jsfile, user_name, password, ip_address, port_num, db_name):
                         cur.execute("SELECT source_name FROM vnf_table_2 WHERE event_name = %s AND "
                                     "source_name_key = %s", (eventName, (source_name_key + 1)))
                         row = cur.fetchall()
-                        if (len(row) == 0):
+                        if len(row) == 0:
                             continue
                         db_srcname = row[0][0]
-                        if (db_srcname == srcname):
+                        if db_srcname == srcname:
                             msg = "HBT: Update vnf_table_2 : ", source_name_key, row
                             _logger.info(msg)
                             cur.execute("UPDATE vnf_table_2 SET LAST_EPO_TIME = %s, SOURCE_NAME = %s "
@@ -185,7 +185,7 @@ def process_msg(jsfile, user_name, password, ip_address, port_num, db_name):
                             continue
                     msg = "HBT: The source_name_key and source_name_count are ", source_name_key, source_name_count
                     _logger.info(msg)
-                    if (source_name_count == (source_name_key + 1)):
+                    if source_name_count == (source_name_key + 1):
                         source_name_key = source_name_count + 1
                         msg = "HBT: Insert entry in table_2 : ", row
                         _logger.info(msg)
@@ -197,31 +197,29 @@ def process_msg(jsfile, user_name, password, ip_address, port_num, db_name):
                 _logger.info("HBT:eventName is not being monitored, Igonoring JSON message")
         commit_db(connection_db)
         commit_and_close_db(connection_db)
-        if (os.getenv('pytest', "") != 'test'):
+        if os.getenv('pytest', "") != 'test':
             cur.close()
 
 
 def postgres_db_open(username, password, host, port, database_name):
-    if (os.getenv('pytest', "") == 'test'):
+    if os.getenv('pytest', "") == 'test':
         return True
     connection = psycopg2.connect(database=database_name, user=username, password=password, host=host, port=port)
     return connection
 
 
 def db_table_creation_check(connection_db, table_name):
-    if (os.getenv('pytest', "") == 'test'):
+    if os.getenv('pytest', "") == 'test':
         return True
     try:
         cur = connection_db.cursor()
         cur.execute("SELECT * FROM information_schema.tables WHERE table_name = %s", (table_name,))
         database_names = cur.fetchone()
-        if (database_names is not None):
-            if (table_name in database_names):
+        if database_names is not None:
+            if table_name in database_names:
                 return True
         else:
             return False
-
-
     except psycopg2.DatabaseError as e:
         msg = 'COMMON:Error %s' % e
         _logger.error(msg)
@@ -230,7 +228,7 @@ def db_table_creation_check(connection_db, table_name):
 
 
 def commit_db(connection_db):
-    if (os.getenv('pytest', "") == 'test'):
+    if os.getenv('pytest', "") == 'test':
         return True
     try:
         connection_db.commit()  # <--- makes sure the change is shown in the database
@@ -242,7 +240,7 @@ def commit_db(connection_db):
 
 
 def commit_and_close_db(connection_db):
-    if (os.getenv('pytest', "") == 'test'):
+    if os.getenv('pytest', "") == 'test':
         return True
     try:
         connection_db.commit()  # <--- makes sure the change is shown in the database

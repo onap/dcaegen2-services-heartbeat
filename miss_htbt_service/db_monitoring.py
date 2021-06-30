@@ -40,9 +40,9 @@ def sendControlLoopEvent(CLType, pol_url, policy_version, policy_name, policy_sc
                          closed_control_loop_name, version, target):
     msg = "DBM:Time to raise Control Loop Event for Control loop typ /target type - ", CLType, target_type
     _logger.info(msg)
-    if (CLType == "ONSET"):
+    if CLType == "ONSET":
         _logger.info("DBM:Heartbeat not received, raising alarm event")
-        if (target_type == "VNF"):
+        if target_type == "VNF":
             json_object = json.dumps({
                 "closedLoopEventClient": "DCAE_Heartbeat_MS",
                 "policyVersion": policy_version,
@@ -57,8 +57,8 @@ def sendControlLoopEvent(CLType, pol_url, policy_version, policy_name, policy_sc
                 "target": target,
                 "requestID": "8c1b8bd8-06f7-493f-8ed7-daaa4cc481bc",
                 "from": "DCAE"
-            });
-        elif (target_type == "VM"):
+            })
+        elif target_type == "VM":
             json_object = json.dumps({
                 "closedLoopEventClient": "DCAE_Heartbeat_MS",
                 "policyVersion": policy_version,
@@ -73,13 +73,13 @@ def sendControlLoopEvent(CLType, pol_url, policy_version, policy_name, policy_sc
                 "target": target,
                 "requestID": "8c1b8bd8-06f7-493f-8ed7-daaa4cc481bc",
                 "from": "DCAE"
-            });
+            })
         else:
             return True
-    elif (CLType == "ABATED"):
+    elif CLType == "ABATED":
         _logger.info("DBM:Heartbeat received, clearing alarm event")
         # last_date_time = datetime.datetime.now()
-        if (target_type == "VNF"):
+        if target_type == "VNF":
             json_object = json.dumps({
                 "closedLoopEventClient": "DCAE_Heartbeat_MS",
                 "policyVersion": policy_version,
@@ -94,8 +94,8 @@ def sendControlLoopEvent(CLType, pol_url, policy_version, policy_name, policy_sc
                 "target": target,
                 "requestID": "8c1b8bd8-06f7-493f-8ed7-daaa4cc481bc",
                 "from": "DCAE"
-            });
-        elif (target_type == "VM"):
+            })
+        elif target_type == "VM":
             json_object = json.dumps({
                 "closedLoopEventClient": "DCAE_Heartbeat_MS",
                 "policyVersion": policy_version,
@@ -110,7 +110,7 @@ def sendControlLoopEvent(CLType, pol_url, policy_version, policy_name, policy_sc
                 "target": target,
                 "requestID": "8c1b8bd8-06f7-493f-8ed7-daaa4cc481bc",
                 "from": "DCAE"
-            });
+            })
         else:
             return True
     else:
@@ -129,25 +129,25 @@ def sendControlLoopEvent(CLType, pol_url, policy_version, policy_name, policy_sc
         ret = r.status_code
         msg = "DBM:Status code for sending the control loop event is", ret
         _logger.info(msg)
-    except(Exception) as err:
+    except Exception as err:
         msg = 'Message send failure : ', err
         _logger.error(msg)
     return True
 
 
 def db_monitoring(current_pid, json_file, user_name, password, ip_address, port_num, db_name):
-    while (True):
+    while True:
         time.sleep(20)
 
         envPytest = os.getenv('pytest', "")
-        if (envPytest == 'test'):
+        if envPytest == 'test':
             break
 
         try:
             with open(json_file, 'r') as outfile:
                 cfg = json.load(outfile)
             pol_url = str(cfg['streams_publishes']['dcae_cl_out']['dmaap_info']['topic_url'])
-        except(Exception) as err:
+        except Exception as err:
             msg = 'Json file process error : ', err
             _logger.error(msg)
             continue
@@ -157,7 +157,7 @@ def db_monitoring(current_pid, json_file, user_name, password, ip_address, port_
         source_name = source_name + "-" + str(os.getenv('SERVICE_NAME', ""))
         connection_db = pm.postgres_db_open(user_name, password, ip_address, port_num, db_name)
         cur = connection_db.cursor()
-        if (int(current_pid) == int(hbc_pid) and source_name == hbc_srcName and hbc_state == "RUNNING"):
+        if int(current_pid) == int(hbc_pid) and source_name == hbc_srcName and hbc_state == "RUNNING":
             _logger.info("DBM: Active DB Monitoring Instance")
             cur.execute("SELECT event_name FROM vnf_table_1")
             vnf_list = [item[0] for item in cur.fetchall()]
@@ -165,7 +165,7 @@ def db_monitoring(current_pid, json_file, user_name, password, ip_address, port_
                 cur.execute("SELECT current_state FROM hb_common")
                 rows = cur.fetchall()
                 hbc_state = rows[0][0]
-                if (hbc_state == "RECONFIGURATION"):
+                if hbc_state == "RECONFIGURATION":
                     _logger.info("DBM:Waiting for hb_common state to become RUNNING")
                     break
 
@@ -185,18 +185,18 @@ def db_monitoring(current_pid, json_file, user_name, password, ip_address, port_
                 target = rows[0][9]
                 version = rows[0][10]
                 comparision_time = (heartbeat_interval * heartbeat_missed_count) * 1000
-                if (validity_flag == 1):
+                if validity_flag == 1:
                     for source_name_key in range(source_name_count):
                         epoc_time = int(round(time.time() * 1000))
                         cur.execute("SELECT last_epo_time, source_name, cl_flag FROM vnf_table_2 WHERE "
                                     "event_name = %s AND source_name_key = %s", (event_name, (source_name_key + 1)))
                         row = cur.fetchall()
-                        if (len(row) == 0):
+                        if len(row) == 0:
                             continue
                         epoc_time_sec = row[0][0]
                         srcName = row[0][1]
                         cl_flag = row[0][2]
-                        if ((epoc_time - epoc_time_sec) > comparision_time and cl_flag == 0):
+                        if (epoc_time - epoc_time_sec) > comparision_time and cl_flag == 0:
                             sendControlLoopEvent("ONSET", pol_url, policy_version, policy_name, policy_scope,
                                                  target_type, srcName, epoc_time, closed_control_loop_name, version,
                                                  target)
@@ -204,7 +204,7 @@ def db_monitoring(current_pid, json_file, user_name, password, ip_address, port_
                             cur.execute("UPDATE vnf_table_2 SET CL_FLAG = %s WHERE EVENT_NAME = %s AND "
                                         "source_name_key = %s", (cl_flag, event_name, (source_name_key + 1)))
                             connection_db.commit()
-                        elif ((epoc_time - epoc_time_sec) < comparision_time and cl_flag == 1):
+                        elif (epoc_time - epoc_time_sec) < comparision_time and cl_flag == 1:
                             sendControlLoopEvent("ABATED", pol_url, policy_version, policy_name, policy_scope,
                                                  target_type, srcName, epoc_time, closed_control_loop_name, version,
                                                  target)
@@ -214,7 +214,7 @@ def db_monitoring(current_pid, json_file, user_name, password, ip_address, port_
                             connection_db.commit()
 
                 else:  # pragma: no cover
-                    msg = "DBM:DB Monitoring is ignored for %s since validity flag is 0" % (event_name)
+                    msg = "DBM:DB Monitoring is ignored for %s since validity flag is 0" % event_name
                     _logger.info(msg)
 
                     cur.execute("DELETE FROM vnf_table_2 WHERE EVENT_NAME = %s", (event_name,))
@@ -238,8 +238,8 @@ if __name__ == "__main__":
     ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval = db.read_hb_properties(jsfile)
     msg = "DBM:Parent process ID and json file name", current_pid, jsfile
     _logger.info(msg)
-    while (True):
+    while True:
         db_monitoring(current_pid, jsfile, user_name, password, ip_address, port_num, db_name)
         envPytest = os.getenv('pytest', "")
-        if (envPytest == 'test'):
+        if envPytest == 'test':
             break

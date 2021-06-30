@@ -41,7 +41,7 @@ hb_properties_file = path.abspath(path.join(__file__, "../config/hbproperties.ya
 
 def postgres_db_open(username, password, host, port, database_name):
     envPytest = os.getenv('pytest', "")
-    if (envPytest == 'test'):
+    if envPytest == 'test':
         return True
     try:
         connection = psycopg2.connect(database=database_name, user=username, password=password, host=host, port=port)
@@ -53,7 +53,7 @@ def postgres_db_open(username, password, host, port, database_name):
 
 def db_table_creation_check(connection_db, table_name):
     envPytest = os.getenv('pytest', "")
-    if (envPytest == 'test'):
+    if envPytest == 'test':
         return True
     cur = None
     try:
@@ -77,7 +77,7 @@ def db_table_creation_check(connection_db, table_name):
 
 def commit_and_close_db(connection_db):
     envPytest = os.getenv('pytest', "")
-    if (envPytest == 'test'):
+    if envPytest == 'test':
         return True
     try:
         connection_db.commit()  # <--- makes sure the change is shown in the database
@@ -117,7 +117,7 @@ def read_hb_properties(jsfile):
     try:
         with open(jsfile, 'r') as outfile:
             cfg = json.load(outfile)
-    except(Exception) as err:
+    except Exception as err:
         print("Json file read error - %s" % err)
         return read_hb_properties_default()
     try:
@@ -131,7 +131,7 @@ def read_hb_properties(jsfile):
         cbs_polling_interval = str(cfg['CBS_polling_interval'])
         if "SERVICE_NAME" in cfg:
             os.environ['SERVICE_NAME'] = str(cfg['SERVICE_NAME'])
-    except(Exception) as err:
+    except Exception as err:
         print("Json file read parameter error - %s" % err)
         return read_hb_properties_default()
     return ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval
@@ -139,7 +139,7 @@ def read_hb_properties(jsfile):
 
 def read_hb_common(user_name, password, ip_address, port_num, db_name):
     envPytest = os.getenv('pytest', "")
-    if (envPytest == 'test'):
+    if envPytest == 'test':
         hbc_pid = 10
         hbc_srcName = "srvc_name"
         hbc_time = 1541234567
@@ -165,7 +165,7 @@ def update_hb_common(update_flg, process_id, state, user_name, password, ip_addr
     source_name = socket.gethostname()
     source_name = source_name + "-" + str(os.getenv('SERVICE_NAME', ""))
     envPytest = os.getenv('pytest', "")
-    if (envPytest == 'test'):
+    if envPytest == 'test':
         return True
     connection_db = postgres_db_open(user_name, password, ip_address, port_num, db_name)
     cur = connection_db.cursor()
@@ -182,7 +182,7 @@ def fetch_json_file(download_json="../etc/download1.json", config_json="../etc/c
     if mod.trapd_get_cbs_config.get_cbs_config():
         current_runtime_config_file_name = download_json
         envPytest = os.getenv('pytest', "")
-        if (envPytest == 'test'):
+        if envPytest == 'test':
             jsfile = "../etc/config.json"
             return jsfile
         print("Config_N:current config logged to : %s" % current_runtime_config_file_name)
@@ -201,11 +201,11 @@ def config_notif_run():
     ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval = read_hb_properties(
         jsfile)
     envPytest = os.getenv('pytest', "")
-    if (envPytest == 'test'):
+    if envPytest == 'test':
         return True
     connection_db = postgres_db_open(user_name, password, ip_address, port_num, db_name)
     cur = connection_db.cursor()
-    if (db_table_creation_check(connection_db, "hb_common") == False):
+    if db_table_creation_check(connection_db, "hb_common") is False:
         print("HB_Notif::ERROR::hb_common table not exists - No config download")
         connection_db.close()
     else:
@@ -214,7 +214,7 @@ def config_notif_run():
         update_flg = 1
         ret = update_hb_common(update_flg, hbc_pid, state, user_name, password, ip_address, port_num, db_name)
         # TODO: There is no way for update_hb_common() to return false
-        if (ret == True):
+        if ret:
             print("HB_Notif::hb_common table updated with RECONFIGURATION state")
             commit_and_close_db(connection_db)
             return True

@@ -44,14 +44,14 @@ def pollCBS(current_pid):
     msg = "CBSP:CBS Polling interval is %d", cbs_polling_interval
     _logger.info(msg)
     envPytest = os.getenv('pytest', "")
-    if (envPytest == 'test'):
+    if envPytest == 'test':
         cbs_polling_interval = "30"
     time.sleep(int(cbs_polling_interval))
     hbc_pid, hbc_state, hbc_srcName, hbc_time = db.read_hb_common(user_name, password, ip_address, port_num, db_name)
     source_name = socket.gethostname()
     source_name = source_name + "-" + str(os.getenv('SERVICE_NAME', ""))
     result = True
-    if (int(current_pid) == int(hbc_pid) and source_name == hbc_srcName and hbc_state == "RUNNING"):
+    if int(current_pid) == int(hbc_pid) and source_name == hbc_srcName and hbc_state == "RUNNING":
         _logger.info("CBSP:ACTIVE Instance:Change the state to RECONFIGURATION")
         state = "RECONFIGURATION"
         update_flg = 1
@@ -63,5 +63,5 @@ def pollCBS(current_pid):
 
 if __name__ == "__main__":
     current_pid = sys.argv[1]
-    while (True):
+    while True:
         pollCBS(current_pid)

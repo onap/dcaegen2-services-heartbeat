@@ -71,14 +71,14 @@ def create_database(update_db, jsfile, ip_address, port_num, user_name, password
             _logger.info("MSHBD:Database already exists")
         cur.close()
         con.close()
-    except(Exception) as err:
+    except Exception as err:
         msg = "MSHBD:DB Creation -", err
         _logger.error(msg)
 
 
 def read_hb_common(user_name, password, ip_address, port_num, db_name):
     envPytest = os.getenv('pytest', "")
-    if (envPytest == 'test'):
+    if envPytest == 'test':
         hbc_pid = 10
         hbc_srcName = "srvc_name"
         hbc_time = 1584595881
@@ -102,10 +102,10 @@ def create_update_hb_common(update_flg, process_id, state, user_name, password, 
     source_name = socket.gethostname()
     source_name = source_name + "-" + os.getenv('SERVICE_NAME', "")
     envPytest = os.getenv('pytest', "")
-    if (envPytest != 'test'):
+    if envPytest != 'test':
         connection_db = heartbeat.postgres_db_open(user_name, password, ip_address, port_num, db_name)
         cur = connection_db.cursor()
-        if (heartbeat.db_table_creation_check(connection_db, "hb_common") == False):
+        if heartbeat.db_table_creation_check(connection_db, "hb_common") is False:
             cur.execute("""
                 CREATE TABLE hb_common (
                     PROCESS_ID integer primary key,
@@ -115,7 +115,7 @@ def create_update_hb_common(update_flg, process_id, state, user_name, password, 
                 )""")
             cur.execute("INSERT INTO hb_common VALUES(%s, %s, %s, %s)", (process_id, source_name, current_time, state))
             _logger.info("MSHBT:Created hb_common DB and updated new values")
-        elif (update_flg == 1):
+        elif update_flg == 1:
             cur.execute("UPDATE hb_common SET LAST_ACCESSED_TIME = %s, CURRENT_STATE = %s "
                         "WHERE PROCESS_ID = %s AND SOURCE_NAME = %s", (current_time, state, process_id, source_name))
             _logger.info("MSHBT:Updated  hb_common DB with new values")
@@ -129,11 +129,11 @@ def create_update_vnf_table_1(jsfile, update_db, connection_db):
     hbcfg = cfg['heartbeat_config']
     jhbcfg = json.loads(hbcfg)
     envPytest = os.getenv('pytest', "")
-    if (envPytest == 'test'):
+    if envPytest == 'test':
         vnf_list = ["Heartbeat_vDNS", "Heartbeat_vFW", "Heartbeat_xx"]
     else:
         cur = connection_db.cursor()
-        if (heartbeat.db_table_creation_check(connection_db, "vnf_table_1") == False):
+        if heartbeat.db_table_creation_check(connection_db, "vnf_table_1") is False:
             cur.execute("""
                 CREATE TABLE vnf_table_1 (
                     EVENT_NAME varchar primary key,
@@ -150,7 +150,7 @@ def create_update_vnf_table_1(jsfile, update_db, connection_db):
                     VALIDITY_FLAG integer
                 )""")
             _logger.info("MSHBT:Created vnf_table_1 table")
-        if (update_db == 1):
+        if update_db == 1:
             cur.execute("UPDATE vnf_table_1 SET VALIDITY_FLAG=0 WHERE VALIDITY_FLAG=1")
             _logger.info("MSHBT:Set Validity flag to zero in vnf_table_1 table")
         # Put some initial values into the queue
@@ -170,10 +170,10 @@ def create_update_vnf_table_1(jsfile, update_db, connection_db):
         target = vnf['target']
         version = vnf['version']
 
-        if (envPytest == 'test'):
+        if envPytest == 'test':
             # skip executing SQL in test
             continue
-        if (nfc not in vnf_list):
+        if nfc not in vnf_list:
             cur.execute("INSERT INTO vnf_table_1 VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
                         (nfc, missed, intvl, clloop, policyVersion, policyName, policyScope, target_type, target,
                          version, source_name_count, validity_flag))
@@ -184,7 +184,7 @@ def create_update_vnf_table_1(jsfile, update_db, connection_db):
                 TARGET_TYPE = %s, TARGET = %s, VERSION = %s, VALIDITY_FLAG = %s where EVENT_NAME = %s""",
                         (missed, intvl, clloop, policyVersion, policyName, policyScope, target_type, target, version,
                          validity_flag, nfc))
-    if (envPytest != 'test'):
+    if envPytest != 'test':
         cur.close()
     _logger.info("MSHBT:Updated vnf_table_1 as per the json configuration file")
 
@@ -215,7 +215,7 @@ def read_hb_properties_default():
     s = open(hb_properties_file, 'r')
     a = yaml.full_load(s)
 
-    if ((os.getenv('pg_ipAddress') is None) or (os.getenv('pg_portNum') is None) or (os.getenv('pg_userName') is None) or (os.getenv('pg_passwd') is None)):
+    if (os.getenv('pg_ipAddress') is None) or (os.getenv('pg_portNum') is None) or (os.getenv('pg_userName') is None) or (os.getenv('pg_passwd') is None):
         ip_address = a['pg_ipAddress']
         port_num = a['pg_portNum']
         user_name = a['pg_userName']
@@ -238,7 +238,7 @@ def read_hb_properties(jsfile):
     try:
         with open(jsfile, 'r') as outfile:
             cfg = json.load(outfile)
-    except(Exception) as err:
+    except Exception as err:
         msg = "CBS Json file load error - ", err
         _logger.error(msg)
         return read_hb_properties_default()
@@ -258,7 +258,7 @@ def read_hb_properties(jsfile):
         os.environ['groupID'] = group_id
         if "SERVICE_NAME" in cfg:
             os.environ['SERVICE_NAME'] = str(cfg['SERVICE_NAME'])
-    except(Exception) as err:
+    except Exception as err:
         msg = "CBS Json file read parameter error - ", err
         _logger.error(msg)
         return read_hb_properties_default()
@@ -268,7 +268,7 @@ def read_hb_properties(jsfile):
 def fetch_json_file():
     if get_cbs_config():
         envPytest = os.getenv('pytest', "")
-        if (envPytest == 'test'):
+        if envPytest == 'test':
             current_runtime_config_file_name = "/tmp/opt/app/miss_htbt_service/etc/config.json"
         else:
             current_runtime_config_file_name = "../etc/download.json"
@@ -297,15 +297,15 @@ def fetch_json_file():
 
 def create_update_db(update_db, jsfile, ip_address, port_num, user_name, password, db_name):
     envPytest = os.getenv('pytest', "")
-    if (envPytest != 'test'):  # pragma: no cover
-        if (update_db == 0):
+    if envPytest != 'test':  # pragma: no cover
+        if update_db == 0:
             create_database(update_db, jsfile, ip_address, port_num, user_name, password, db_name)
         msg = "MSHBT: DB parameters -", ip_address, port_num, user_name, password, db_name
         _logger.info(msg)
         connection_db = heartbeat.postgres_db_open(user_name, password, ip_address, port_num, db_name)
         cur = connection_db.cursor()
-        if (update_db == 0):
-            if (heartbeat.db_table_creation_check(connection_db, "vnf_table_1") == False):
+        if update_db == 0:
+            if heartbeat.db_table_creation_check(connection_db, "vnf_table_1") is False:
                 create_update_vnf_table_1(jsfile, update_db, connection_db)
         else:
             create_update_vnf_table_1(jsfile, update_db, connection_db)
@@ -314,7 +314,7 @@ def create_update_db(update_db, jsfile, ip_address, port_num, user_name, passwor
 
 
 def create_process(job_list, jsfile, pid_current):
-    if (len(job_list) == 0):
+    if len(job_list) == 0:
         p1 = multiprocessing.Process(target=hb_worker_process, args=(jsfile,))
         time.sleep(1)
         p2 = multiprocessing.Process(target=db_monitoring_process, args=(pid_current, jsfile,))
@@ -341,7 +341,7 @@ def main():
         ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval = read_hb_properties(jsfile)
         msg = "MSHBT:HB Properties -", ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval
         _logger.info(msg)
-        if (cbs_polling_required == 'True'):
+        if cbs_polling_required == 'True':
             p3 = multiprocessing.Process(target=hb_cbs_polling_process, args=(pid_current,))
             p3.start()
         update_db = 0
@@ -353,7 +353,7 @@ def main():
         _logger.info(msg)
         _logger.info("MSHBD:Now be in a continuous loop")
         i = 0
-        while (True):
+        while True:
             hbc_pid, hbc_state, hbc_srcName, hbc_time = read_hb_common(user_name, password, ip_address, port_num, db_name)
             msg = "MSHBT: hb_common values ", hbc_pid, hbc_state, hbc_srcName, hbc_time
             _logger.info(msg)
@@ -364,24 +364,24 @@ def main():
             source_name = socket.gethostname()
             source_name = source_name + "-" + str(os.getenv('SERVICE_NAME', ""))
             envPytest = os.getenv('pytest', "")
-            if (envPytest == 'test'):
+            if envPytest == 'test':
                 if i == 2:
                     hbc_pid = pid_current
                     source_name = hbc_srcName
                     hbc_state = "RECONFIGURATION"
-                elif (i > 3):
+                elif i > 3:
                     hbc_pid = pid_current
                     source_name = hbc_srcName
                     hbc_state = "RUNNING"
-            if (time_difference < 60):
-                if ((int(hbc_pid) == int(pid_current)) and (source_name == hbc_srcName)):
+            if time_difference < 60:
+                if (int(hbc_pid) == int(pid_current)) and (source_name == hbc_srcName):
                     msg = "MSHBD:config status is", hbc_state
                     _logger.info(msg)
-                    if (hbc_state == "RUNNING"):
+                    if hbc_state == "RUNNING":
                         state = "RUNNING"
                         update_flg = 1
                         create_update_hb_common(update_flg, pid_current, state, user_name, password, ip_address, port_num, db_name)
-                    elif (hbc_state == "RECONFIGURATION"):
+                    elif hbc_state == "RECONFIGURATION":
                         _logger.info("MSHBD:Reconfiguration is in progress,Starting new processes by killing the present processes")
                         jsfile = fetch_json_file()
                         update_db = 1
@@ -395,7 +395,7 @@ def main():
 
                 else:
                     _logger.info("MSHBD:Inactive Instance: Process IDs are different, Keep Looping")
-                    if (len(job_list) >= 2):
+                    if len(job_list) >= 2:
                         _logger.info("MSHBD:Inactive Instance: Main and DBM thread are waiting to become ACTIVE")
                     else:
                         jsfile = fetch_json_file()
@@ -404,9 +404,9 @@ def main():
                         job_list = create_process(job_list, jsfile, pid_current)
             else:
                 _logger.info("MSHBD:Active instance is inactive for long time: Time to switchover")
-                if ((int(hbc_pid) != int(pid_current)) or (source_name != hbc_srcName)):
+                if (int(hbc_pid) != int(pid_current)) or (source_name != hbc_srcName):
                     _logger.info("MSHBD:Initiating to become Active Instance")
-                    if (len(job_list) >= 2):
+                    if len(job_list) >= 2:
                         _logger.info("MSHBD:HB and DBM thread are waiting to become ACTIVE")
                     else:
                         jsfile = fetch_json_file()
@@ -421,24 +421,24 @@ def main():
             time.sleep(25)
             if os.getenv('pytest', "") == 'test':
                 i = i + 1
-                if (i > 5):
+                if i > 5:
                     _logger.info("Terminating main process for pytest")
                     p3.terminate()
                     time.sleep(1)
                     p3.join()
-                    if (len(job_list) > 0):
+                    if len(job_list) > 0:
                         job_list[0].terminate()
                         time.sleep(1)
                         job_list[0].join()
                         job_list.remove(job_list[0])
-                    if (len(job_list) > 0):
+                    if len(job_list) > 0:
                         job_list[0].terminate()
                         time.sleep(1)
                         job_list[0].join()
                         job_list.remove(job_list[0])
                     break
 
-    except (Exception) as e:
+    except Exception as e:
         msg = "MSHBD:Exception as %s" % (str(traceback.format_exc()))
         _logger.error(msg)
 
