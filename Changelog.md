@@ -4,17 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [2.3.1.] - 19/06/2021
+## [2.3.1.] - 2021/06/19
 ### Security
 - Fixed SQL injection vulnerability
 ### Changed
 - Cleanup code
   - Removed extraneous parentheses
+- Use yyyy/mm/dd format in Changelog
 ### Fixed
 - pytest fails if http\_proxy is set
 
 
-## [2.3.0.] - 18/06/2021
+## [2.3.0.] - 2021/06/18
 ### Changed
 - Cleanup code
   - Removed unused imports
@@ -23,7 +24,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Add target/ to .gitignore
 
 
-## [2.2.0.] - 07/04/2021
+## [2.2.0.] - 2021/04/07
 ### Changed
 - Switched to currently recommended version of docker integration-python:8.0.0.
 - Fix issues preventing running with py3.9
@@ -34,4 +35,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   - CWE-93 (httplib2)
   - CVE-2018-18074 (requests)
 
-## [2.1.1.] - 03/02/2021
+## [2.1.1.] - 2021/02/03
