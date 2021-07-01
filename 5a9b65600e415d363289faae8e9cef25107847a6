@@ -16,6 +16,24 @@
       "revId": "5a9b65600e415d363289faae8e9cef25107847a6",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0580a4ab_11f73bcb",
+        "filename": "tests/test_binding.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5233
+      },
+      "writtenOn": "2021-07-01T09:59:10Z",
+      "side": 1,
+      "message": "thanks, I didn\u0027t notice that method.\nAs delenv throws KeyError if the var not defined, I added contain-checking before that.",
+      "parentUuid": "0b89af3e_1b8c111d",
+      "revId": "5a9b65600e415d363289faae8e9cef25107847a6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
