@@ -34,6 +34,24 @@
       "revId": "5a9b65600e415d363289faae8e9cef25107847a6",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "073ea358_5edfc4e3",
+        "filename": "tests/test_binding.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-07-06T14:26:26Z",
+      "side": 1,
+      "message": "Doing a check like this is fine. You could also use the delenv parameter \"raising\u003dFalse\"",
+      "parentUuid": "0580a4ab_11f73bcb",
+      "revId": "5a9b65600e415d363289faae8e9cef25107847a6",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
