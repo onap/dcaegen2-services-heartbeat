@@ -43,7 +43,6 @@ RUN apk add --no-cache --virtual build-deps \
     rustup self uninstall -y
 
 USER $user
-VOLUME logs
 
 CMD ["./bin/misshtbt.sh"]
 

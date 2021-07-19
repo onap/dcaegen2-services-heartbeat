@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Cleanup code
   - Removed extraneous parentheses
 - Use yyyy/mm/dd format in Changelog
+- Removed volume mapping from Dockerfile
 ### Fixed
 - pytest fails if http\_proxy is set
 
