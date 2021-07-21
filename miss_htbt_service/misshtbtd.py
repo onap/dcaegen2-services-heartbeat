@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # ============LICENSE_START=======================================================
-# Copyright (c) 2017-2020 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2017-2021 AT&T Intellectual Property. All rights reserved.
 # Copyright (c) 2019 Pantheon.tech. All rights reserved.
 # Copyright 2020 Deutsche Telekom. All rights reserved.
 # Copyright 2021 Samsung Electronics. All rights reserved.
@@ -239,7 +239,7 @@ def read_hb_properties(jsfile):
         with open(jsfile, 'r') as outfile:
             cfg = json.load(outfile)
     except Exception as err:
-        msg = "CBS Json file load error - ", err
+        msg = "CBS Json file load error - " + str(err)
         _logger.error(msg)
         return read_hb_properties_default()
 
@@ -259,7 +259,7 @@ def read_hb_properties(jsfile):
         if "SERVICE_NAME" in cfg:
             os.environ['SERVICE_NAME'] = str(cfg['SERVICE_NAME'])
     except Exception as err:
-        msg = "CBS Json file read parameter error - ", err
+        msg = "CBS Json file read parameter error - " + str(err)
         _logger.error(msg)
         return read_hb_properties_default()
     return ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval
