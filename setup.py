@@ -1,5 +1,5 @@
 # ============LICENSE_START=======================================================
-# Copyright (c) 2017-2018 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2017-2021 AT&T Intellectual Property. All rights reserved.
 # Copyright (c) 2021 Samsung Electronics. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -40,7 +40,7 @@ setup(
     packages=find_packages(),
     install_requires=[
         "requests==2.23.0",
-        "onap_dcae_cbs_docker_client==1.0.1",
+        "onap_dcae_cbs_docker_client==2.2.1",
         "six==1.15.0",
         "PyYAML==5.4",
         "httplib2==0.19.0",
