@@ -239,7 +239,7 @@ def read_hb_properties(jsfile):
         with open(jsfile, 'r') as outfile:
             cfg = json.load(outfile)
     except Exception as err:
-        msg = "CBS Json file load error - ", err
+        msg = "CBS Json file load error : " + str(err)
         _logger.error(msg)
         return read_hb_properties_default()
 
@@ -259,7 +259,7 @@ def read_hb_properties(jsfile):
         if "SERVICE_NAME" in cfg:
             os.environ['SERVICE_NAME'] = str(cfg['SERVICE_NAME'])
     except Exception as err:
-        msg = "CBS Json file read parameter error - ", err
+        msg = "CBS Json file read parameter error - " + str(err)
         _logger.error(msg)
         return read_hb_properties_default()
     return ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval
@@ -274,6 +274,7 @@ def fetch_json_file():
             current_runtime_config_file_name = "../etc/download.json"
         msg = "MSHBD:current config logged to : %s" % current_runtime_config_file_name
         _logger.info(msg)
+
         with open(current_runtime_config_file_name, 'w') as outfile:
             json.dump(tds.c_config, outfile)
         if os.getenv('pytest', "") == 'test':

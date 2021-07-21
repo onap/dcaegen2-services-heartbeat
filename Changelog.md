@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
   - Removed extraneous parentheses
 - Use yyyy/mm/dd format in Changelog
 - Removed volume mapping from Dockerfile
+- Fix Heartbeat deployment error on newer k8s
+- Switched to CBS client 2.2.1
 ### Fixed
 - pytest fails if http\_proxy is set
 

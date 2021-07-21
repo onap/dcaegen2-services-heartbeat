@@ -61,12 +61,14 @@ def get_cbs_config():
     try:
         msg = "Unable to fetch CBS config or it is erroneously empty - trying override/simulator config"
         tds.c_config = get_config()
+        stdout_logger("CBS client lib response : " + str(tds.c_config))
         if tds.c_config == {}:
             stdout_logger(msg)
 
+
     # if no CBS present, default to JSON config specified via CBS_HTBT_JSON env var
     except Exception as e:
-        msg = "ONAP controller not present, trying json config override via CBS_HTBT_JSON env variable"
+        msg = "ONAP controller not present, trying json config override via CBS_HTBT_JSON env variableo, " + str(e)
         stdout_logger(msg)
 
         try:
