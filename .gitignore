@@ -10,3 +10,4 @@ hb_logs.txt
 xunit-results.xml
 miss_htbt_service.egg-info
 target/
+.idea/

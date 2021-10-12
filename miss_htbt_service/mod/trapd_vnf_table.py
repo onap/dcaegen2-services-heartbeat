@@ -36,7 +36,6 @@ import get_logger
 import db_monitoring as dbmon
 import htbtworker as pm
 import misshtbtd as db
-import config_notif as cf
 import cbs_polling as cbs
 
 prog_name = os.path.basename(__file__)
@@ -88,21 +87,6 @@ def verify_DB_creation_hb_common(user_name,password,ip_address,port_num,db_name)
 
     return _db_status
 
-
-def verify_cbsPolling_required():
-    _cbspolling_status = True
-    os.environ['pytest']='test'
-    os.environ['CONSUL_HOST']='localhost'
-    os.environ['SERVICE_NAME']='mvp-dcaegen2-heartbeat-static'
-    try:
-        _cbspolling_status=cf.config_notif_run()
-    except Exception as e:
-        print("Config_notify error - %s" % e)
-
-    os.unsetenv('pytest')
-    os.unsetenv('CONSUL_HOST')
-    os.unsetenv('SERVICE_NAME')
-    return _cbspolling_status
 
 def verify_cbspolling():
     os.environ['pytest']='test'

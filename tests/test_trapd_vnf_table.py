@@ -28,7 +28,7 @@ import unittest
 import get_logger
 from mod.trapd_vnf_table import (
     verify_DB_creation_1, verify_DB_creation_2, verify_DB_creation_hb_common,
-    verify_cbsPolling_required, hb_properties, verify_cbspolling,
+    hb_properties, verify_cbspolling,
     verify_sendControlLoop_VNF_ONSET, verify_sendControlLoop_VM_ONSET,
     verify_sendControlLoop_VNF_ABATED, verify_sendControlLoop_VM_ABATED,
     verify_fetch_json_file, verify_misshtbtdmain, verify_dbmonitoring,
@@ -55,10 +55,6 @@ class test_vnf_tables(unittest.TestCase):
         result =verify_DB_creation_hb_common(user_name,password,ip_address,port_num,db_name)
         self.assertEqual(result, True)
 
-
-    def test_validate_cbspolling_required(self):
-        result = verify_cbsPolling_required()
-        self.assertEqual(result, True)
 
     def test_cbspolling(self):
         result= verify_cbspolling()
