@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "359f5fd9_29bc99f0",
+        "filename": "Changelog.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-10-13T16:34:20Z",
+      "side": 1,
+      "message": "change to [2.4.0] (lose the trailing \".\")",
+      "revId": "cef854179f510ae5102f684a920e281e5f9ec466",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c76b9af_61f7e7d3",
+        "filename": "Changelog.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-10-13T16:34:20Z",
+      "side": 1,
+      "message": "add [DCAEGEN2-2832], as in\n- [DCAEGEN2-2832] Removed unused code (config_notif.py)",
+      "revId": "cef854179f510ae5102f684a920e281e5f9ec466",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "739272f0_b8e2b230",
+        "filename": "miss_htbt_service/check_health.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-10-13T16:34:20Z",
+      "side": 1,
+      "message": "doing this also removes the ability for check_health to be used from the command line. I suggest that you add (after this function):\n\nif __name__ \u003d\u003d \u0027__main__\u0027:\n    start_health_check_server()",
+      "revId": "cef854179f510ae5102f684a920e281e5f9ec466",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2082a0a0_85326a80",
+        "filename": "miss_htbt_service/misshtbtd.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-10-13T16:34:20Z",
+      "side": 1,
+      "message": "Usually hc_proc.join() will follow.\nIs there a problem with doing the join?\nBy not doing hc_proc.join(), I think that zombie processes will be left around.",
+      "revId": "cef854179f510ae5102f684a920e281e5f9ec466",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
