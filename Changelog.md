@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [2.4.0] - 2021/10/12
 ### Changed
 - [DCAEGEN2-2939] Removed unused code (config\_notif.py)
+### Fixed
+- [DCAEGEN2-2832] Pod become unready state
 
 
 ## [2.3.1.] - 2021/06/19

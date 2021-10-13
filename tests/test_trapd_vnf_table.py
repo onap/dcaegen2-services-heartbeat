@@ -43,6 +43,7 @@ class test_vnf_tables(unittest.TestCase):
     """
     global ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval
     ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval = hb_properties()
+
     def test_validate_vnf_table_1(self):
         result =verify_DB_creation_1(user_name,password,ip_address,port_num,db_name)
         self.assertEqual(result, True)
@@ -54,7 +55,6 @@ class test_vnf_tables(unittest.TestCase):
     def test_validate_hb_common(self):
         result =verify_DB_creation_hb_common(user_name,password,ip_address,port_num,db_name)
         self.assertEqual(result, True)
-
 
     def test_cbspolling(self):
         result= verify_cbspolling()
