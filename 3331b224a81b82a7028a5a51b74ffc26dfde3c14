@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bd8439ff_8cdb159c",
+        "filename": "Changelog.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-10-13T15:29:37Z",
+      "side": 1,
+      "message": "change to [2.4.0]",
+      "revId": "3331b224a81b82a7028a5a51b74ffc26dfde3c14",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffb140fa_9fd88875",
+        "filename": "Changelog.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-10-13T15:29:37Z",
+      "side": 1,
+      "message": "add [DCAEGEN2-2939]",
+      "revId": "3331b224a81b82a7028a5a51b74ffc26dfde3c14",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
