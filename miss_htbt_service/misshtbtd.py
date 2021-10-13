@@ -39,6 +39,8 @@ import yaml
 import socket
 import os.path as path
 from pathlib import Path
+
+import check_health
 import htbtworker as heartbeat
 import get_logger
 from mod import trapd_settings as tds
@@ -48,7 +50,6 @@ hb_properties_file = path.abspath(path.join(__file__, "../config/hbproperties.ya
 
 ABSOLUTE_PATH1 = path.abspath(path.join(__file__, "../htbtworker.py"))
 ABSOLUTE_PATH2 = path.abspath(path.join(__file__, "../db_monitoring.py"))
-ABSOLUTE_PATH3 = path.abspath(path.join(__file__, "../check_health.py"))
 ABSOLUTE_PATH4 = path.abspath(path.join(__file__, "../cbs_polling.py"))
 
 
@@ -333,8 +334,12 @@ _logger = get_logger.get_logger(__name__)
 
 def main():
     try:
-        subprocess.Popen([ABSOLUTE_PATH3], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         _logger.info("MSHBD:Execution Started")
+        # Start health check server
+        hc_proc = multiprocessing.Process(target=check_health.start_health_check_server)
+        hc_proc.start()
+        _logger.info("MSHBD: Started health check server. PID=%d", hc_proc.pid)
+
         job_list = []
         pid_current = os.getpid()
         jsfile = fetch_json_file()

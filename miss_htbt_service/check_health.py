@@ -57,7 +57,7 @@ class GetHandler(BaseHTTPRequestHandler):
         return
 
 
-if __name__ == '__main__':
+def start_health_check_server() -> None:
     from http.server import HTTPServer
 
     server = HTTPServer(("", 10002), GetHandler)
