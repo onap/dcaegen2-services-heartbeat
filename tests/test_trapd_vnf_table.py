@@ -25,6 +25,7 @@ test_trapd_vnf_table contains test cases related to DB Tables and cbs polling.
 """
 
 import unittest
+from unittest.mock import patch
 import get_logger
 from mod.trapd_vnf_table import (
     verify_DB_creation_1, verify_DB_creation_2, verify_DB_creation_hb_common,
@@ -66,6 +67,8 @@ class test_vnf_tables(unittest.TestCase):
         _logger.info(result)
         self.assertEqual(result, True)
 
+    # health check server may cause blocking unittest, so mock it
+    # @patch('check_health.start_health_check_server', lambda: None)
     def test_misshtbtdmain(self):
         result= verify_misshtbtdmain()
         _logger.info(result)
