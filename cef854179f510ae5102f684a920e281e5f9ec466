@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "a975621b_e4d311cd",
+        "filename": "Changelog.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5233
+      },
+      "writtenOn": "2021-10-14T04:26:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "359f5fd9_29bc99f0",
+      "revId": "cef854179f510ae5102f684a920e281e5f9ec466",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9c76b9af_61f7e7d3",
         "filename": "Changelog.md",
         "patchSetId": 1
@@ -33,6 +51,24 @@
       "revId": "cef854179f510ae5102f684a920e281e5f9ec466",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0ff1850_47ba798f",
+        "filename": "Changelog.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5233
+      },
+      "writtenOn": "2021-10-14T04:26:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9c76b9af_61f7e7d3",
+      "revId": "cef854179f510ae5102f684a920e281e5f9ec466",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     },
     {
       "key": {
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "d00a7bb0_30d2ce24",
+        "filename": "miss_htbt_service/check_health.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 5233
+      },
+      "writtenOn": "2021-10-14T04:26:26Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "739272f0_b8e2b230",
+      "revId": "cef854179f510ae5102f684a920e281e5f9ec466",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2082a0a0_85326a80",
         "filename": "miss_htbt_service/misshtbtd.py",
         "patchSetId": 1
@@ -67,6 +121,24 @@
       "revId": "cef854179f510ae5102f684a920e281e5f9ec466",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ababa731_eb19f067",
+        "filename": "miss_htbt_service/misshtbtd.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 340,
+      "author": {
+        "id": 5233
+      },
+      "writtenOn": "2021-10-14T04:26:26Z",
+      "side": 1,
+      "message": "Thanks, that\u0027s right.\nAdded hc_proc.terminate() and join() in finally clause.",
+      "parentUuid": "2082a0a0_85326a80",
+      "revId": "cef854179f510ae5102f684a920e281e5f9ec466",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
