@@ -125,6 +125,9 @@ def process_msg(jsfile, user_name, password, ip_address, port_num, db_name):
                     jitem = json.loads(item)
                 srcname = (jitem['event']['commonEventHeader']['sourceName'])
                 lastepo = (jitem['event']['commonEventHeader']['lastEpochMicrosec'])
+                # if lastEpochMicrosec looks like microsec, align it with millisec
+                if lastepo > 1000000000000000:
+                    lastepo = int(lastepo / 1000)
                 seqnum = (jitem['event']['commonEventHeader']['sequence'])
                 eventName = (jitem['event']['commonEventHeader']['eventName'])
             except Exception as err:
