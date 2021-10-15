@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8e84babe_a8838b8a",
+        "filename": "miss_htbt_service/cbs_polling.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-10-15T19:26:24Z",
+      "side": 1,
+      "message": "delete \u0027result \u003d True\u0027. It\u0027s never modified to be otherwise.",
+      "revId": "b5e785f8e690b15dbba2071c44f5e64e647b1350",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "182979ae_26285a8a",
+        "filename": "miss_htbt_service/cbs_polling.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-10-15T19:26:24Z",
+      "side": 1,
+      "message": "delete the return. The function ALWAYS returns True, and the return value is not being checked.",
+      "revId": "b5e785f8e690b15dbba2071c44f5e64e647b1350",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
