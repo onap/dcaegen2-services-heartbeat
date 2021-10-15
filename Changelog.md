@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [DCAEGEN2-2939] Removed unused code (config\_notif.py)
 ### Fixed
 - [DCAEGEN2-2832] Pod become unready state
+- [DCAEGEN2-2944] cbs polling process startup failure
 
 
 ## [2.3.1.] - 2021/06/19

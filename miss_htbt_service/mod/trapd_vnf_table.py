@@ -92,7 +92,7 @@ def verify_cbspolling():
     os.environ['pytest']='test'
     os.environ['SERVICE_NAME']='mvp-dcaegen2-heartbeat-static'
     try:
-        _cbspolling=cbs.pollCBS(10)
+        _cbspolling=cbs.poll_cbs(10)
     except Exception as e:
         return None
 

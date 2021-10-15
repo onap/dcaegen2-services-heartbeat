@@ -33,7 +33,7 @@ import get_logger
 _logger = get_logger.get_logger(__name__)
 
 
-def pollCBS(current_pid):
+def poll_cbs(current_pid: int):
     jsfile = db.fetch_json_file()
     ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval = db.read_hb_properties(jsfile)
     hbc_pid, hbc_state, hbc_srcName, hbc_time = db.read_hb_common(user_name, password, ip_address, port_num, db_name)
@@ -51,7 +51,7 @@ def pollCBS(current_pid):
     source_name = socket.gethostname()
     source_name = source_name + "-" + str(os.getenv('SERVICE_NAME', ""))
     result = True
-    if int(current_pid) == int(hbc_pid) and source_name == hbc_srcName and hbc_state == "RUNNING":
+    if current_pid == int(hbc_pid) and source_name == hbc_srcName and hbc_state == "RUNNING":
         _logger.info("CBSP:ACTIVE Instance:Change the state to RECONFIGURATION")
         state = "RECONFIGURATION"
         update_flg = 1
@@ -61,7 +61,11 @@ def pollCBS(current_pid):
     return result
 
 
-if __name__ == "__main__":
-    current_pid = sys.argv[1]
+def cbs_polling_loop(current_pid: int):
     while True:
-        pollCBS(current_pid)
+        poll_cbs(current_pid)
+
+
+if __name__ == "__main__":
+    parent_pid = int(sys.argv[1])
+    cbs_polling_loop(parent_pid)
