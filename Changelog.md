@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [DCAEGEN2-2939] Removed unused code (config\_notif.py)
 ### Fixed
 - [DCAEGEN2-2832] Pod become unready state
+- [DCAEGEN2-2940] Microsec timestamp not properly handled
 - [DCAEGEN2-2944] cbs polling process startup failure
 
 
