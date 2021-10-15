@@ -43,6 +43,7 @@ from pathlib import Path
 import check_health
 import htbtworker as heartbeat
 import get_logger
+import cbs_polling
 from mod import trapd_settings as tds
 from mod.trapd_get_cbs_config import get_cbs_config
 
@@ -50,7 +51,6 @@ hb_properties_file = path.abspath(path.join(__file__, "../config/hbproperties.ya
 
 ABSOLUTE_PATH1 = path.abspath(path.join(__file__, "../htbtworker.py"))
 ABSOLUTE_PATH2 = path.abspath(path.join(__file__, "../db_monitoring.py"))
-ABSOLUTE_PATH4 = path.abspath(path.join(__file__, "../cbs_polling.py"))
 
 
 def create_database(update_db, jsfile, ip_address, port_num, user_name, password, db_name):
@@ -190,13 +190,6 @@ def create_update_vnf_table_1(jsfile, update_db, connection_db):
     _logger.info("MSHBT:Updated vnf_table_1 as per the json configuration file")
 
 
-def hb_cbs_polling_process(pid_current):
-    subprocess.call([ABSOLUTE_PATH4, str(pid_current)])
-    sys.stdout.flush()
-    _logger.info("MSHBT:Creaated CBS polling process")
-    return
-
-
 def hb_worker_process(config_file_path):
     subprocess.call([ABSOLUTE_PATH1, config_file_path])
     sys.stdout.flush()
@@ -333,7 +326,9 @@ _logger = get_logger.get_logger(__name__)
 
 
 def main():
+    pid_current = os.getpid()
     hc_proc = multiprocessing.Process(target=check_health.start_health_check_server)
+    cbs_polling_proc = multiprocessing.Process(target=cbs_polling.cbs_polling_loop, args=(pid_current,))
     try:
         _logger.info("MSHBD:Execution Started")
         # Start health check server
@@ -341,21 +336,20 @@ def main():
         _logger.info("MSHBD: Started health check server. PID=%d", hc_proc.pid)
 
         job_list = []
-        pid_current = os.getpid()
         jsfile = fetch_json_file()
         ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval = read_hb_properties(jsfile)
         msg = "MSHBT:HB Properties -", ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval
         _logger.info(msg)
-        if cbs_polling_required == 'True':
-            p3 = multiprocessing.Process(target=hb_cbs_polling_process, args=(pid_current,))
-            p3.start()
         update_db = 0
         create_update_db(update_db, jsfile, ip_address, port_num, user_name, password, db_name)
         state = "RECONFIGURATION"
         update_flg = 0
         create_update_hb_common(update_flg, pid_current, state, user_name, password, ip_address, port_num, db_name)
-        msg = "MSHBD:Current process id is", pid_current
-        _logger.info(msg)
+        if cbs_polling_required == 'True':
+            # note: cbs_polling process must be started after `hb_common` table created
+            cbs_polling_proc.start()
+            _logger.info("MSHBD: Started CBS polling process. PID=%d", cbs_polling_proc.pid)
+        _logger.info("MSHBD:Current process id is %d", pid_current)
         _logger.info("MSHBD:Now be in a continuous loop")
         i = 0
         while True:
@@ -428,9 +422,9 @@ def main():
                 i = i + 1
                 if i > 5:
                     _logger.info("Terminating main process for pytest")
-                    p3.terminate()
+                    cbs_polling_proc.terminate()
                     time.sleep(1)
-                    p3.join()
+                    cbs_polling_proc.join()
                     if len(job_list) > 0:
                         job_list[0].terminate()
                         time.sleep(1)
@@ -454,6 +448,10 @@ def main():
         if hc_proc.pid is not None:
             hc_proc.terminate()
             hc_proc.join()
+        # Stop CBS polling process
+        if cbs_polling_proc.pid is not None:
+            cbs_polling_proc.terminate()
+            cbs_polling_proc.join()
 
 
 if __name__ == '__main__':

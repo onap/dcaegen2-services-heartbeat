@@ -91,14 +91,10 @@ def verify_DB_creation_hb_common(user_name,password,ip_address,port_num,db_name)
 def verify_cbspolling():
     os.environ['pytest']='test'
     os.environ['SERVICE_NAME']='mvp-dcaegen2-heartbeat-static'
-    try:
-        _cbspolling=cbs.pollCBS(10)
-    except Exception as e:
-        return None
-
+    cbs.poll_cbs(10)
     os.unsetenv('pytest')
     os.unsetenv('SERVICE_NAME')
-    return _cbspolling
+
 
 def verify_fetch_json_file():
     os.environ['pytest']='test'
