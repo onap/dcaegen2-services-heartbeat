@@ -57,9 +57,8 @@ class test_vnf_tables(unittest.TestCase):
         self.assertEqual(result, True)
 
     def test_cbspolling(self):
-        result= verify_cbspolling()
-        _logger.info(result)
-        self.assertEqual(result, True)
+        # Check if no exception thrown
+        verify_cbspolling()
 
     def test_fetch_json_file(self):
         result= verify_fetch_json_file()

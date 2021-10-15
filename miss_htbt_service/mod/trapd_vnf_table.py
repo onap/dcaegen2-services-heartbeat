@@ -92,13 +92,12 @@ def verify_cbspolling():
     os.environ['pytest']='test'
     os.environ['SERVICE_NAME']='mvp-dcaegen2-heartbeat-static'
     try:
-        _cbspolling=cbs.pollCBS(10)
+        cbs.poll_cbs(10)
     except Exception as e:
-        return None
-
+        raise
     os.unsetenv('pytest')
     os.unsetenv('SERVICE_NAME')
-    return _cbspolling
+
 
 def verify_fetch_json_file():
     os.environ['pytest']='test'
