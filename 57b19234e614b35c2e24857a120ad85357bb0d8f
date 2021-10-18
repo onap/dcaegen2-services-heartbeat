@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "39198a19_8f43ad8f",
+        "filename": "miss_htbt_service/mod/trapd_vnf_table.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-10-18T16:07:35Z",
+      "side": 1,
+      "message": "this try/except can be removed now",
+      "revId": "57b19234e614b35c2e24857a120ad85357bb0d8f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
