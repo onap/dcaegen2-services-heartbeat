@@ -27,7 +27,7 @@
 #  - Download the CBS configuration and populate the DB
 #
 #  Author  Prakash Hosangady(ph553f@att.com)
-
+import shutil
 import traceback
 import os
 import sys
@@ -38,6 +38,7 @@ import subprocess
 import yaml
 import socket
 import os.path as path
+import tempfile
 from pathlib import Path
 
 import check_health
@@ -51,6 +52,7 @@ hb_properties_file = path.abspath(path.join(__file__, "../config/hbproperties.ya
 
 ABSOLUTE_PATH1 = path.abspath(path.join(__file__, "../htbtworker.py"))
 ABSOLUTE_PATH2 = path.abspath(path.join(__file__, "../db_monitoring.py"))
+CONFIG_PATH = "../etc/config.json"
 
 
 def create_database(update_db, jsfile, ip_address, port_num, user_name, password, db_name):
@@ -259,33 +261,28 @@ def read_hb_properties(jsfile):
     return ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval
 
 
-def fetch_json_file():
+def fetch_json_file() -> str:
+    """Get configuration from CBS and save it to json file.
+
+    :return: path to saved json file
+    """
+    # note: this func is called from multiple subprocesses. need to be thread-safe.
+    jsfile = CONFIG_PATH
+    # Try to get config from CBS. If succeeded, config json is stored to tds.c_config .
     if get_cbs_config():
-        envPytest = os.getenv('pytest', "")
-        if envPytest == 'test':
-            current_runtime_config_file_name = "/tmp/opt/app/miss_htbt_service/etc/config.json"
-        else:
-            current_runtime_config_file_name = "../etc/download.json"
-        msg = "MSHBD:current config logged to : %s" % current_runtime_config_file_name
-        _logger.info(msg)
-        with open(current_runtime_config_file_name, 'w') as outfile:
-            json.dump(tds.c_config, outfile)
-        if os.getenv('pytest', "") == 'test':
-            jsfile = current_runtime_config_file_name
-        else:
-            jsfile = "../etc/config.json"
-            os.system('cp ../etc/download.json ../etc/config.json')
-            os.remove("../etc/download.json")
+        # Save config to temporary file
+        with tempfile.NamedTemporaryFile('w', delete=False) as temp:
+            _logger.info("MSHBD: New config saved to temp file %s", temp.name)
+            json.dump(tds.c_config, temp)
+        # Swap current config with downloaded config
+        os.makedirs(Path(jsfile).parent, exist_ok=True)
+        shutil.move(temp.name, jsfile)
     else:
-        msg = "MSHBD:CBS Config not available, using local config"
-        _logger.warning(msg)
-        my_file = Path("./etc/config.json")
-        if my_file.is_file():
-            jsfile = "./etc/config.json"
-        else:
-            jsfile = "../etc/config.json"
-    msg = "MSHBT: The json file is - ", jsfile
-    _logger.info(msg)
+        _logger.warning("MSHBD: CBS Config not available, using local config")
+        local_config = "./etc/config.json"
+        if Path(local_config).is_file():
+            jsfile = local_config
+    _logger.info("MSHBD: The json file is %s", jsfile)
     return jsfile
 
 
