@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8d587054_33bc8564",
+        "filename": "miss_htbt_service/misshtbtd.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-10-18T15:40:38Z",
+      "side": 1,
+      "message": "this code in general seems VERY fragile and I think the logic needs to be rethought.\n\nIf os.remove() can fail, so can the cp on the previous line.\n\nWhy not change os.system() to use \"mv\" instead of \"cp\"?\n\nOr better yet, do an os.rename() and capture FileNotFoundError on that?\n\nOr figure out a way to avoid the race condition altoghether.",
+      "revId": "88536198e76503179d0f356138b6e3cbd0891cfd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
