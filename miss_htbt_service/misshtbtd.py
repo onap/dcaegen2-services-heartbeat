@@ -275,7 +275,10 @@ def fetch_json_file():
         else:
             jsfile = "../etc/config.json"
             os.system('cp ../etc/download.json ../etc/config.json')
-            os.remove("../etc/download.json")
+            try:
+                os.remove("../etc/download.json")
+            except FileNotFoundError:
+                pass
     else:
         msg = "MSHBD:CBS Config not available, using local config"
         _logger.warning(msg)
