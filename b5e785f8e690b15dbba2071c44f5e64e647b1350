@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "48b59918_02cf0327",
+        "filename": "miss_htbt_service/cbs_polling.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 5233
+      },
+      "writtenOn": "2021-10-18T06:51:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e84babe_a8838b8a",
+      "revId": "b5e785f8e690b15dbba2071c44f5e64e647b1350",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "182979ae_26285a8a",
         "filename": "miss_htbt_service/cbs_polling.py",
         "patchSetId": 2
@@ -33,6 +51,24 @@
       "revId": "b5e785f8e690b15dbba2071c44f5e64e647b1350",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "68b75d97_e9c1b8cb",
+        "filename": "miss_htbt_service/cbs_polling.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5233
+      },
+      "writtenOn": "2021-10-18T06:51:19Z",
+      "side": 1,
+      "message": "It seems the return value is only used by test, but its assertion is meaningless (always True if no exception thrown).\nRemoved the return and also fixed the related test function to remove assertions.",
+      "parentUuid": "182979ae_26285a8a",
+      "revId": "b5e785f8e690b15dbba2071c44f5e64e647b1350",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
