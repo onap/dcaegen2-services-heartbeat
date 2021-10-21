@@ -16,6 +16,24 @@
       "revId": "88536198e76503179d0f356138b6e3cbd0891cfd",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9f117bb1_75d3656a",
+        "filename": "miss_htbt_service/misshtbtd.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 277,
+      "author": {
+        "id": 5233
+      },
+      "writtenOn": "2021-10-21T15:30:03Z",
+      "side": 1,
+      "message": "Using the same file \u0027download.json\u0027 in multi processes causes the race condition, so changed to use NamedTemporaryFile instead of that in order to use different temp file for each sub-process.\n\nAlso removed the test code fragment. This function can pass tests without it.",
+      "parentUuid": "8d587054_33bc8564",
+      "revId": "88536198e76503179d0f356138b6e3cbd0891cfd",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
