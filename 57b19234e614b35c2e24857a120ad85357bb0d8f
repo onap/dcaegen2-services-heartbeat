@@ -16,6 +16,24 @@
       "revId": "57b19234e614b35c2e24857a120ad85357bb0d8f",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "849a2d5f_29d42e75",
+        "filename": "miss_htbt_service/mod/trapd_vnf_table.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 5233
+      },
+      "writtenOn": "2021-10-21T12:41:07Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "39198a19_8f43ad8f",
+      "revId": "57b19234e614b35c2e24857a120ad85357bb0d8f",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
