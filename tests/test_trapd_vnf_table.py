@@ -23,9 +23,8 @@
 """
 test_trapd_vnf_table contains test cases related to DB Tables and cbs polling.
 """
-
+import logging
 import unittest
-import get_logger
 from mod.trapd_vnf_table import (
     verify_DB_creation_1, verify_DB_creation_2, verify_DB_creation_hb_common,
     hb_properties, verify_cbspolling,
@@ -34,7 +33,7 @@ from mod.trapd_vnf_table import (
     verify_fetch_json_file, verify_misshtbtdmain, verify_dbmonitoring,
     verify_dbmon_startup)
 
-_logger = get_logger.get_logger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 class test_vnf_tables(unittest.TestCase):

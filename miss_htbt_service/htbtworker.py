@@ -22,6 +22,7 @@
 #    Simple Microservice
 #    Tracks Heartbeat messages on input topic in DMaaP
 #    and poppulate the information in postgres DB
+import logging
 
 import psycopg2
 import requests
@@ -33,7 +34,7 @@ import time
 import misshtbtd as db
 import get_logger
 
-_logger = get_logger.get_logger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 def read_json_file(i, prefix="../../tests"):
@@ -160,8 +161,7 @@ def process_msg(jsfile, user_name, password, ip_address, port_num, db_name):
                 source_name_key = source_name_count + 1
                 cl_flag = 0
                 if source_name_count == 0:  # pragma: no cover
-                    msg = "HBT: Insert entry in table_2,source_name_count=0 : ", row
-                    _logger.info(msg)
+                    _logger.info("HBT: Insert entry into vnf_table_2, source_name='%s'", srcname)
                     cur.execute("INSERT INTO vnf_table_2 VALUES(%s,%s,%s,%s,%s)",
                                 (eventName, source_name_key, lastepo, srcname, cl_flag))
                     cur.execute("UPDATE vnf_table_1 SET SOURCE_NAME_COUNT = %s where EVENT_NAME = %s",
@@ -190,8 +190,7 @@ def process_msg(jsfile, user_name, password, ip_address, port_num, db_name):
                     _logger.info(msg)
                     if source_name_count == (source_name_key + 1):
                         source_name_key = source_name_count + 1
-                        msg = "HBT: Insert entry in table_2 : ", row
-                        _logger.info(msg)
+                        _logger.info("HBT: Insert entry into vnf_table_2, source_name='%s'", srcname)
                         cur.execute("INSERT INTO vnf_table_2 VALUES(%s,%s,%s,%s,%s)",
                                     (eventName, source_name_key, lastepo, srcname, cl_flag))
                         cur.execute("UPDATE vnf_table_1 SET SOURCE_NAME_COUNT = %s WHERE EVENT_NAME = %s",
@@ -256,6 +255,7 @@ def commit_and_close_db(connection_db):
 
 
 if __name__ == '__main__':
+    get_logger.configure_logger('htbtworker')
     jsfile = sys.argv[1]
     msg = "HBT:HeartBeat thread Created"
     _logger.info("HBT:HeartBeat thread Created")

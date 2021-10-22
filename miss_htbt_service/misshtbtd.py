@@ -28,6 +28,7 @@
 #
 #  Author  Prakash Hosangady(ph553f@att.com)
 import shutil
+import logging
 import traceback
 import os
 import sys
@@ -49,6 +50,7 @@ from mod import trapd_settings as tds
 from mod.trapd_get_cbs_config import get_cbs_config
 
 hb_properties_file = path.abspath(path.join(__file__, "../config/hbproperties.yaml"))
+_logger = logging.getLogger(__name__)
 
 ABSOLUTE_PATH1 = path.abspath(path.join(__file__, "../htbtworker.py"))
 ABSOLUTE_PATH2 = path.abspath(path.join(__file__, "../db_monitoring.py"))
@@ -319,10 +321,8 @@ def create_process(job_list, jsfile, pid_current):
     return job_list
 
 
-_logger = get_logger.get_logger(__name__)
-
-
 def main():
+    get_logger.configure_logger('misshtbtd')
     pid_current = os.getpid()
     hc_proc = multiprocessing.Process(target=check_health.start_health_check_server)
     cbs_polling_proc = multiprocessing.Process(target=cbs_polling.cbs_polling_loop, args=(pid_current,))

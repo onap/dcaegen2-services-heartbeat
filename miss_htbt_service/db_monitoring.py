@@ -24,6 +24,7 @@
 #    and generates Missing Heartbeat signal for Policy Engine
 
 import json
+import logging
 import sys
 import os
 import socket
@@ -33,7 +34,7 @@ import htbtworker as pm
 import misshtbtd as db
 import get_logger
 
-_logger = get_logger.get_logger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 def sendControlLoopEvent(CLType, pol_url, policy_version, policy_name, policy_scope, target_type, srcName, epoc_time,
@@ -232,6 +233,7 @@ def db_monitoring(current_pid, json_file, user_name, password, ip_address, port_
 
 
 if __name__ == "__main__":
+    get_logger.configure_logger('db_monitoring')
     _logger.info("DBM: DBM Process started")
     current_pid = sys.argv[1]
     jsfile = sys.argv[2]

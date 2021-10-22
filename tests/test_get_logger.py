@@ -1,5 +1,6 @@
 # ============LICENSE_START=======================================================
 # Copyright (c) 2020 AT&T Intellectual Property. All rights reserved.
+# Copyright 2021 Fujitsu Ltd.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,23 +14,30 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ============LICENSE_END=========================================================
+import logging
+import os
+from pathlib import Path
 
 from miss_htbt_service import get_logger
 
-import os
+log = logging.getLogger(__name__)
 
-def test_get_logger():
-    try:
-        os.remove("hb_logs.txt")
-    except:
-        pass
-    log = get_logger.get_logger()
+
+def test_configure_logger():
+    expected_log_path = Path('./hb_logs.txt')
+    if expected_log_path.exists():
+        os.remove(expected_log_path)
+    get_logger.configure_logger('')
     log.info("hi there")
+    assert expected_log_path.exists()
+    os.remove(expected_log_path)
 
-def test_get_logger_node():
-    try:
-        os.remove("hb_logs.txt")
-    except:
-        pass
-    log = get_logger.get_logger("node")
-    log.info("hi there node")
+
+def test_configure_logger_with_name():
+    expected_log_path = Path('./hb_htbtworker_logs.txt')
+    if expected_log_path.exists():
+        os.remove(expected_log_path)
+    get_logger.configure_logger('htbtworker')
+    log.info("hi there")
+    assert expected_log_path.exists()
+    os.remove(expected_log_path)

@@ -25,7 +25,7 @@
 """
 trapd_vnf_table verifies the successful creation of DB Tables.
 """
-
+import logging
 import os
 import yaml
 import os.path as path
@@ -39,8 +39,9 @@ import misshtbtd as db
 import cbs_polling as cbs
 
 prog_name = os.path.basename(__file__)
-hb_properties_file =  path.abspath(path.join(__file__, "../../config/hbproperties.yaml"))
-_logger = get_logger.get_logger(__name__)
+hb_properties_file = path.abspath(path.join(__file__, "../../config/hbproperties.yaml"))
+_logger = logging.getLogger(__name__)
+
 
 def hb_properties():
 	#Read the hbproperties.yaml for postgress and CBS related data

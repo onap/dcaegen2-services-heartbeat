@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [DCAEGEN2-2832] Pod become unready state
 - [DCAEGEN2-2872] No such file or directory error and stop working
 - [DCAEGEN2-2940] Microsec timestamp not properly handled
+- [DCAEGEN2-2941] Log file fragmented by log rotation
 - [DCAEGEN2-2944] cbs polling process startup failure
 
 

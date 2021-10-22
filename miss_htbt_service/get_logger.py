@@ -17,20 +17,32 @@
 
 import logging.handlers
 
-'''Configures the module root logger'''
-root = logging.getLogger()
-if root.handlers:
-    del root.handlers[:]
-formatter = logging.Formatter('%(asctime)s | %(name)s | %(module)s | %(funcName)s | %(lineno)d |  %(levelname)s | %(message)s')
-handler = logging.StreamHandler()
-handler.setFormatter(formatter)
-root.addHandler(handler)
-fhandler = logging.handlers.RotatingFileHandler('./hb_logs.txt', maxBytes=(1048576 * 5), backupCount=10)
-fhandler.setFormatter(formatter)
-root.addHandler(fhandler)
-root.setLevel("DEBUG")
+LOG_LEVEL = logging.DEBUG
+LOG_FORMAT = '%(asctime)s | %(levelname)5s | %(name)s | %(module)s | %(funcName)s | %(lineno)d | %(message)s'
+LOG_MAXSIZE = 10485760 * 5
+LOG_BACKUP_COUNT = 10
 
 
-def get_logger(module=None):
-    '''Returns a module-specific logger or global logger if the module is None'''
-    return root if module is None else root.getChild(module)
+def configure_logger(proc_name: str) -> None:
+    """Configures the module root logger"""
+
+    # Clear handlers
+    root = logging.getLogger()
+    if root.handlers:
+        del root.handlers[:]
+
+    # Add stdout handler
+    formatter = logging.Formatter(LOG_FORMAT)
+    handler = logging.StreamHandler()
+    handler.setFormatter(formatter)
+    root.addHandler(handler)
+
+    # Add rotating log file handler
+    if proc_name:
+        logfile_path = './hb_%s_logs.txt' % proc_name
+    else:
+        logfile_path = './hb_logs.txt'
+    fhandler = logging.handlers.RotatingFileHandler(logfile_path, maxBytes=LOG_MAXSIZE, backupCount=LOG_BACKUP_COUNT)
+    fhandler.setFormatter(formatter)
+    root.addHandler(fhandler)
+    root.setLevel(LOG_LEVEL)

@@ -22,7 +22,7 @@
 #    CBS Polling
 #    Set the hb_common table with state="RECONFIGURATION" periodically
 #    to get the new configuration downloaded
-
+import logging
 import sys
 import os
 import socket
@@ -30,7 +30,7 @@ import time
 import misshtbtd as db
 import get_logger
 
-_logger = get_logger.get_logger(__name__)
+_logger = logging.getLogger(__name__)
 
 
 def poll_cbs(current_pid: int) -> None:
@@ -60,6 +60,7 @@ def poll_cbs(current_pid: int) -> None:
 
 
 def cbs_polling_loop(current_pid: int):
+    get_logger.configure_logger('cbs_polling')
     while True:
         poll_cbs(current_pid)
 
