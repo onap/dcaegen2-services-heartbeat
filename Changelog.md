@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [DCAEGEN2-2940] Microsec timestamp not properly handled
 - [DCAEGEN2-2941] Log file fragmented by log rotation
 - [DCAEGEN2-2944] cbs polling process startup failure
+- [DCAEGEN2-2952] Handle message-router connection failure
 
 
 ## [2.3.1.] - 2021/06/19

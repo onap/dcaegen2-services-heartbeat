@@ -96,9 +96,13 @@ def process_msg(jsfile, user_name, password, ip_address, port_num, db_name):
                 i = 0
                 break
         else:
-            res = requests.get(get_url)
-            msg = "HBT:", res.text
-            _logger.info(msg)
+            try:
+                res = requests.get(get_url)
+            except Exception as e:
+                # message-router may be down temporarily. continue polling loop to try again
+                _logger.error('HBT: Failed to fetch messages from DMaaP. get_url=%s', get_url, exc_info=e)
+                continue
+            _logger.info("HBT: %s", res.text)
             inputString = res.text
             # If mrstatus in message body indicates some information, not json msg.
             if "mrstatus" in inputString:
