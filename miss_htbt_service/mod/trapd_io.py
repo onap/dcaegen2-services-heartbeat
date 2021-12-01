@@ -21,7 +21,7 @@
 """
 """
 
-__docformat__ = 'restructuredtext'
+__docformat__ = "restructuredtext"
 
 # basics
 import datetime
@@ -36,6 +36,7 @@ import string
 import time
 import traceback
 import unicodedata
+
 # dcae_snmptrap
 import mod.trapd_settings as tds
 from mod.trapd_exit import cleanup_and_exit
@@ -48,7 +49,7 @@ prog_name = os.path.basename(__file__)
 # # # # # # # # # # ## # # # # # # #
 
 
-#def roll_all_logs():
+# def roll_all_logs():
 #    """
 #    roll all active logs to timestamped version, open new one
 #    based on frequency defined in files.roll_frequency
@@ -107,7 +108,7 @@ prog_name = os.path.basename(__file__)
 # # # # # # # # # # ## # # # # # # #
 
 
-#def open_eelf_logs():
+# def open_eelf_logs():
 #    """
 #    open various (multiple ???) logs
 #    """
@@ -159,7 +160,7 @@ prog_name = os.path.basename(__file__)
 # # # # # # # # # # ## # # # # # # #
 
 
-#def roll_file(_loc_file_name):
+# def roll_file(_loc_file_name):
 #    """
 #    move active file to timestamped archive
 #    """
@@ -190,7 +191,7 @@ prog_name = os.path.basename(__file__)
 ## # # # # # # # # # # # #
 #
 #
-#def open_file(_loc_file_name):
+# def open_file(_loc_file_name):
 #    """
 #    open _loc_file_name, return file handle
 #    """
@@ -214,7 +215,7 @@ prog_name = os.path.basename(__file__)
 #    """
 #
 #
-#def close_file(_loc_fd, _loc_filename):
+# def close_file(_loc_fd, _loc_filename):
 #
 #    try:
 #
@@ -231,7 +232,7 @@ prog_name = os.path.basename(__file__)
 ##     is released for python via LOG-161
 ## # # # # # # # # # ## # # # # # # #
 #
-#def ecomp_logger(_log_type, _sev, _error_code, _msg):
+# def ecomp_logger(_log_type, _sev, _error_code, _msg):
 #    """
 #    Log to ecomp-style logfiles.  Logs include:
 #
@@ -389,4 +390,4 @@ def stdout_logger(_msg):
 
     t_out = datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S,%f")[:-3]
 
-    print('%s %s' % (t_out, _msg))
+    print("%s %s" % (t_out, _msg))

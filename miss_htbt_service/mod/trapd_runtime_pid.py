@@ -21,7 +21,7 @@ trapd_runtime_pid maintains a 'PID file' (file that contains the
 PID of currently running trap receiver)
 """
 
-__docformat__ = 'restructuredtext'
+__docformat__ = "restructuredtext"
 
 import logging
 import os
@@ -50,8 +50,8 @@ def save_pid(_pid_file_name):
     """
 
     try:
-        pid_fd = open(_pid_file_name, 'w')
-        pid_fd.write('%d' % os.getpid())
+        pid_fd = open(_pid_file_name, "w")
+        pid_fd.write("%d" % os.getpid())
         pid_fd.close()
     except IOError:
         print("IOError saving PID file %s :" % _pid_file_name)

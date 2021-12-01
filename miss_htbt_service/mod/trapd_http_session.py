@@ -21,7 +21,7 @@ trapd_http_session establishes an http session for future use in publishing
 messages to the dmaap cluster.
 """
 
-__docformat__ = 'restructuredtext'
+__docformat__ = "restructuredtext"
 
 import os
 import requests

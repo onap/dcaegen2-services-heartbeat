@@ -24,44 +24,85 @@ import httpretty
 import subprocess
 import json
 
-MODULE_EXTENSIONS = ('.py', '.pyc', '.pyo')
+MODULE_EXTENSIONS = (".py", ".pyc", ".pyo")
 
 #####
 # MONKEYPATCHES
 #####
 
-mr_url = 'http://mrrouter.onap.org:3904'
-intopic = 'VESCOLL-VNFNJ-SECHEARTBEAT-OUTPUT'
-outopic = 'POLICY-HILOTCA-EVENT-OUTPUT'
+mr_url = "http://mrrouter.onap.org:3904"
+intopic = "VESCOLL-VNFNJ-SECHEARTBEAT-OUTPUT"
+outopic = "POLICY-HILOTCA-EVENT-OUTPUT"
 
 
 @pytest.fixture()
 def disable_proxy(monkeypatch):
-    if 'http_proxy' in os.environ:
-        monkeypatch.delenv('http_proxy')
-    if 'HTTP_PROXY' in os.environ:
-        monkeypatch.delenv('HTTP_PROXY')
+    if "http_proxy" in os.environ:
+        monkeypatch.delenv("http_proxy")
+    if "HTTP_PROXY" in os.environ:
+        monkeypatch.delenv("HTTP_PROXY")
 
 
 @httpretty.activate
 def test_resolve_all(disable_proxy):
     htbtmsg = '{"event":{"commonEventHeader":{"startEpochMicrosec":1518616063564475,"sourceId":"587c14b3-72c0-4581-b5cb-6567310b9bb7","eventId":"10048640","reportingEntityId":"587c14b3-72c0-4581-b5cb-6567310b9bb7","priority":"Normal","version":3,"reportingEntityName":"TESTVM","sequence":10048640,"domain":"heartbeat","lastEpochMicrosec":1518616063564476,"eventName":"Heartbeat_vVnf","sourceName":"TESTVM","nfNamingCode":"vVNF"}}}'
-    send_url = mr_url+'/events/'+intopic+'/DefaultGroup/1?timeout=15000'
+    send_url = mr_url + "/events/" + intopic + "/DefaultGroup/1?timeout=15000"
     print(send_url)
     httpretty.register_uri(httpretty.GET, send_url, body=htbtmsg)
-    #Use
+    # Use
     response = requests.get(send_url)
     print(response)
     print(response.text)
-    assert(response.text == htbtmsg)
-    htbtmsg = json.dumps({"event":{"commonEventHeader":{"startEpochMicrosec":1518616063564475,"sourceId":"587c14b3-72c0-4581-b5cb-6567310b9bb7","eventId":"10048640","reportingEntityId":"587c14b3-72c0-4581-b5cb-6567310b9bb7","priority":"Normal","version":3,"reportingEntityName":"TESTVM","sequence":10048640,"domain":"heartbeat","lastEpochMicrosec":1518616063564476,"eventName":"Heartbeat_vVnf","sourceName":"TESTVM","nfNamingCode":"vVNF"}}})
-    send_url = mr_url+'/events/'+intopic+'/DefaultGroup/1?timeout=15000'
-    print("Send URL : "+send_url)
+    assert response.text == htbtmsg
+    htbtmsg = json.dumps(
+        {
+            "event": {
+                "commonEventHeader": {
+                    "startEpochMicrosec": 1518616063564475,
+                    "sourceId": "587c14b3-72c0-4581-b5cb-6567310b9bb7",
+                    "eventId": "10048640",
+                    "reportingEntityId": "587c14b3-72c0-4581-b5cb-6567310b9bb7",
+                    "priority": "Normal",
+                    "version": 3,
+                    "reportingEntityName": "TESTVM",
+                    "sequence": 10048640,
+                    "domain": "heartbeat",
+                    "lastEpochMicrosec": 1518616063564476,
+                    "eventName": "Heartbeat_vVnf",
+                    "sourceName": "TESTVM",
+                    "nfNamingCode": "vVNF",
+                }
+            }
+        }
+    )
+    send_url = mr_url + "/events/" + intopic + "/DefaultGroup/1?timeout=15000"
+    print("Send URL : " + send_url)
     httpretty.register_uri(httpretty.GET, send_url, body=htbtmsg, content_type="application/json")
-    pol_url = mr_url+'/events/'+outopic+'/DefaultGroup/1?timeout=15000'
-    pol_body = json.dumps({"event":{"commonEventHeader":{"startEpochMicrosec":1518616063564475,"sourceId":"587c14b3-72c0-4581-b5cb-6567310b9bb7","eventId":"10048640","reportingEntityId":"587c14b3-72c0-4581-b5cb-6567310b9bb7","priority":"Normal","version":3,"reportingEntityName":"TESTVM","sequence":10048640,"domain":"heartbeat","lastEpochMicrosec":1518616063564476,"eventName":"Heartbeat_vVnf","sourceName":"TESTVM","nfNamingCode":"vVNF"}}})
-    print("Policy URL : "+pol_url)
-    httpretty.register_uri(httpretty.POST, pol_url, body=pol_body, status=200, content_type='text/json')
+    pol_url = mr_url + "/events/" + outopic + "/DefaultGroup/1?timeout=15000"
+    pol_body = json.dumps(
+        {
+            "event": {
+                "commonEventHeader": {
+                    "startEpochMicrosec": 1518616063564475,
+                    "sourceId": "587c14b3-72c0-4581-b5cb-6567310b9bb7",
+                    "eventId": "10048640",
+                    "reportingEntityId": "587c14b3-72c0-4581-b5cb-6567310b9bb7",
+                    "priority": "Normal",
+                    "version": 3,
+                    "reportingEntityName": "TESTVM",
+                    "sequence": 10048640,
+                    "domain": "heartbeat",
+                    "lastEpochMicrosec": 1518616063564476,
+                    "eventName": "Heartbeat_vVnf",
+                    "sourceName": "TESTVM",
+                    "nfNamingCode": "vVNF",
+                }
+            }
+        }
+    )
+    print("Policy URL : " + pol_url)
+    httpretty.register_uri(httpretty.POST, pol_url, body=pol_body, status=200, content_type="text/json")
+
 
 def test_full():
-    p = subprocess.Popen(['./miss_htbt_service/misshtbtd.py'], stdout=subprocess.PIPE,shell=True)
+    p = subprocess.Popen(["./miss_htbt_service/misshtbtd.py"], stdout=subprocess.PIPE, shell=True)

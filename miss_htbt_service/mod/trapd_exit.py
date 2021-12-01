@@ -23,7 +23,7 @@ trapc_exit_snmptrapd is responsible for removing any existing runtime PID
 file, and exiting with the provided (param 1) exit code
 """
 
-__docformat__ = 'restructuredtext'
+__docformat__ = "restructuredtext"
 
 import sys
 import os
@@ -62,6 +62,7 @@ def cleanup_and_exit(_loc_exit_code, _pid_file_name):
         rc = rm_pid(_pid_file_name)
     sys.exit(_loc_exit_code)
 
+
 # # # # # # # # # # # # #
 # fx: cleanup_and_exit
 #      - remove pid file
@@ -89,5 +90,3 @@ def cleanup(_loc_exit_code, _pid_file_name):
 
     if _pid_file_name is not None:
         rc = rm_pid(_pid_file_name)
-
-

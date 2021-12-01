@@ -20,15 +20,14 @@ import unittest
 
 from miss_htbt_service.mod import trapd_settings as tds
 
-pid_file="/tmp/test_pid_file"
-pid_file_dne="/tmp/test_pid_file_NOT"
+pid_file = "/tmp/test_pid_file"
+pid_file_dne = "/tmp/test_pid_file_NOT"
 
 
 class test_cleanup_and_exit(unittest.TestCase):
     """
     Test for presense of required vars
     """
-
 
     def test_nonexistent_dict(self):
         """

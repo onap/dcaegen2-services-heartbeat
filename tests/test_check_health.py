@@ -22,9 +22,11 @@ from miss_htbt_service import check_health
 
 import io
 
+
 class MockSocket(object):
     def getsockname(self):
-        return 'sockname',
+        return ("sockname",)
+
 
 class MockRequest(object):
     _sock = MockSocket()
@@ -35,32 +37,40 @@ class MockRequest(object):
         self._body = body
 
     def makefile(self, *args, **kwargs):
-        if args[0] == 'rb':
-            if self._rqtype == 'GET':
-                return io.BytesIO(bytes("%s %s HTTP/1.0" % (self._rqtype, self._path), 'utf-8'))
+        if args[0] == "rb":
+            if self._rqtype == "GET":
+                return io.BytesIO(bytes("%s %s HTTP/1.0" % (self._rqtype, self._path), "utf-8"))
             else:
-                return io.BytesIO(bytes("%s %s HTTP/1.0\r\nContent-Length: %s\r\n\r\n%s" % (self._rqtype, self._path, len(self._body), self._body), 'utf-8'))
-        elif args[0] == 'wb':
-            return io.BytesIO(b'')
+                return io.BytesIO(
+                    bytes(
+                        "%s %s HTTP/1.0\r\nContent-Length: %s\r\n\r\n%s"
+                        % (self._rqtype, self._path, len(self._body), self._body),
+                        "utf-8",
+                    )
+                )
+        elif args[0] == "wb":
+            return io.BytesIO(b"")
         else:
             raise ValueError("Unknown file type to make", args, kwargs)
 
     def sendall(self, bstr):
         pass
 
+
 class MockServer(object):
     def __init__(self, rqtype, path, ip_port, Handler, body=None):
         handler = Handler(MockRequest(rqtype, path, body), ip_port, self)
+
 
 def test_check_health_get():
     """
     test the check_health GET and POST handlers using a mock server
     """
-    server = MockServer('GET', '/', ('0.0.0.0', 8888), check_health.GetHandler)
+    server = MockServer("GET", "/", ("0.0.0.0", 8888), check_health.GetHandler)
+
 
 def test_check_health_post():
     """
     test the check_health GET and POST handlers using a mock server
     """
-    server = MockServer('POST', '/', ('0.0.0.0', 8888), check_health.GetHandler,
-                        '{ "health": "" }')
+    server = MockServer("POST", "/", ("0.0.0.0", 8888), check_health.GetHandler, '{ "health": "" }')

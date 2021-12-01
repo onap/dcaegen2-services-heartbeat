@@ -18,6 +18,7 @@ from miss_htbt_service import htbtworker
 
 import os, tempfile, json
 
+
 def run_test(i):
     """
     read_json_file() opens the file CWD/prefix/test{j}.json and returns the json value found there
@@ -28,18 +29,20 @@ def run_test(i):
     pdir = f"{prefix}{tdir.name}"
     fname = f"{tdir.name}/test{j}.json"
     with open(fname, "w") as fp:
-        json.dump({ "test": i }, fp)
-    assert(os.path.isfile(f"{tdir.name}/test{j}.json"))
-    assert(os.path.isfile(f"{pdir}/test{j}.json"))
+        json.dump({"test": i}, fp)
+    assert os.path.isfile(f"{tdir.name}/test{j}.json")
+    assert os.path.isfile(f"{pdir}/test{j}.json")
     cfg = htbtworker.read_json_file(i, prefix=pdir)
-    assert(cfg["test"] == i)
+    assert cfg["test"] == i
+
 
 def test_read_json_file_0():
     run_test(0)
 
+
 def test_read_json_file_1():
     run_test(1)
 
+
 def test_read_json_file_2():
     run_test(2)
-

@@ -19,7 +19,7 @@
 """
 """
 
-__docformat__ = 'restructuredtext'
+__docformat__ = "restructuredtext"
 
 
 def init():

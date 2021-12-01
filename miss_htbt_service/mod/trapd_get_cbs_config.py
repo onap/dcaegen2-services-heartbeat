@@ -25,7 +25,7 @@ env variable that specifies JSON equiv of CBS config (typically used for
 testing purposes)
 """
 
-__docformat__ = 'restructuredtext'
+__docformat__ = "restructuredtext"
 
 import json
 import os
@@ -36,7 +36,7 @@ import traceback
 import collections.abc
 from onap_dcae_cbs_docker_client.client import get_config
 from mod import trapd_settings as tds
-from mod.trapd_exit import cleanup,cleanup_and_exit
+from mod.trapd_exit import cleanup, cleanup_and_exit
 from mod.trapd_io import stdout_logger
 
 prog_name = os.path.basename(__file__)
@@ -75,46 +75,44 @@ def get_cbs_config():
             _cbs_sim_json_file = os.getenv("CBS_HTBT_JSON", "None")
         except Exception as e:
             stdout_logger(msg)
-            cleanup(1,None)
+            cleanup(1, None)
             return False
 
         msg = "CBS_HTBT_JSON not defined - FATAL ERROR, exiting"
         if _cbs_sim_json_file == "None":
             stdout_logger(msg)
-            cleanup(1,None)
+            cleanup(1, None)
             return False
         else:
-            msg = ("ONAP controller override specified via CBS_HTBT_JSON: %s" %
-                   _cbs_sim_json_file)
+            msg = "ONAP controller override specified via CBS_HTBT_JSON: %s" % _cbs_sim_json_file
             stdout_logger(msg)
-            msg = "Unable to load CBS_HTBT_JSON " + _cbs_sim_json_file + \
-                    " (invalid json?) - FATAL ERROR, exiting"
+            msg = "Unable to load CBS_HTBT_JSON " + _cbs_sim_json_file + " (invalid json?) - FATAL ERROR, exiting"
             try:
                 tds.c_config = json.load(open(_cbs_sim_json_file))
             except Exception as e:
                 stdout_logger(msg)
-                cleanup_and_exit(0,None)
+                cleanup_and_exit(0, None)
 
     # recalc timeout, set default if not present
     try:
-        tds.timeout_seconds = tds.c_config['publisher.http_timeout_milliseconds'] / 1000.0
+        tds.timeout_seconds = tds.c_config["publisher.http_timeout_milliseconds"] / 1000.0
     except Exception as e:
         tds.timeout_seconds = 1.5
 
     # recalc seconds_between_retries, set default if not present
     try:
-        tds.seconds_between_retries = tds.c_config['publisher.http_milliseconds_between_retries'] / 1000.0
+        tds.seconds_between_retries = tds.c_config["publisher.http_milliseconds_between_retries"] / 1000.0
     except Exception as e:
-        tds.seconds_between_retries = .750
+        tds.seconds_between_retries = 0.750
 
     # recalc min_severity_to_log, set default if not present
     try:
-        tds.minimum_severity_to_log = tds.c_config['files.minimum_severity_to_log']
+        tds.minimum_severity_to_log = tds.c_config["files.minimum_severity_to_log"]
     except Exception as e:
         tds.minimum_severity_to_log = 3
 
     try:
-        tds.publisher_retries = tds.c_config['publisher.http_retries']
+        tds.publisher_retries = tds.c_config["publisher.http_retries"]
     except Exception as e:
         tds.publisher_retries = 3
 
