@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## [2.4.0] - 2021/10/12
 ### Changed
 - [DCAEGEN2-2939] Removed unused code (config\_notif.py)
+- [DCAEGEN2-2995] run the black formatting tool on python code
 ### Fixed
 - [DCAEGEN2-2832] Pod become unready state
 - [DCAEGEN2-2872] No such file or directory error and stop working

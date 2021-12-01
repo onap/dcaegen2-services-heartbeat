@@ -1,5 +1,5 @@
-# ================================================================================
-# Copyright (c) 2018-2020 AT&T Intellectual Property. All rights reserved.
+# ============LICENSE_START=======================================================
+# Copyright (c) 2018-2021 AT&T Intellectual Property. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,4 +16,3 @@
 
 # empty __init__.py so that pytest can add correct path to coverage report, -- per pytest
 # best practice guideline
-

@@ -1,6 +1,6 @@
 # ============LICENSE_START=======================================================
-# Copyright (c) 2017-2020 AT&T Intellectual Property. All rights reserved.
-# Copyright 2021 Fujitsu Ltd.
+# Copyright (c) 2017-2021 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2021 Fujitsu Ltd.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
 import logging.handlers
 
 LOG_LEVEL = logging.DEBUG
-LOG_FORMAT = '%(asctime)s | %(levelname)5s | %(name)s | %(module)s | %(funcName)s | %(lineno)d | %(message)s'
+LOG_FORMAT = "%(asctime)s | %(levelname)5s | %(name)s | %(module)s | %(funcName)s | %(lineno)d | %(message)s"
 LOG_MAXSIZE = 10485760 * 5
 LOG_BACKUP_COUNT = 10
 
@@ -39,9 +39,9 @@ def configure_logger(proc_name: str) -> None:
 
     # Add rotating log file handler
     if proc_name:
-        logfile_path = './hb_%s_logs.txt' % proc_name
+        logfile_path = "./hb_%s_logs.txt" % proc_name
     else:
-        logfile_path = './hb_logs.txt'
+        logfile_path = "./hb_logs.txt"
     fhandler = logging.handlers.RotatingFileHandler(logfile_path, maxBytes=LOG_MAXSIZE, backupCount=LOG_BACKUP_COUNT)
     fhandler.setFormatter(formatter)
     root.addHandler(fhandler)

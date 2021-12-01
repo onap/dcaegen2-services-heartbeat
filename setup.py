@@ -33,10 +33,10 @@ from setuptools import setup, find_packages
 ##     from pip.download import PipSession
 
 setup(
-    name='miss_htbt_service',
-    description='Missing heartbeat microservice to communicate with policy-engine',
-    version='2.4.0',
-    #packages=find_packages(exclude=["tests.*", "tests"]),
+    name="miss_htbt_service",
+    description="Missing heartbeat microservice to communicate with policy-engine",
+    version="2.4.0",
+    # packages=find_packages(exclude=["tests.*", "tests"]),
     packages=find_packages(),
     install_requires=[
         "requests==2.23.0",
@@ -47,12 +47,12 @@ setup(
         "HTTPretty==1.0.5",
         "pyOpenSSL==20.0.1",
         "Wheel==0.36.2",
-        "psycopg2-binary==2.8.6"
+        "psycopg2-binary==2.8.6",
     ],
-    author = "Vijay Venkatesh Kumar",
-    author_email = "vv770d@att.com",
-    license = "",
-    keywords = "missing heartbeat microservice",
-    url = "https://gerrit.onap.org/r/#/admin/projects/dcaegen2/platform/heartbeat",
+    author="Vijay Venkatesh Kumar",
+    author_email="vv770d@att.com",
+    license="",
+    keywords="missing heartbeat microservice",
+    url="https://gerrit.onap.org/r/#/admin/projects/dcaegen2/platform/heartbeat",
     zip_safe=False,
 )

@@ -1,7 +1,7 @@
 # ============LICENSE_START=======================================================
-# Copyright (c) 2017-2020 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2017-2021 AT&T Intellectual Property. All rights reserved.
 # Copyright (c) 2019 Pantheon.tech. All rights reserved.
-# Copyright 2021 Fujitsu Ltd.
+# Copyright (c) 2021 Fujitsu Ltd.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -20,8 +20,9 @@ import pytest
 import unittest
 from miss_htbt_service.mod import trapd_exit
 
-pid_file="/tmp/test_pid_file"
-pid_file_dne="/tmp/test_pid_file_NOT"
+pid_file = "/tmp/test_pid_file"
+pid_file_dne = "/tmp/test_pid_file_NOT"
+
 
 class test_cleanup_and_exit(unittest.TestCase):
     """
@@ -32,10 +33,10 @@ class test_cleanup_and_exit(unittest.TestCase):
         """
         Test normal exit works as expected
         """
-        open(pid_file, 'w')
+        open(pid_file, "w")
 
         with pytest.raises(SystemExit) as pytest_wrapped_sys_exit:
-            result = trapd_exit.cleanup_and_exit(0,pid_file)
+            result = trapd_exit.cleanup_and_exit(0, pid_file)
             assert pytest_wrapped_sys_exit.type == SystemExit
             assert pytest_wrapped_sys_exit.value.code == 0
 
@@ -44,6 +45,6 @@ class test_cleanup_and_exit(unittest.TestCase):
         Test exit with missing PID file exits non-zero
         """
         with pytest.raises(SystemExit) as pytest_wrapped_sys_exit:
-            result = trapd_exit.cleanup_and_exit(0,pid_file_dne)
+            result = trapd_exit.cleanup_and_exit(0, pid_file_dne)
             assert pytest_wrapped_sys_exit.type == SystemExit
             assert pytest_wrapped_sys_exit.value.code == 1
