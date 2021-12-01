@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # ============LICENSE_START=======================================================
-# Copyright 2018-2020 AT&T Intellectual Property, Inc. All rights reserved.
+# Copyright (c) 2018-2021 AT&T Intellectual Property, Inc. All rights reserved.
 # Copyright (c) 2019 Pantheon.tech. All rights reserved.
-# Copyright 2020 Deutsche Telekom. All rights reserved.
-# Copyright 2021 Fujitsu Ltd.
+# Copyright (c) 2020 Deutsche Telekom. All rights reserved.
+# Copyright (c) 2021 Fujitsu Ltd.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -35,7 +35,15 @@ _logger = logging.getLogger(__name__)
 
 def poll_cbs(current_pid: int) -> None:
     jsfile = db.fetch_json_file()
-    ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval = db.read_hb_properties(jsfile)
+    (
+        ip_address,
+        port_num,
+        user_name,
+        password,
+        db_name,
+        cbs_polling_required,
+        cbs_polling_interval,
+    ) = db.read_hb_properties(jsfile)
     hbc_pid, hbc_state, hbc_srcName, hbc_time = db.read_hb_common(user_name, password, ip_address, port_num, db_name)
     msg = "CBSP:Main process ID in hb_common is %d", hbc_pid
     _logger.info(msg)
@@ -43,13 +51,13 @@ def poll_cbs(current_pid: int) -> None:
     _logger.info(msg)
     msg = "CBSP:CBS Polling interval is %d", cbs_polling_interval
     _logger.info(msg)
-    envPytest = os.getenv('pytest', "")
-    if envPytest == 'test':
+    envPytest = os.getenv("pytest", "")
+    if envPytest == "test":
         cbs_polling_interval = "30"
     time.sleep(int(cbs_polling_interval))
     hbc_pid, hbc_state, hbc_srcName, hbc_time = db.read_hb_common(user_name, password, ip_address, port_num, db_name)
     source_name = socket.gethostname()
-    source_name = source_name + "-" + str(os.getenv('SERVICE_NAME', ""))
+    source_name = source_name + "-" + str(os.getenv("SERVICE_NAME", ""))
     if current_pid == int(hbc_pid) and source_name == hbc_srcName and hbc_state == "RUNNING":
         _logger.info("CBSP:ACTIVE Instance:Change the state to RECONFIGURATION")
         state = "RECONFIGURATION"
@@ -60,7 +68,7 @@ def poll_cbs(current_pid: int) -> None:
 
 
 def cbs_polling_loop(current_pid: int):
-    get_logger.configure_logger('cbs_polling')
+    get_logger.configure_logger("cbs_polling")
     while True:
         poll_cbs(current_pid)
 

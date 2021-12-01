@@ -1,7 +1,5 @@
 # ============LICENSE_START=======================================================
-# org.onap.dcae
-# ================================================================================
-# Copyright (c) 2017-2020 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2017-2021 AT&T Intellectual Property. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,7 +19,7 @@ trapd_http_session establishes an http session for future use in publishing
 messages to the dmaap cluster.
 """
 
-__docformat__ = 'restructuredtext'
+__docformat__ = "restructuredtext"
 
 import os
 import requests

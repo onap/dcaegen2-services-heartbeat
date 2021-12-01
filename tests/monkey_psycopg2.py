@@ -1,6 +1,5 @@
 # ============LICENSE_START====================================================
-# =============================================================================
-# Copyright (c) 2017-2020 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2017-2021 AT&T Intellectual Property. All rights reserved.
 # =============================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -34,14 +33,15 @@ FORCE_CLOSE_FAILURE = False
 
 # This variable is used by monkey_psycopg2.monkey_set_defaults(multiDbInfo)
 # to set up default values to be returned by cursors statements.
-DEFAULT_MULTI_DBINFO = { }
+DEFAULT_MULTI_DBINFO = {}
+
 
 class MockConn(object):
     """
     mock Connection interface returned by psycopg2.connect()
     """
 
-    def __init__(self, dbInfo = None):
+    def __init__(self, dbInfo=None):
         self.curCmd = None
         self.curCursor = None
         self.monkey_setDbInfo(dbInfo)
@@ -49,7 +49,7 @@ class MockConn(object):
     def monkey_setDbInfo(self, dbInfo):
         """
         Set up a set of defaults for the cursors on "select" statements.
-        The outer scope is a string that will be matched against the currently-active 
+        The outer scope is a string that will be matched against the currently-active
         select statement being executed.
         If there is a match, the specified values are returned by the cursor.
         dbconn.monkey_setDbInfo({
@@ -71,7 +71,7 @@ class MockConn(object):
         """
         if FORCE_COMMIT_FAILURE:
             raise psycopg2.DatabaseError(f"Unable to commit: force_commit_failure=<{FORCE_COMMIT_FAILURE}>")
-    
+
     def close(self):
         """
         mock close
@@ -110,7 +110,7 @@ class MockConn(object):
         self.curCursor = None
         return self
 
-    def execute(self, cmd, args = None):
+    def execute(self, cmd, args=None):
         """
         mock execute
 
@@ -155,6 +155,7 @@ class MockConn(object):
         print(f"fetchall() returning {self.curCursor}")
         return self.curCursor
 
+
 def monkey_reset_forces(connect=False, cursor=False, execute=False, commit=False, close=False):
     print(f"monkey_reset_forces({connect}, {cursor}, {execute}, {commit}, {close})")
     global FORCE_CONNECT_FAILURE
@@ -168,11 +169,12 @@ def monkey_reset_forces(connect=False, cursor=False, execute=False, commit=False
     global FORCE_CLOSE_FAILURE
     FORCE_CLOSE_FAILURE = close
 
+
 def monkey_set_defaults(multiDbInfo):
     """
     Set up a set of defaults for the cursors on "select" statements.
     The outer scope gives a database name.
-    The next level is a string that will be matched against the currently-active 
+    The next level is a string that will be matched against the currently-active
     select statement being executed.
     If both match, the specified values are returned by the cursor.
     monkey_psycopg2.monkey_set_defaults({
@@ -187,10 +189,11 @@ def monkey_set_defaults(multiDbInfo):
     global DEFAULT_MULTI_DBINFO
     DEFAULT_MULTI_DBINFO = multiDbInfo
 
+
 def monkey_connect(database=None, host=None, port=None, user=None, password=None):
     """
     Mock psycopg2 connection.
-    Returns a mock connection. 
+    Returns a mock connection.
 
     Will raise an exception if value of 'FORCE_CONNECT_FAILURE' is true.
     (Used to force failure for certain code paths.)
@@ -199,7 +202,11 @@ def monkey_connect(database=None, host=None, port=None, user=None, password=None
     (See monkey_set_defaults(), which must have been called prior to this being invoked.)
     """
     if FORCE_CONNECT_FAILURE:
-        raise Exception("Unable to connect to the database. password=<{}> force_connect_failure=<{}>".format(password, FORCE_CONNECT_FAILURE))
+        raise Exception(
+            "Unable to connect to the database. password=<{}> force_connect_failure=<{}>".format(
+                password, FORCE_CONNECT_FAILURE
+            )
+        )
 
     if database in DEFAULT_MULTI_DBINFO:
         return MockConn(DEFAULT_MULTI_DBINFO[database])
