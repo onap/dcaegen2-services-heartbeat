@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "95a4dd48_6739fbda",
+        "filename": "mvn-phase-script.sh",
+        "patchSetId": 12
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-12-03T20:52:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "12addd49_754d360c",
+      "range": {
+        "startLine": 4,
+        "startChar": 16,
+        "endLine": 4,
+        "endChar": 21
+      },
+      "revId": "77872d22e12dc146128fb54082243fcdb2965c22",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "17d904fb_354c8e01",
         "filename": "mvn-phase-script.sh",
         "patchSetId": 12
@@ -36,6 +60,30 @@
       "writtenOn": "2021-12-03T20:49:03Z",
       "side": 1,
       "message": "can be removed also",
+      "range": {
+        "startLine": 171,
+        "startChar": 0,
+        "endLine": 172,
+        "endChar": 23
+      },
+      "revId": "77872d22e12dc146128fb54082243fcdb2965c22",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "25978b31_978725e1",
+        "filename": "mvn-phase-script.sh",
+        "patchSetId": 12
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2021-12-03T20:52:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "17d904fb_354c8e01",
       "range": {
         "startLine": 171,
         "startChar": 0,
