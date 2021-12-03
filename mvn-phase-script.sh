@@ -58,6 +58,7 @@ fi
 # mvn phase in life cycle
 MVN_PHASE="$2"
 
+export PATH="$PATH:$HOME/.local/bin"
 
 echo "MVN_PROJECT_MODULEID is            [$MVN_PROJECT_MODULEID]"
 echo "MVN_PHASE is                       [$MVN_PHASE]"
@@ -94,7 +95,7 @@ expand_templates()
   TEMPLATES=$(env |grep ONAPTEMPLATE)
   echo "====> Resolving the following temaplate from environment variables "
   echo "[$TEMPLATES]"
-  SELFFILE=$(echo "$0" | rev | cut -f1 -d '/' | rev)
+  SELFFILE=$(basename "$0")
   for TEMPLATE in $TEMPLATES; do
     KEY=$(echo "$TEMPLATE" | cut -f1 -d'=')
     VALUE=$(echo "$TEMPLATE" | cut -f2 -d'=')
@@ -130,15 +131,26 @@ run_tox_test()
   CURDIR=$(pwd)
   TOXINIS=$(find . -name "tox.ini")
   for TOXINI in "${TOXINIS[@]}"; do
-    DIR=$(echo "$TOXINI" | rev | cut -f2- -d'/' | rev)
+    DIR=$(dirname "$TOXINI")
     cd "${CURDIR}/${DIR}"
     rm -rf ./venv-tox ./.tox
     virtualenv ./venv-tox
     source ./venv-tox/bin/activate
-    pip install pip==10.0.1
-    pip install --upgrade argparse
-    pip install tox==3.18.0
-    pip freeze
+    # pip3 install pip==9.0.3
+    # pip3 install --upgrade argparse
+    # pip3 install tox==2.9.1
+    # pip3 freeze
+
+    # pip install pip==10.0.1
+    # pip install --upgrade argparse
+    # pip install tox==3.18.0
+    # pip install black
+    # pip freeze
+
+    pip3 install --no-cache-dir --upgrade pip
+    pip3 install --no-cache-dir --upgrade tox argparse black
+    pip3 freeze
+    python3 -m black --line-length 120 --check .
     tox
     deactivate
     rm -rf ./venv-tox ./.tox
@@ -151,7 +163,7 @@ build_wagons()
 
   SETUPFILES=$(find . -name "setup.py")
   for SETUPFILE in $SETUPFILES; do
-    PLUGIN_DIR=$(echo "$SETUPFILE" |rev | cut -f 2- -d '/' |rev)
+    PLUGIN_DIR=$(dirname "$SETUPFILE")
     PLUGIN_NAME=$(grep 'name' "$SETUPFILE" | cut -f2 -d'=' | sed 's/[^0-9a-zA-Z\.]*//g')
     PLUGIN_VERSION=$(grep 'version' "$SETUPFILE" | cut -f2 -d'=' | sed 's/[^0-9\.]*//g')
 
@@ -159,8 +171,10 @@ build_wagons()
 
     virtualenv ./venv-pkg
     source ./venv-pkg/bin/activate
-    pip install --upgrade pip
-    pip install wagon
+    pip3 install --upgrade pip
+    pip3 install wagon
+    # pip install --upgrade pip
+    # pip install wagon
     wagon create --format tar.gz "$PLUGIN_DIR"
     deactivate
     rm -rf venv-pkg
