@@ -94,7 +94,7 @@ expand_templates()
   TEMPLATES=$(env |grep ONAPTEMPLATE)
   echo "====> Resolving the following temaplate from environment variables "
   echo "[$TEMPLATES]"
-  SELFFILE=$(echo "$0" | rev | cut -f1 -d '/' | rev)
+  SELFFILE=$(basename "$0")
   for TEMPLATE in $TEMPLATES; do
     KEY=$(echo "$TEMPLATE" | cut -f1 -d'=')
     VALUE=$(echo "$TEMPLATE" | cut -f2 -d'=')
@@ -130,7 +130,7 @@ run_tox_test()
   CURDIR=$(pwd)
   TOXINIS=$(find . -name "tox.ini")
   for TOXINI in "${TOXINIS[@]}"; do
-    DIR=$(echo "$TOXINI" | rev | cut -f2- -d'/' | rev)
+    DIR=$(dirname "$TOXINI")
     cd "${CURDIR}/${DIR}"
     rm -rf ./venv-tox ./.tox
     virtualenv ./venv-tox
@@ -138,7 +138,9 @@ run_tox_test()
     pip install pip==10.0.1
     pip install --upgrade argparse
     pip install tox==3.18.0
+    pip install black
     pip freeze
+    black --line-length 120 --check .
     tox
     deactivate
     rm -rf ./venv-tox ./.tox
@@ -151,7 +153,7 @@ build_wagons()
 
   SETUPFILES=$(find . -name "setup.py")
   for SETUPFILE in $SETUPFILES; do
-    PLUGIN_DIR=$(echo "$SETUPFILE" |rev | cut -f 2- -d '/' |rev)
+    PLUGIN_DIR=$(dirname "$SETUPFILE")
     PLUGIN_NAME=$(grep 'name' "$SETUPFILE" | cut -f2 -d'=' | sed 's/[^0-9a-zA-Z\.]*//g')
     PLUGIN_VERSION=$(grep 'version' "$SETUPFILE" | cut -f2 -d'=' | sed 's/[^0-9\.]*//g')
 
