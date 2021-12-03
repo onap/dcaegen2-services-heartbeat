@@ -33,7 +33,7 @@ from setuptools import setup, find_packages
 ##     from pip.download import PipSession
 
 setup(
-    name="miss_htbt_service",
+    name = "miss_htbt_service",
     description="Missing heartbeat microservice to communicate with policy-engine",
     version="2.4.0",
     # packages=find_packages(exclude=["tests.*", "tests"]),
