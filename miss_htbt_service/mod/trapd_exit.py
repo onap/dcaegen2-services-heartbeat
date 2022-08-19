@@ -1,5 +1,5 @@
 # ============LICENSE_START=======================================================
-# Copyright (c) 2017-2021 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2017-2022 AT&T Intellectual Property. All rights reserved.
 # Copyright (c) 2019 Pantheon.tech. All rights reserved.
 # Copyright (c) 2020 Deutsche Telekom. All rights reserved.
 # ================================================================================
@@ -25,8 +25,7 @@ __docformat__ = "restructuredtext"
 
 import sys
 import os
-import string
-from mod.trapd_runtime_pid import save_pid, rm_pid
+from mod.trapd_runtime_pid import rm_pid
 
 prog_name = os.path.basename(__file__)
 
@@ -57,7 +56,7 @@ def cleanup_and_exit(_loc_exit_code, _pid_file_name):
     # _num_params = len(locals())
 
     if _pid_file_name is not None:
-        rc = rm_pid(_pid_file_name)
+        rm_pid(_pid_file_name)
     sys.exit(_loc_exit_code)
 
 
@@ -87,4 +86,4 @@ def cleanup(_loc_exit_code, _pid_file_name):
     # _num_params = len(locals())
 
     if _pid_file_name is not None:
-        rc = rm_pid(_pid_file_name)
+        rm_pid(_pid_file_name)

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # ============LICENSE_START=======================================================
-# Copyright (c) 2018-2021 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2018-2022 AT&T Intellectual Property. All rights reserved.
 # Copyright (c) 2019 Pantheon.tech. All rights reserved.
 # Copyright (c) 2020 Deutsche Telekom. All rights reserved.
 # Copyright (c) 2021 Fujitsu Ltd.
@@ -44,21 +44,21 @@ def poll_cbs(current_pid: int) -> None:
         cbs_polling_required,
         cbs_polling_interval,
     ) = db.read_hb_properties(jsfile)
-    hbc_pid, hbc_state, hbc_srcName, hbc_time = db.read_hb_common(user_name, password, ip_address, port_num, db_name)
+    hbc_pid, hbc_state, hbc_src_name, hbc_time = db.read_hb_common(user_name, password, ip_address, port_num, db_name)
     msg = "CBSP:Main process ID in hb_common is %d", hbc_pid
     _logger.info(msg)
     msg = "CBSP:My parent process ID is %d", current_pid
     _logger.info(msg)
     msg = "CBSP:CBS Polling interval is %d", cbs_polling_interval
     _logger.info(msg)
-    envPytest = os.getenv("pytest", "")
-    if envPytest == "test":
+    env_pytest = os.getenv("pytest", "")
+    if env_pytest == "test":
         cbs_polling_interval = "30"
     time.sleep(int(cbs_polling_interval))
-    hbc_pid, hbc_state, hbc_srcName, hbc_time = db.read_hb_common(user_name, password, ip_address, port_num, db_name)
+    hbc_pid, hbc_state, hbc_src_name, hbc_time = db.read_hb_common(user_name, password, ip_address, port_num, db_name)
     source_name = socket.gethostname()
     source_name = source_name + "-" + str(os.getenv("SERVICE_NAME", ""))
-    if current_pid == int(hbc_pid) and source_name == hbc_srcName and hbc_state == "RUNNING":
+    if current_pid == int(hbc_pid) and source_name == hbc_src_name and hbc_state == "RUNNING":
         _logger.info("CBSP:ACTIVE Instance:Change the state to RECONFIGURATION")
         state = "RECONFIGURATION"
         update_flg = 1

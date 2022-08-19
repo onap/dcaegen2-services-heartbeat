@@ -1,5 +1,5 @@
 # ============LICENSE_START=======================================================
-# Copyright (c) 2017-2021 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2017-2022 AT&T Intellectual Property. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,11 +21,7 @@ PID of currently running trap receiver)
 
 __docformat__ = "restructuredtext"
 
-import logging
 import os
-import string
-import time
-import traceback
 
 prog_name = os.path.basename(__file__)
 

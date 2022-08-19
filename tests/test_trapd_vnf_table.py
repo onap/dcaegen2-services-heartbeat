@@ -1,5 +1,5 @@
 # ============LICENSE_START=======================================================
-# Copyright (c) 2017-2021 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2017-2022 AT&T Intellectual Property. All rights reserved.
 # Copyright (c) 2019 Pantheon.tech. All rights reserved.
 # Copyright (c) 2020 Deutsche Telekom. All rights reserved.
 # Copyright (c) 2021 Fujitsu Ltd.
@@ -17,7 +17,7 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 #
-##  Author Prakask H (ph553f)
+#  Author Prakask H (ph553f)
 """
 test_trapd_vnf_table contains test cases related to DB Tables and cbs polling.
 """

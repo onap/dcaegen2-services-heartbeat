@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # ============LICENSE_START=======================================================
-# Copyright (c) 2018-2021 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2018-2022 AT&T Intellectual Property. All rights reserved.
 # Copyright (c) 2019 Pantheon.tech. All rights reserved.
 # Copyright (c) 2020 Deutsche Telekom. All rights reserved.
 # Copyright (c) 2021 Fujitsu Ltd.
@@ -159,8 +159,8 @@ def db_monitoring(current_pid, json_file, user_name, password, ip_address, port_
     while True:
         time.sleep(20)
 
-        envPytest = os.getenv("pytest", "")
-        if envPytest == "test":
+        env_pytest = os.getenv("pytest", "")
+        if env_pytest == "test":
             break
 
         try:
@@ -172,14 +172,14 @@ def db_monitoring(current_pid, json_file, user_name, password, ip_address, port_
             _logger.error(msg)
             continue
 
-        hbc_pid, hbc_state, hbc_srcName, hbc_time = db.read_hb_common(
+        hbc_pid, hbc_state, hbc_src_name, hbc_time = db.read_hb_common(
             user_name, password, ip_address, port_num, db_name
         )
         source_name = socket.gethostname()
         source_name = source_name + "-" + str(os.getenv("SERVICE_NAME", ""))
         connection_db = pm.postgres_db_open(user_name, password, ip_address, port_num, db_name)
         cur = connection_db.cursor()
-        if int(current_pid) == int(hbc_pid) and source_name == hbc_srcName and hbc_state == "RUNNING":
+        if int(current_pid) == int(hbc_pid) and source_name == hbc_src_name and hbc_state == "RUNNING":
             _logger.info("DBM: Active DB Monitoring Instance")
             cur.execute("SELECT event_name FROM vnf_table_1")
             vnf_list = [item[0] for item in cur.fetchall()]
@@ -222,7 +222,7 @@ def db_monitoring(current_pid, json_file, user_name, password, ip_address, port_
                         if len(row) == 0:
                             continue
                         epoc_time_sec = row[0][0]
-                        srcName = row[0][1]
+                        src_name = row[0][1]
                         cl_flag = row[0][2]
                         if (epoc_time - epoc_time_sec) > comparision_time and cl_flag == 0:
                             sendControlLoopEvent(
@@ -232,7 +232,7 @@ def db_monitoring(current_pid, json_file, user_name, password, ip_address, port_
                                 policy_name,
                                 policy_scope,
                                 target_type,
-                                srcName,
+                                src_name,
                                 epoc_time,
                                 closed_control_loop_name,
                                 version,
@@ -252,7 +252,7 @@ def db_monitoring(current_pid, json_file, user_name, password, ip_address, port_
                                 policy_name,
                                 policy_scope,
                                 target_type,
-                                srcName,
+                                src_name,
                                 epoc_time,
                                 closed_control_loop_name,
                                 version,
@@ -301,6 +301,6 @@ if __name__ == "__main__":
     _logger.info(msg)
     while True:
         db_monitoring(current_pid, jsfile, user_name, password, ip_address, port_num, db_name)
-        envPytest = os.getenv("pytest", "")
-        if envPytest == "test":
+        env_pytest = os.getenv("pytest", "")
+        if env_pytest == "test":
             break

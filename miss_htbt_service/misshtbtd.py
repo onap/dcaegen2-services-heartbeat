@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # ============LICENSE_START=======================================================
-# Copyright (c) 2017-2021 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2017-2022 AT&T Intellectual Property. All rights reserved.
 # Copyright (c) 2019 Pantheon.tech. All rights reserved.
 # Copyright (c) 2020 Deutsche Telekom. All rights reserved.
 # Copyright (c) 2021 Samsung Electronics. All rights reserved.
@@ -83,32 +83,32 @@ def create_database(update_db, jsfile, ip_address, port_num, user_name, password
 
 
 def read_hb_common(user_name, password, ip_address, port_num, db_name):
-    envPytest = os.getenv("pytest", "")
-    if envPytest == "test":
+    env_pytest = os.getenv("pytest", "")
+    if env_pytest == "test":
         hbc_pid = 10
-        hbc_srcName = "srvc_name"
+        hbc_src_name = "srvc_name"
         hbc_time = 1584595881
         hbc_state = "RUNNING"
-        return hbc_pid, hbc_state, hbc_srcName, hbc_time
+        return hbc_pid, hbc_state, hbc_src_name, hbc_time
     connection_db = heartbeat.postgres_db_open(user_name, password, ip_address, port_num, db_name)
     cur = connection_db.cursor()
     cur.execute("SELECT process_id, source_name, last_accessed_time, current_state FROM hb_common")
     rows = cur.fetchall()
     hbc_pid = rows[0][0]
-    hbc_srcName = rows[0][1]
+    hbc_src_name = rows[0][1]
     hbc_time = rows[0][2]
     hbc_state = rows[0][3]
     heartbeat.commit_and_close_db(connection_db)
     cur.close()
-    return hbc_pid, hbc_state, hbc_srcName, hbc_time
+    return hbc_pid, hbc_state, hbc_src_name, hbc_time
 
 
 def create_update_hb_common(update_flg, process_id, state, user_name, password, ip_address, port_num, db_name):
     current_time = int(round(time.time()))
     source_name = socket.gethostname()
     source_name = source_name + "-" + os.getenv("SERVICE_NAME", "")
-    envPytest = os.getenv("pytest", "")
-    if envPytest != "test":
+    env_pytest = os.getenv("pytest", "")
+    if env_pytest != "test":
         connection_db = heartbeat.postgres_db_open(user_name, password, ip_address, port_num, db_name)
         cur = connection_db.cursor()
         if heartbeat.db_table_creation_check(connection_db, "hb_common") is False:
@@ -139,8 +139,8 @@ def create_update_vnf_table_1(jsfile, update_db, connection_db):
         cfg = json.load(outfile)
     hbcfg = cfg["heartbeat_config"]
     jhbcfg = json.loads(hbcfg)
-    envPytest = os.getenv("pytest", "")
-    if envPytest == "test":
+    env_pytest = os.getenv("pytest", "")
+    if env_pytest == "test":
         vnf_list = ["Heartbeat_vDNS", "Heartbeat_vFW", "Heartbeat_xx"]
     else:
         cur = connection_db.cursor()
@@ -176,14 +176,14 @@ def create_update_vnf_table_1(jsfile, update_db, connection_db):
         missed = vnf["heartbeatcountmissed"]
         intvl = vnf["heartbeatinterval"]
         clloop = vnf["closedLoopControlName"]
-        policyVersion = vnf["policyVersion"]
-        policyName = vnf["policyName"]
-        policyScope = vnf["policyScope"]
+        policy_version = vnf["policyVersion"]
+        policy_name = vnf["policyName"]
+        policy_scope = vnf["policyScope"]
         target_type = vnf["target_type"]
         target = vnf["target"]
         version = vnf["version"]
 
-        if envPytest == "test":
+        if env_pytest == "test":
             # skip executing SQL in test
             continue
         if nfc not in vnf_list:
@@ -194,9 +194,9 @@ def create_update_vnf_table_1(jsfile, update_db, connection_db):
                     missed,
                     intvl,
                     clloop,
-                    policyVersion,
-                    policyName,
-                    policyScope,
+                    policy_version,
+                    policy_name,
+                    policy_scope,
                     target_type,
                     target,
                     version,
@@ -214,9 +214,9 @@ def create_update_vnf_table_1(jsfile, update_db, connection_db):
                     missed,
                     intvl,
                     clloop,
-                    policyVersion,
-                    policyName,
-                    policyScope,
+                    policy_version,
+                    policy_name,
+                    policy_scope,
                     target_type,
                     target,
                     version,
@@ -224,7 +224,7 @@ def create_update_vnf_table_1(jsfile, update_db, connection_db):
                     nfc,
                 ),
             )
-    if envPytest != "test":
+    if env_pytest != "test":
         cur.close()
     _logger.info("MSHBT:Updated vnf_table_1 as per the json configuration file")
 
@@ -264,8 +264,8 @@ def read_hb_properties_default():
         user_name = os.getenv("pg_userName")
         password = os.getenv("pg_passwd")
 
-    dbName = a["pg_dbName"]
-    db_name = dbName.lower()
+    db_name = a["pg_dbName"]
+    db_name = db_name.lower()
     cbs_polling_required = a["CBS_polling_allowed"]
     cbs_polling_interval = a["CBS_polling_interval"]
     s.close()
@@ -286,8 +286,8 @@ def read_hb_properties(jsfile):
         port_num = str(cfg["pg_portNum"])
         user_name = str(cfg["pg_userName"])
         password = str(cfg["pg_passwd"])
-        dbName = str(cfg["pg_dbName"])
-        db_name = dbName.lower()
+        db_name = str(cfg["pg_dbName"])
+        db_name = db_name.lower()
         cbs_polling_required = str(cfg["CBS_polling_allowed"])
         cbs_polling_interval = str(cfg["CBS_polling_interval"])
         consumer_id = str(cfg["consumerID"])
@@ -329,8 +329,8 @@ def fetch_json_file() -> str:
 
 
 def create_update_db(update_db, jsfile, ip_address, port_num, user_name, password, db_name):
-    envPytest = os.getenv("pytest", "")
-    if envPytest != "test":  # pragma: no cover
+    env_pytest = os.getenv("pytest", "")
+    if env_pytest != "test":  # pragma: no cover
         if update_db == 0:
             create_database(update_db, jsfile, ip_address, port_num, user_name, password, db_name)
         msg = "MSHBT: DB parameters -", ip_address, port_num, user_name, password, db_name
@@ -413,17 +413,17 @@ def main():
         _logger.info("MSHBD:Now be in a continuous loop")
         i = 0
         while True:
-            hbc_pid, hbc_state, hbc_srcName, hbc_time = read_hb_common(
+            hbc_pid, hbc_state, hbc_src_name, hbc_time = read_hb_common(
                 user_name, password, ip_address, port_num, db_name
             )
-            msg = "MSHBT: hb_common values ", hbc_pid, hbc_state, hbc_srcName, hbc_time
+            msg = "MSHBT: hb_common values ", hbc_pid, hbc_state, hbc_src_name, hbc_time
             _logger.info(msg)
             current_time = int(round(time.time()))
             time_difference = current_time - hbc_time
             msg = (
                 "MSHBD:pid,srcName,state,time,ctime,timeDiff is",
                 hbc_pid,
-                hbc_srcName,
+                hbc_src_name,
                 hbc_state,
                 hbc_time,
                 current_time,
@@ -432,18 +432,18 @@ def main():
             _logger.info(msg)
             source_name = socket.gethostname()
             source_name = source_name + "-" + str(os.getenv("SERVICE_NAME", ""))
-            envPytest = os.getenv("pytest", "")
-            if envPytest == "test":
+            env_pytest = os.getenv("pytest", "")
+            if env_pytest == "test":
                 if i == 2:
                     hbc_pid = pid_current
-                    source_name = hbc_srcName
+                    source_name = hbc_src_name
                     hbc_state = "RECONFIGURATION"
                 elif i > 3:
                     hbc_pid = pid_current
-                    source_name = hbc_srcName
+                    source_name = hbc_src_name
                     hbc_state = "RUNNING"
             if time_difference < 60:
-                if (int(hbc_pid) == int(pid_current)) and (source_name == hbc_srcName):
+                if (int(hbc_pid) == int(pid_current)) and (source_name == hbc_src_name):
                     msg = "MSHBD:config status is", hbc_state
                     _logger.info(msg)
                     if hbc_state == "RUNNING":
@@ -454,7 +454,8 @@ def main():
                         )
                     elif hbc_state == "RECONFIGURATION":
                         _logger.info(
-                            "MSHBD:Reconfiguration is in progress,Starting new processes by killing the present processes"
+                            "MSHBD:Reconfiguration is in progress, "
+                            "Starting new processes by killing the present processes"
                         )
                         jsfile = fetch_json_file()
                         update_db = 1
@@ -475,7 +476,8 @@ def main():
                     else:
                         jsfile = fetch_json_file()
                         msg = (
-                            "MSHBD:Inactive Instance:Creating HB and DBM threads if not created already. The param pssed %d and %s",
+                            "MSHBD:Inactive Instance:Creating HB and DBM threads if not created already. "
+                            "The param passed %d and %s",
                             jsfile,
                             pid_current,
                         )
@@ -483,7 +485,7 @@ def main():
                         job_list = create_process(job_list, jsfile, pid_current)
             else:
                 _logger.info("MSHBD:Active instance is inactive for long time: Time to switchover")
-                if (int(hbc_pid) != int(pid_current)) or (source_name != hbc_srcName):
+                if (int(hbc_pid) != int(pid_current)) or (source_name != hbc_src_name):
                     _logger.info("MSHBD:Initiating to become Active Instance")
                     if len(job_list) >= 2:
                         _logger.info("MSHBD:HB and DBM thread are waiting to become ACTIVE")
@@ -492,7 +494,7 @@ def main():
                         msg = "MSHBD: Creating HB and DBM threads. The param pssed %d and %s", jsfile, pid_current
                         _logger.info(msg)
                         job_list = create_process(job_list, jsfile, pid_current)
-                    hbc_pid, hbc_state, hbc_srcName, hbc_time = read_hb_common(
+                    hbc_pid, hbc_state, hbc_src_name, hbc_time = read_hb_common(
                         user_name, password, ip_address, port_num, db_name
                     )
                     update_flg = 1

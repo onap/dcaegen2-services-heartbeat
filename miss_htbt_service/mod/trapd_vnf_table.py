@@ -1,5 +1,5 @@
 # ============LICENSE_START=======================================================
-# Copyright (c) 2017-2021 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2017-2022 AT&T Intellectual Property. All rights reserved.
 # Copyright (c) 2019 Pantheon.tech. All rights reserved.
 # Copyright (c) 2020 Deutsche Telekom. All rights reserved.
 # Copyright (c) 2021 Samsung Electronics. All rights reserved.
@@ -18,7 +18,7 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 #
-##  Author Kiran Mandal (km386e)
+#  Author Kiran Mandal (km386e)
 
 """
 trapd_vnf_table verifies the successful creation of DB Tables.
@@ -30,7 +30,6 @@ import os.path as path
 import time
 import subprocess
 
-import get_logger
 import db_monitoring as dbmon
 import htbtworker as pm
 import misshtbtd as db
@@ -49,8 +48,8 @@ def hb_properties():
     port_num = a["pg_portNum"]
     user_name = a["pg_userName"]
     password = a["pg_passwd"]
-    dbName = a["pg_dbName"]
-    db_name = dbName.lower()
+    db_name = a["pg_dbName"]
+    db_name = db_name.lower()
     cbs_polling_required = a["CBS_polling_allowed"]
     cbs_polling_interval = a["CBS_polling_interval"]
     s.close()
@@ -61,7 +60,7 @@ def verify_DB_creation_1(user_name, password, ip_address, port_num, db_name):
     connection_db = pm.postgres_db_open(user_name, password, ip_address, port_num, db_name)
     try:
         _db_status = pm.db_table_creation_check(connection_db, "vnf_table_1")
-    except Exception as e:
+    except Exception:
         return None
 
     return _db_status
@@ -72,7 +71,7 @@ def verify_DB_creation_2(user_name, password, ip_address, port_num, db_name):
     connection_db = pm.postgres_db_open(user_name, password, ip_address, port_num, db_name)
     try:
         _db_status = pm.db_table_creation_check(connection_db, "vnf_table_2")
-    except Exception as e:
+    except Exception:
         return None
 
     return _db_status
@@ -83,7 +82,7 @@ def verify_DB_creation_hb_common(user_name, password, ip_address, port_num, db_n
     connection_db = pm.postgres_db_open(user_name, password, ip_address, port_num, db_name)
     try:
         _db_status = pm.db_table_creation_check(connection_db, "hb_common")
-    except Exception as e:
+    except Exception:
         return None
 
     return _db_status
@@ -105,7 +104,7 @@ def verify_fetch_json_file():
     try:
         db.fetch_json_file()
         result = True
-    except Exception as e:
+    except Exception:
         result = False
     print(result)
     os.unsetenv("pytest")
@@ -124,7 +123,7 @@ def verify_misshtbtdmain():
     try:
         db.main()
         result = True
-    except Exception as e:
+    except Exception:
         result = False
     print(result)
     os.unsetenv("pytest")
@@ -142,7 +141,7 @@ def verify_dbmonitoring():
     try:
         jsfile = db.fetch_json_file()
         ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval = hb_properties()
-        hbc_pid, hbc_state, hbc_srcName, hbc_time = db.read_hb_common(
+        hbc_pid, hbc_state, hbc_src_name, hbc_time = db.read_hb_common(
             user_name, password, ip_address, port_num, db_name
         )
         dbmon.db_monitoring(hbc_pid, jsfile, user_name, password, ip_address, port_num, db_name)
@@ -162,7 +161,7 @@ def verify_dbmon_startup():
     try:
         p = subprocess.Popen(["./miss_htbt_service/db_monitoring.py"], stdout=subprocess.PIPE, shell=True)
         time.sleep(1)
-    except Exception as e:
+    except Exception:
         return None
     return True
 
@@ -183,7 +182,7 @@ def verify_sendControlLoop_VNF_ONSET():
             "1.0",
             "genVnfName",
         )
-    except Exception as e:
+    except Exception:
         return None
     return _CL_return
 
@@ -204,7 +203,7 @@ def verify_sendControlLoop_VM_ONSET():
             "1.0",
             "genVnfName",
         )
-    except Exception as e:
+    except Exception:
         return None
     return _CL_return
 
@@ -225,7 +224,7 @@ def verify_sendControlLoop_VNF_ABATED():
             "1.0",
             "genVnfName",
         )
-    except Exception as e:
+    except Exception:
         return None
     return _CL_return
 
@@ -246,6 +245,6 @@ def verify_sendControlLoop_VM_ABATED():
             "1.0",
             "genVnfName",
         )
-    except Exception as e:
+    except Exception:
         return None
     return _CL_return

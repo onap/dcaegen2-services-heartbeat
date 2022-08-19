@@ -1,5 +1,5 @@
 # ============LICENSE_START=======================================================
-# Copyright (c) 2017-2021 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2017-2022 AT&T Intellectual Property. All rights reserved.
 # Copyright (c) 2019 Pantheon.tech. All rights reserved.
 # Copyright (c) 2021 Fujitsu Ltd.
 # ================================================================================
@@ -16,7 +16,8 @@
 # limitations under the License.
 # ============LICENSE_END=========================================================
 
-# code loosely based on https://stackoverflow.com/questions/25369068/python-how-to-unit-test-a-custom-http-request-handler
+# code loosely based on
+# https://stackoverflow.com/questions/25369068/python-how-to-unit-test-a-custom-http-request-handler
 
 from miss_htbt_service import check_health
 

@@ -1,5 +1,5 @@
 # ============LICENSE_START====================================================
-# Copyright (c) 2017-2021 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2017-2022 AT&T Intellectual Property. All rights reserved.
 # =============================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -106,7 +106,7 @@ class MockConn(object):
         if FORCE_CURSOR_FAILURE:
             raise psycopg2.DatabaseError(f"Unable to return cursor: force_cursor_failure=<{FORCE_CURSOR_FAILURE}>")
 
-        print(f"cursor()")
+        print("cursor()")
         self.curCursor = None
         return self
 
@@ -128,10 +128,10 @@ class MockConn(object):
             raise Exception("postgres execute command throwing exception. cmd=<{}>".format(cmd))
 
         if self.dbInfo:
-            curCmdLower = cmd.lower()
+            cur_cmd_lower = cmd.lower()
             for cmd, val in self.dbInfo.items():
                 print(f"cmd={cmd}, val={val}")
-                if cmd in curCmdLower:
+                if cmd in cur_cmd_lower:
                     self.curCursor = val
                     break
 
@@ -140,7 +140,7 @@ class MockConn(object):
         return a single row from the current cursor
         """
         if not self.curCursor:
-            print(f"fetchone() returning None")
+            print("fetchone() returning None")
             return None
         print(f"fetchone() returning {self.curCursor[0]}")
         return self.curCursor[0]
@@ -150,7 +150,7 @@ class MockConn(object):
         return all rows from the current cursor
         """
         if not self.curCursor:
-            print(f"fetchall() returning None")
+            print("fetchall() returning None")
             return None
         print(f"fetchall() returning {self.curCursor}")
         return self.curCursor

@@ -1,5 +1,5 @@
 # ============LICENSE_START=======================================================
-# Copyright (c) 2017-2021 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2017-2022 AT&T Intellectual Property. All rights reserved.
 # Copyright (c) 2019 Pantheon.tech. All rights reserved.
 # Copyright (c) 2021 Samsung Electronics. All rights reserved.
 # Copyright (c) 2021 Fujitsu Ltd.
@@ -45,7 +45,26 @@ def disable_proxy(monkeypatch):
 
 @httpretty.activate
 def test_resolve_all(disable_proxy):
-    htbtmsg = '{"event":{"commonEventHeader":{"startEpochMicrosec":1518616063564475,"sourceId":"587c14b3-72c0-4581-b5cb-6567310b9bb7","eventId":"10048640","reportingEntityId":"587c14b3-72c0-4581-b5cb-6567310b9bb7","priority":"Normal","version":3,"reportingEntityName":"TESTVM","sequence":10048640,"domain":"heartbeat","lastEpochMicrosec":1518616063564476,"eventName":"Heartbeat_vVnf","sourceName":"TESTVM","nfNamingCode":"vVNF"}}}'
+    htbtmsg = (
+        "{"
+        '"event": {'
+        '        "commonEventHeader":{'
+        '        "startEpochMicrosec":1518616063564475,'
+        '        "sourceId":"587c14b3-72c0-4581-b5cb-6567310b9bb7",'
+        '        "eventId":"10048640",'
+        '        "reportingEntityId":"587c14b3-72c0-4581-b5cb-6567310b9bb7",'
+        '        "priority":"Normal",'
+        '        "version":3,'
+        '        "reportingEntityName":"TESTVM",'
+        '        "sequence":10048640,'
+        '        "domain":"heartbeat",'
+        '        "lastEpochMicrosec":1518616063564476,'
+        '        "eventName":"Heartbeat_vVnf",'
+        '        "sourceName":"TESTVM",'
+        '        "nfNamingCode":"vVNF"}'
+        "    }"
+        "}"
+    )
     send_url = mr_url + "/events/" + intopic + "/DefaultGroup/1?timeout=15000"
     print(send_url)
     httpretty.register_uri(httpretty.GET, send_url, body=htbtmsg)

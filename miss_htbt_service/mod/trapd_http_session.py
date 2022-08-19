@@ -1,5 +1,5 @@
 # ============LICENSE_START=======================================================
-# Copyright (c) 2017-2021 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2017-2022 AT&T Intellectual Property. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,7 +23,6 @@ __docformat__ = "restructuredtext"
 
 import os
 import requests
-import traceback
 
 prog_name = os.path.basename(__file__)
 
@@ -48,7 +47,7 @@ def init_session_obj():
 
     try:
         _loc_session = requests.Session()
-    except Exception as e:
+    except Exception:
         return None
 
     return _loc_session

@@ -1,5 +1,5 @@
 # ============LICENSE_START=======================================================
-# Copyright (c) 2018-2021 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2018-2022 AT&T Intellectual Property. All rights reserved.
 # Copyright (c) 2019 Pantheon.tech. All rights reserved.
 # Copyright (c) 2020 Deutsche Telekom. All rights reserved.
 # Copyright (c) 2021 Samsung Electronics. All rights reserved.
@@ -27,11 +27,6 @@ __docformat__ = "restructuredtext"
 
 import json
 import os
-import sys
-import string
-import time
-import traceback
-import collections.abc
 from onap_dcae_cbs_docker_client.client import get_config
 from mod import trapd_settings as tds
 from mod.trapd_exit import cleanup, cleanup_and_exit
@@ -71,7 +66,7 @@ def get_cbs_config():
         try:
             msg = "CBS_HTBT_JSON not defined - FATAL ERROR, exiting"
             _cbs_sim_json_file = os.getenv("CBS_HTBT_JSON", "None")
-        except Exception as e:
+        except Exception:
             stdout_logger(msg)
             cleanup(1, None)
             return False
@@ -87,31 +82,31 @@ def get_cbs_config():
             msg = "Unable to load CBS_HTBT_JSON " + _cbs_sim_json_file + " (invalid json?) - FATAL ERROR, exiting"
             try:
                 tds.c_config = json.load(open(_cbs_sim_json_file))
-            except Exception as e:
+            except Exception:
                 stdout_logger(msg)
                 cleanup_and_exit(0, None)
 
     # recalc timeout, set default if not present
     try:
         tds.timeout_seconds = tds.c_config["publisher.http_timeout_milliseconds"] / 1000.0
-    except Exception as e:
+    except Exception:
         tds.timeout_seconds = 1.5
 
     # recalc seconds_between_retries, set default if not present
     try:
         tds.seconds_between_retries = tds.c_config["publisher.http_milliseconds_between_retries"] / 1000.0
-    except Exception as e:
+    except Exception:
         tds.seconds_between_retries = 0.750
 
     # recalc min_severity_to_log, set default if not present
     try:
         tds.minimum_severity_to_log = tds.c_config["files.minimum_severity_to_log"]
-    except Exception as e:
+    except Exception:
         tds.minimum_severity_to_log = 3
 
     try:
         tds.publisher_retries = tds.c_config["publisher.http_retries"]
-    except Exception as e:
+    except Exception:
         tds.publisher_retries = 3
 
     return True

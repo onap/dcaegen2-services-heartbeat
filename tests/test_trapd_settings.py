@@ -1,5 +1,5 @@
 # ============LICENSE_START=======================================================
-# Copyright (c) 2017-2021 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2017-2022 AT&T Intellectual Property. All rights reserved.
 # Copyright (c) 2019 Pantheon.tech. All rights reserved.
 # Copyright (c) 2021 Fujitsu Ltd.
 # ================================================================================
@@ -37,7 +37,7 @@ class test_cleanup_and_exit(unittest.TestCase):
         try:
             tds.no_such_var
             result = True
-        except:
+        except Exception:
             result = False
 
         self.assertEqual(result, False)
@@ -50,7 +50,7 @@ class test_cleanup_and_exit(unittest.TestCase):
         try:
             tds.c_config
             result = True
-        except:
+        except Exception:
             result = False
         self.assertEqual(result, True)
 
@@ -63,7 +63,7 @@ class test_cleanup_and_exit(unittest.TestCase):
         try:
             tds.dns_cache_ip_to_name
             result = True
-        except:
+        except Exception:
             result = False
         self.assertEqual(result, True)
 
@@ -76,6 +76,6 @@ class test_cleanup_and_exit(unittest.TestCase):
         try:
             tds.dns_cache_ip_expires
             result = True
-        except:
+        except Exception:
             result = False
         self.assertEqual(result, True)

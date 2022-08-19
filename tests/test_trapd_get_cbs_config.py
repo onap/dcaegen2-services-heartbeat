@@ -1,5 +1,5 @@
 # ============LICENSE_START=======================================================
-# Copyright (c) 2017-2021 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2017-2022 AT&T Intellectual Property. All rights reserved.
 # Copyright (c) 2019 Pantheon.tech. All rights reserved.
 # Copyright (c) 2021 Fujitsu Ltd.
 # ================================================================================
@@ -28,7 +28,72 @@ class test_get_cbs_config(unittest.TestCase):
     Test the trapd_get_cbs_config mod
     """
 
-    pytest_json_data = '{ "heartbeat_config": { "vnfs": [{ "eventName": "Heartbeat_vDNS", "heartbeatcountmissed": 3, "heartbeatinterval": 60, "closedLoopControlName": "ControlLoopEvent1", "policyVersion": "1.0.0.5", "policyName": "vFireWall", "policyScope": "resource=sampleResource,type=sampletype,CLName=sampleCLName", "target_type": "VNF", "target": "genVnfName", "version": "1.0" }, { "eventName": "Heartbeat_vFW", "heartbeatcountmissed": 3, "heartbeatinterval": 60, "closedLoopControlName": "ControlLoopEvent1", "policyVersion": "1.0.0.5", "policyName": "vFireWall", "policyScope": "resource=sampleResource,type=sampletype,CLName=sampleCLName", "target_type": "VNF", "target": "genVnfName", "version": "1.0" }, { "eventName": "Heartbeat_xx", "heartbeatcountmissed": 3, "heartbeatinterval": 60, "closedLoopControlName": "ControlLoopEvent1", "policyVersion": "1.0.0.5", "policyName": "vFireWall", "policyScope": "resource=sampleResource,type=sampletype,CLName=sampleCLName", "target_type": "VNF", "target": "genVnfName", "version": "1.0" } ] }, "streams_publishes": { "ves_heartbeat": { "dmaap_info": { "topic_url": "http://message-router:3904/events/unauthenticated.DCAE_CL_OUTPUT/" }, "type": "message_router" } }, "streams_subscribes": { "ves_heartbeat": { "dmaap_info": { "topic_url": "http://message-router:3904/events/unauthenticated.SEC_HEARTBEAT_INPUT/" }, "type": "message_router" } } }'
+    pytest_json_data = (
+        "{"
+        '    "heartbeat_config": {'
+        '        "vnfs": ['
+        "            {"
+        '                "eventName": "Heartbeat_vDNS",'
+        '                "heartbeatcountmissed": 3,'
+        '                "heartbeatinterval": 60,'
+        '                "closedLoopControlName": "ControlLoopEvent1",'
+        '                "policyVersion": "1.0.0.5",'
+        '                "policyName": "vFireWall",'
+        '                "policyScope": "resource=sampleResource,'
+        "                type=sampletype,"
+        '                CLName=sampleCLName",'
+        '                "target_type": "VNF",'
+        '                "target": "genVnfName",'
+        '                "version": "1.0"'
+        "            },"
+        "            {"
+        '                "eventName": "Heartbeat_vFW",'
+        '                "heartbeatcountmissed": 3,'
+        '                "heartbeatinterval": 60,'
+        '                "closedLoopControlName": "ControlLoopEvent1",'
+        '                "policyVersion": "1.0.0.5",'
+        '                "policyName": "vFireWall",'
+        '                "policyScope": "resource=sampleResource,'
+        "                type=sampletype,"
+        '                CLName=sampleCLName",'
+        '                "target_type": "VNF",'
+        '                "target": "genVnfName",'
+        '                "version": "1.0"'
+        "            },"
+        "            {"
+        '                "eventName": "Heartbeat_xx",'
+        '                "heartbeatcountmissed": 3,'
+        '                "heartbeatinterval": 60,'
+        '                "closedLoopControlName": "ControlLoopEvent1",'
+        '                "policyVersion": "1.0.0.5",'
+        '                "policyName": "vFireWall",'
+        '                "policyScope": "resource=sampleResource,'
+        "                type=sampletype,"
+        '                CLName=sampleCLName",'
+        '                "target_type": "VNF",'
+        '                "target": "genVnfName",'
+        '                "version": "1.0"'
+        "            }"
+        "        ]"
+        "    },"
+        '    "streams_publishes": {'
+        '        "ves_heartbeat": {'
+        '            "dmaap_info": {'
+        '                "topic_url": "http://message-router:3904/events/unauthenticated.DCAE_CL_OUTPUT/"'
+        "            },"
+        '            "type": "message_router"'
+        "        }"
+        "    },"
+        '    "streams_subscribes": {'
+        '        "ves_heartbeat": {'
+        '            "dmaap_info": {'
+        '                "topic_url": "http://message-router:3904/events/unauthenticated.SEC_HEARTBEAT_INPUT/"'
+        "            },"
+        '            "type": "message_router"'
+        "        }"
+        "    }"
+        "}"
+    )
 
     # create copy of snmptrapd.json for pytest
     pytest_json_config = "/tmp/opt/app/miss_htbt_service/etc/config.json"

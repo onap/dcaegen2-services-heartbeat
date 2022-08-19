@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # ============LICENSE_START=======================================================
-# Copyright (c) 2018-2021 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2018-2022 AT&T Intellectual Property. All rights reserved.
 # Copyright (c) 2019 Pantheon.tech. All rights reserved.
 # Copyright (c) 2020 Deutsche Telekom. All rights reserved.
 # Copyright (c) 2021 Fujitsu Ltd.
@@ -61,7 +61,7 @@ def process_msg(jsfile, user_name, password, ip_address, port_num, db_name):
         mr_url = str(cfg["streams_subscribes"]["ves-heartbeat"]["dmaap_info"]["topic_url"])
 
         while True:
-            hbc_pid, hbc_state, hbc_srcName, hbc_time = db.read_hb_common(
+            hbc_pid, hbc_state, hbc_src_name, hbc_time = db.read_hb_common(
                 user_name, password, ip_address, port_num, db_name
             )
             if hbc_state == "RECONFIGURATION":
@@ -71,14 +71,14 @@ def process_msg(jsfile, user_name, password, ip_address, port_num, db_name):
                 break
 
         if os.getenv("pytest", "") == "test":
-            eventnameList = ["Heartbeat_vDNS", "Heartbeat_vFW", "Heartbeat_xx"]
+            eventname_list = ["Heartbeat_vDNS", "Heartbeat_vFW", "Heartbeat_xx"]
             connection_db = 0
         else:
             connection_db = postgres_db_open(user_name, password, ip_address, port_num, db_name)
             cur = connection_db.cursor()
             cur.execute("SELECT event_name FROM vnf_table_1")
-            eventnameList = [item[0] for item in cur.fetchall()]
-        msg = "\n\nHBT:eventnameList values ", eventnameList
+            eventname_list = [item[0] for item in cur.fetchall()]
+        msg = "\n\nHBT:eventnameList values ", eventname_list
         _logger.info(msg)
         if "groupID" not in os.environ or "consumerID" not in os.environ:
             get_url = mr_url + "/DefaultGroup/1?timeout=15000"
@@ -101,11 +101,11 @@ def process_msg(jsfile, user_name, password, ip_address, port_num, db_name):
             res = requests.get(get_url)
             msg = "HBT:", res.text
             _logger.info(msg)
-            inputString = res.text
+            input_string = res.text
             # If mrstatus in message body indicates some information, not json msg.
-            if "mrstatus" in inputString:
+            if "mrstatus" in input_string:
                 continue
-            jlist = inputString.split("\n")
+            jlist = input_string.split("\n")
             # Process the DMaaP input message retreived
             error = False
             for line in jlist:
@@ -132,12 +132,12 @@ def process_msg(jsfile, user_name, password, ip_address, port_num, db_name):
                 if lastepo > 1000000000000000:
                     lastepo = int(lastepo / 1000)
                 seqnum = jitem["event"]["commonEventHeader"]["sequence"]
-                eventName = jitem["event"]["commonEventHeader"]["eventName"]
+                event_name = jitem["event"]["commonEventHeader"]["eventName"]
             except Exception as err:
                 msg = "HBT message process error - ", err
                 _logger.error(msg)
                 continue
-            msg = "HBT:Newly received HB event values ::", eventName, lastepo, srcname
+            msg = "HBT:Newly received HB event values ::", event_name, lastepo, srcname
             _logger.info(msg)
             if db_table_creation_check(connection_db, "vnf_table_2") is False:
                 msg = "HBT:Creating vnf_table_2"
@@ -156,10 +156,10 @@ def process_msg(jsfile, user_name, password, ip_address, port_num, db_name):
             else:
                 msg = "HBT:vnf_table_2 is already there"
                 _logger.info(msg)
-            if eventName in eventnameList:  # pragma: no cover
+            if event_name in eventname_list:  # pragma: no cover
                 if os.getenv("pytest", "") == "test":
                     break
-                cur.execute("SELECT source_name_count FROM vnf_table_1 WHERE event_name = %s", (eventName,))
+                cur.execute("SELECT source_name_count FROM vnf_table_1 WHERE event_name = %s", (event_name,))
                 row = cur.fetchone()
                 source_name_count = row[0]
                 source_name_key = source_name_count + 1
@@ -168,19 +168,19 @@ def process_msg(jsfile, user_name, password, ip_address, port_num, db_name):
                     _logger.info("HBT: Insert entry into vnf_table_2, source_name='%s'", srcname)
                     cur.execute(
                         "INSERT INTO vnf_table_2 VALUES(%s,%s,%s,%s,%s)",
-                        (eventName, source_name_key, lastepo, srcname, cl_flag),
+                        (event_name, source_name_key, lastepo, srcname, cl_flag),
                     )
                     cur.execute(
                         "UPDATE vnf_table_1 SET SOURCE_NAME_COUNT = %s where EVENT_NAME = %s",
-                        (source_name_key, eventName),
+                        (source_name_key, event_name),
                     )
                 else:  # pragma: no cover
-                    msg = "HBT:event name, source_name & source_name_count are", eventName, srcname, source_name_count
+                    msg = "HBT:event name, source_name & source_name_count are", event_name, srcname, source_name_count
                     _logger.info(msg)
                     for source_name_key in range(source_name_count):
                         cur.execute(
                             "SELECT source_name FROM vnf_table_2 WHERE event_name = %s AND " "source_name_key = %s",
-                            (eventName, (source_name_key + 1)),
+                            (event_name, (source_name_key + 1)),
                         )
                         row = cur.fetchall()
                         if len(row) == 0:
@@ -192,7 +192,7 @@ def process_msg(jsfile, user_name, password, ip_address, port_num, db_name):
                             cur.execute(
                                 "UPDATE vnf_table_2 SET LAST_EPO_TIME = %s, SOURCE_NAME = %s "
                                 "WHERE EVENT_NAME = %s AND SOURCE_NAME_KEY = %s",
-                                (lastepo, srcname, eventName, (source_name_key + 1)),
+                                (lastepo, srcname, event_name, (source_name_key + 1)),
                             )
                             source_name_key = source_name_count
                             break
@@ -205,11 +205,11 @@ def process_msg(jsfile, user_name, password, ip_address, port_num, db_name):
                         _logger.info("HBT: Insert entry into vnf_table_2, source_name='%s'", srcname)
                         cur.execute(
                             "INSERT INTO vnf_table_2 VALUES(%s,%s,%s,%s,%s)",
-                            (eventName, source_name_key, lastepo, srcname, cl_flag),
+                            (event_name, source_name_key, lastepo, srcname, cl_flag),
                         )
                         cur.execute(
                             "UPDATE vnf_table_1 SET SOURCE_NAME_COUNT = %s WHERE EVENT_NAME = %s",
-                            (source_name_key, eventName),
+                            (source_name_key, event_name),
                         )
             else:
                 _logger.info("HBT:eventName is not being monitored, Igonoring JSON message")
