@@ -33,6 +33,7 @@ setup(
         "pyOpenSSL==20.0.1",
         "Wheel==0.36.2",
         "psycopg2-binary==2.8.6",
+        "cryptography==37.0.4",
     ],
     author="Vijay Venkatesh Kumar",
     author_email="vv770d@att.com",
