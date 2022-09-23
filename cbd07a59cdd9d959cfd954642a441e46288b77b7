@@ -16,6 +16,24 @@
       "revId": "cbd07a59cdd9d959cfd954642a441e46288b77b7",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ba97a8f5_9efbda5a",
+        "filename": "releases/2.4.1-container.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2022-09-23T14:51:45Z",
+      "side": 1,
+      "message": "716a897578e1f084cc8c13b31834a1f4a93c7b08 is for info.yaml update.\n\nc303ce8cfcc9332a6435490445e9f2ff05b37ad0 is correct (as this identifies last commit/update for component sourcecode) here as \"ref\" is used for tagging.",
+      "parentUuid": "13feff15_fffc7f10",
+      "revId": "cbd07a59cdd9d959cfd954642a441e46288b77b7",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
     }
   ]
 }
