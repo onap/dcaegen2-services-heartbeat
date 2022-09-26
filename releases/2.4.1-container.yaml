@@ -1,0 +1,9 @@
+distribution_type: 'container'
+container_release_tag: '2.4.1'
+project: 'dcaegen2/services/heartbeat'
+log_dir: 'dcaegen2-services-heartbeat-master-release-version-java-daily/1661'
+ref: 051b1fdea2b6140cebdd9a7b7736942f0dd63172
+containers:
+    - name: 'org.onap.dcaegen2.services.heartbeat'
+      version: '2.4.1-SNAPSHOT-20220926T150157Z'
+git_tag: 2.4.1
