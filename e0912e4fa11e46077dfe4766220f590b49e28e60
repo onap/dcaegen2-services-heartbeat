@@ -16,6 +16,24 @@
       "revId": "e0912e4fa11e46077dfe4766220f590b49e28e60",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8df5e377_6367593f",
+        "filename": "Changelog.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2022-10-21T12:55:16Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d719f74a_76b9275c",
+      "revId": "e0912e4fa11e46077dfe4766220f590b49e28e60",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
     }
   ]
 }
