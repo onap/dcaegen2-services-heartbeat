@@ -102,7 +102,7 @@ def process_msg(jsfile, user_name, password, ip_address, port_num, db_name):
                 res = requests.get(get_url)
             except Exception as e:
                 # message-router may be down temporarily. continue polling loop to try again
-                _logger.error('HBT: Failed to fetch messages from DMaaP. get_url=%s', get_url, exc_info=e)
+                _logger.error("HBT: Failed to fetch messages from DMaaP. get_url=%s", get_url, exc_info=e)
                 time.sleep(1)
                 continue
             _logger.info("HBT: %s", res.text)
