@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+<<<<<<< HEAD   (be9bed Merge "Release 2.4.1 Heartbeat container")
+=======
+## [2.5.0] - 2022/10/25
+- [DCAEGEN2-2952] Handle exception when MR is unavailable
+- [DCAEGEN2-3297] Fix Black tool compatibility issue blocking docker build
+
+>>>>>>> CHANGE (2e8406 Fix black check compatibility issue)
 ## [2.4.1] - 2022/09/23
 - [DCAEGEN2-2837] Heartbeat ms: remove unnecessary parenthesis, use lowercase variable name
 - [DCAEGEN2-3268] Fix cryptography version to 37.0.4
