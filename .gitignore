@@ -11,3 +11,7 @@ xunit-results.xml
 miss_htbt_service.egg-info
 target/
 .idea/
+.project
+.pydevproject
+hb_db_monitoring_logs.txt
+hb_misshtbtd_logs.txt
