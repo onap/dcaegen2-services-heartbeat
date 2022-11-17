@@ -24,6 +24,8 @@ log = logging.getLogger(__name__)
 
 
 def test_configure_logger():
+    # logpath = (os.path.dirname(__file__))+"hb_logs.txt"
+    # expected_log_path = Path(logpath)
     expected_log_path = Path("./hb_logs.txt")
     if expected_log_path.exists():
         os.remove(expected_log_path)
@@ -34,6 +36,8 @@ def test_configure_logger():
 
 
 def test_configure_logger_with_name():
+    # logpath = (os.path.dirname(__file__))+"hb_htbtworker_logs.txt"
+    # expected_log_path = Path(logpath)
     expected_log_path = Path("./hb_htbtworker_logs.txt")
     if expected_log_path.exists():
         os.remove(expected_log_path)
