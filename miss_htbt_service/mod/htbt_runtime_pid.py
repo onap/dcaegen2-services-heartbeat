@@ -1,5 +1,5 @@
 # ============LICENSE_START=======================================================
-# Copyright (c) 2017-2022 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2017-2023 AT&T Intellectual Property. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
 # ============LICENSE_END=========================================================
 
 """
-trapd_runtime_pid maintains a 'PID file' (file that contains the
+htbt_runtime_pid maintains a 'PID file' (file that contains the
 PID of currently running trap receiver)
 """
 
