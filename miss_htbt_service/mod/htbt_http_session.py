@@ -15,7 +15,7 @@
 # ============LICENSE_END=========================================================
 
 """
-trapd_http_session establishes an http session for future use in publishing
+htbt_http_session establishes an http session for future use in publishing
 messages to the dmaap cluster.
 """
 
