@@ -18,7 +18,7 @@
 
 import unittest
 
-from miss_htbt_service.mod import trapd_settings as tds
+from miss_htbt_service.mod import htbt_settings as tds
 
 pid_file = "/tmp/test_pid_file"
 pid_file_dne = "/tmp/test_pid_file_NOT"
