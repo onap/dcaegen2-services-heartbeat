@@ -19,6 +19,10 @@
 import pytest
 import unittest
 import os
+import cbs_polling as cp
+import time
+import misshtbtd
+from unittest.mock import *
 
 from miss_htbt_service.mod import trapd_get_cbs_config
 
@@ -77,7 +81,7 @@ class test_get_cbs_config(unittest.TestCase):
         "        ]"
         "    },"
         '    "streams_publishes": {'
-        '        "ves_heartbeat": {'
+        '        "dcae_cl_out": {'
         '            "dmaap_info": {'
         '                "topic_url": "http://message-router:3904/events/unauthenticated.DCAE_CL_OUTPUT/"'
         "            },"
@@ -85,18 +89,24 @@ class test_get_cbs_config(unittest.TestCase):
         "        }"
         "    },"
         '    "streams_subscribes": {'
-        '        "ves_heartbeat": {'
+        '        "ves-heartbeat": {'
         '            "dmaap_info": {'
         '                "topic_url": "http://message-router:3904/events/unauthenticated.SEC_HEARTBEAT_INPUT/"'
         "            },"
         '            "type": "message_router"'
         "        }"
-        "    }"
+        "    },"
+        '    "pg_ipAddress": "10.0.4.1",'
+        '    "pg_userName": "postgres",'
+        '    "pg_dbName": "postgres",'
+        '    "pg_passwd": "postgres",'
+        '    "pg_portNum": "5432"'
         "}"
     )
 
     # create copy of snmptrapd.json for pytest
-    pytest_json_config = "/tmp/opt/app/miss_htbt_service/etc/config.json"
+    #pytest_json_config = "/tmp/opt/app/miss_htbt_service/etc/config.json"
+    pytest_json_config = "test-config.json"
     with open(pytest_json_config, "w") as outfile:
         outfile.write(pytest_json_data)
 
@@ -119,3 +129,20 @@ class test_get_cbs_config(unittest.TestCase):
         result = True
         print("result: %s" % result)
         self.assertEqual(result, True)
+
+    @patch('misshtbtd.create_update_hb_common')
+    @patch('misshtbtd.read_hb_common')
+    def test_poll_cbs(self, mock1, mock2):
+        """
+        TBD
+        """
+        status = True
+        current_time = round(time.time())
+        mock1.return_value = ('1', 'RUNNING', 'AA', current_time)
+        # configjsonfile = (os.path.dirname(__file__))+"/test-config.json"
+        configjsonfile = "test-config.json"
+        os.environ.update(CBS_HTBT_JSON=configjsonfile)
+        os.environ["pytest"] = "test"
+        cp.poll_cbs(1)
+        self.assertEqual(status, True)
+
