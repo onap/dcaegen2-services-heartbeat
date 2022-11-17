@@ -15,7 +15,7 @@
 # ============LICENSE_END=========================================================
 
 """
-trapd_runtime_pid maintains a 'PID file' (file that contains the
+htbt_runtime_pid maintains a 'PID file' (file that contains the
 PID of currently running trap receiver)
 """
 
