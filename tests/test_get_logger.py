@@ -1,5 +1,5 @@
 # ============LICENSE_START=======================================================
-# Copyright (c) 2020-2021 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2020-2022 AT&T Intellectual Property. All rights reserved.
 # Copyright (c) 2021 Fujitsu Ltd.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,6 +24,8 @@ log = logging.getLogger(__name__)
 
 
 def test_configure_logger():
+    # logpath = (os.path.dirname(__file__))+"hb_logs.txt"
+    # expected_log_path = Path(logpath)
     expected_log_path = Path("./hb_logs.txt")
     if expected_log_path.exists():
         os.remove(expected_log_path)
@@ -34,6 +36,8 @@ def test_configure_logger():
 
 
 def test_configure_logger_with_name():
+    # logpath = (os.path.dirname(__file__))+"hb_htbtworker_logs.txt"
+    # expected_log_path = Path(logpath)
     expected_log_path = Path("./hb_htbtworker_logs.txt")
     if expected_log_path.exists():
         os.remove(expected_log_path)

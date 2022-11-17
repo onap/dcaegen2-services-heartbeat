@@ -40,6 +40,7 @@ import yaml
 import socket
 import os.path as path
 import tempfile
+import psycopg2
 from pathlib import Path
 
 import check_health
@@ -83,14 +84,7 @@ def create_database(update_db, jsfile, ip_address, port_num, user_name, password
 
 
 def read_hb_common(user_name, password, ip_address, port_num, db_name):
-    env_pytest = os.getenv("pytest", "")
-    if env_pytest == "test":
-        hbc_pid = 10
-        hbc_src_name = "srvc_name"
-        hbc_time = 1584595881
-        hbc_state = "RUNNING"
-        return hbc_pid, hbc_state, hbc_src_name, hbc_time
-    connection_db = heartbeat.postgres_db_open(user_name, password, ip_address, port_num, db_name)
+    connection_db = heartbeat.postgres_db_open()
     cur = connection_db.cursor()
     cur.execute("SELECT process_id, source_name, last_accessed_time, current_state FROM hb_common")
     rows = cur.fetchall()
@@ -98,7 +92,6 @@ def read_hb_common(user_name, password, ip_address, port_num, db_name):
     hbc_src_name = rows[0][1]
     hbc_time = rows[0][2]
     hbc_state = rows[0][3]
-    heartbeat.commit_and_close_db(connection_db)
     cur.close()
     return hbc_pid, hbc_state, hbc_src_name, hbc_time
 
@@ -109,9 +102,9 @@ def create_update_hb_common(update_flg, process_id, state, user_name, password, 
     source_name = source_name + "-" + os.getenv("SERVICE_NAME", "")
     env_pytest = os.getenv("pytest", "")
     if env_pytest != "test":
-        connection_db = heartbeat.postgres_db_open(user_name, password, ip_address, port_num, db_name)
+        connection_db = heartbeat.postgres_db_open()
         cur = connection_db.cursor()
-        if heartbeat.db_table_creation_check(connection_db, "hb_common") is False:
+        if db_table_creation_check(connection_db, "hb_common") is False:
             cur.execute(
                 """
                 CREATE TABLE hb_common (
@@ -130,21 +123,36 @@ def create_update_hb_common(update_flg, process_id, state, user_name, password, 
                 (current_time, state, process_id, source_name),
             )
             _logger.info("MSHBT:Updated  hb_common DB with new values")
-        heartbeat.commit_and_close_db(connection_db)
+        # heartbeat.commit_and_close_db(connection_db)
         cur.close()
 
-
+def db_table_creation_check(connection_db, table_name):
+    cur = connection_db.cursor()
+    try:
+        cur.execute("SELECT * FROM information_schema.tables WHERE table_name = %s", (table_name,))
+        database_names = cur.fetchone()
+        if database_names is not None:
+            if table_name in database_names:
+                return True
+        else:
+            return False
+    except psycopg2.DatabaseError as e:
+        msg = "COMMON:Error %s" % e
+        _logger.error(msg)
+    finally:
+        cur.close()
+    
 def create_update_vnf_table_1(jsfile, update_db, connection_db):
     with open(jsfile, "r") as outfile:
         cfg = json.load(outfile)
     hbcfg = cfg["heartbeat_config"]
     jhbcfg = json.loads(hbcfg)
+    cur = connection_db.cursor()
     env_pytest = os.getenv("pytest", "")
     if env_pytest == "test":
         vnf_list = ["Heartbeat_vDNS", "Heartbeat_vFW", "Heartbeat_xx"]
     else:
-        cur = connection_db.cursor()
-        if heartbeat.db_table_creation_check(connection_db, "vnf_table_1") is False:
+        if db_table_creation_check(connection_db, "vnf_table_1") is False:
             cur.execute(
                 """
                 CREATE TABLE vnf_table_1 (
@@ -232,14 +240,14 @@ def create_update_vnf_table_1(jsfile, update_db, connection_db):
 def hb_worker_process(config_file_path):
     subprocess.call([ABSOLUTE_PATH1, config_file_path])
     sys.stdout.flush()
-    _logger.info("MSHBT:Creaated Heartbeat worker process")
+    _logger.info("MSHBT:Created Heartbeat worker process")
     return
 
 
 def db_monitoring_process(current_pid, jsfile):
     subprocess.call([ABSOLUTE_PATH2, str(current_pid), jsfile])
     sys.stdout.flush()
-    _logger.info("MSHBT:Creaated DB Monitoring process")
+    _logger.info("MSHBT:Created DB Monitoring process")
     return
 
 
@@ -335,14 +343,14 @@ def create_update_db(update_db, jsfile, ip_address, port_num, user_name, passwor
             create_database(update_db, jsfile, ip_address, port_num, user_name, password, db_name)
         msg = "MSHBT: DB parameters -", ip_address, port_num, user_name, password, db_name
         _logger.info(msg)
-        connection_db = heartbeat.postgres_db_open(user_name, password, ip_address, port_num, db_name)
+        connection_db = heartbeat.postgres_db_open()
         cur = connection_db.cursor()
         if update_db == 0:
-            if heartbeat.db_table_creation_check(connection_db, "vnf_table_1") is False:
+            if db_table_creation_check(connection_db, "vnf_table_1") is False:
                 create_update_vnf_table_1(jsfile, update_db, connection_db)
         else:
             create_update_vnf_table_1(jsfile, update_db, connection_db)
-        heartbeat.commit_and_close_db(connection_db)
+        #heartbeat.commit_and_close_db(connection_db)
         cur.close()
 
 
@@ -365,6 +373,7 @@ def create_process(job_list, jsfile, pid_current):
         msg = "MSHBD:jobs list is", job_list
         _logger.info(msg)
     return job_list
+
 
 
 def main():
@@ -491,7 +500,7 @@ def main():
                         _logger.info("MSHBD:HB and DBM thread are waiting to become ACTIVE")
                     else:
                         jsfile = fetch_json_file()
-                        msg = "MSHBD: Creating HB and DBM threads. The param pssed %d and %s", jsfile, pid_current
+                        msg = "MSHBD: Creating HB and DBM threads. The param passed %d and %s", jsfile, pid_current
                         _logger.info(msg)
                         job_list = create_process(job_list, jsfile, pid_current)
                     hbc_pid, hbc_state, hbc_src_name, hbc_time = read_hb_common(
