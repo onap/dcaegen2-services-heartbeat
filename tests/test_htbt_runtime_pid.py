@@ -1,5 +1,5 @@
 # ============LICENSE_START=======================================================
-# Copyright (c) 2017-2021 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2017-2022 AT&T Intellectual Property. All rights reserved.
 # Copyright (c) 2019 Pantheon.tech. All rights reserved.
 # Copyright (c) 2021 Fujitsu Ltd.
 # ================================================================================
@@ -17,7 +17,7 @@
 # ============LICENSE_END=========================================================
 
 import unittest
-from miss_htbt_service.mod import trapd_runtime_pid
+from miss_htbt_service.mod import htbt_runtime_pid
 
 
 class test_save_pid(unittest.TestCase):
@@ -29,14 +29,14 @@ class test_save_pid(unittest.TestCase):
         """
         Test that attempt to create pid file in standard location works
         """
-        result = trapd_runtime_pid.save_pid("/tmp/snmptrap_test_pid_file")
+        result = htbt_runtime_pid.save_pid("/tmp/snmptrap_test_pid_file")
         self.assertEqual(result, True)
 
     def test_missing_directory(self):
         """
         Test that attempt to create pid file in missing dir fails
         """
-        result = trapd_runtime_pid.save_pid("/bogus/directory/for/snmptrap_test_pid_file")
+        result = htbt_runtime_pid.save_pid("/bogus/directory/for/snmptrap_test_pid_file")
         self.assertEqual(result, False)
 
 
@@ -50,14 +50,14 @@ class test_rm_pid(unittest.TestCase):
         Test that attempt to remove pid file in standard location works
         """
         # must create it before removing it
-        result = trapd_runtime_pid.save_pid("/tmp/snmptrap_test_pid_file")
+        result = htbt_runtime_pid.save_pid("/tmp/snmptrap_test_pid_file")
         self.assertEqual(result, True)
-        result = trapd_runtime_pid.rm_pid("/tmp/snmptrap_test_pid_file")
+        result = htbt_runtime_pid.rm_pid("/tmp/snmptrap_test_pid_file")
         self.assertEqual(result, True)
 
     def test_missing_file(self):
         """
         Test that attempt to rm non-existent pid file fails
         """
-        result = trapd_runtime_pid.rm_pid("/tmp/snmptrap_test_pid_file_9999")
+        result = htbt_runtime_pid.rm_pid("/tmp/snmptrap_test_pid_file_9999")
         self.assertEqual(result, False)
