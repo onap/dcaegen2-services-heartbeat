@@ -17,7 +17,7 @@
 # ============LICENSE_END=========================================================
 
 import unittest
-from miss_htbt_service.mod import trapd_http_session
+from miss_htbt_service.mod import htbt_http_session
 
 
 class test_init_session_obj(unittest.TestCase):
@@ -29,6 +29,6 @@ class test_init_session_obj(unittest.TestCase):
         """
         Test that attempt to create http session object works
         """
-        result = trapd_http_session.init_session_obj()
+        result = htbt_http_session.init_session_obj()
         compare = str(result).startswith("<requests.sessions.Session object at")
         self.assertEqual(compare, True)
