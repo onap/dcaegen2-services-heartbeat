@@ -17,7 +17,7 @@
 # ============LICENSE_END=========================================================
 
 """
-trapc_exit_snmptrapd is responsible for removing any existing runtime PID
+htbt_exit is responsible for removing any existing runtime PID
 file, and exiting with the provided (param 1) exit code
 """
 
@@ -25,7 +25,7 @@ __docformat__ = "restructuredtext"
 
 import sys
 import os
-from mod.trapd_runtime_pid import rm_pid
+from mod.htbt_runtime_pid import rm_pid
 
 prog_name = os.path.basename(__file__)
 

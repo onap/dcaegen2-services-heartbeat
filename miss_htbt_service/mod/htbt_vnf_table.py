@@ -21,7 +21,7 @@
 #  Author Kiran Mandal (km386e)
 
 """
-trapd_vnf_table verifies the successful creation of DB Tables.
+htbt_vnf_table verifies the successful creation of DB Tables.
 """
 import logging
 import os
@@ -57,9 +57,9 @@ def hb_properties():
 
 
 def verify_DB_creation_1(user_name, password, ip_address, port_num, db_name):
-    connection_db = pm.postgres_db_open(user_name, password, ip_address, port_num, db_name)
+    connection_db = pm.postgres_db_open()
     try:
-        _db_status = pm.db_table_creation_check(connection_db, "vnf_table_1")
+        _db_status = db.db_table_creation_check(connection_db, "vnf_table_1")
     except Exception:
         return None
 
@@ -68,20 +68,20 @@ def verify_DB_creation_1(user_name, password, ip_address, port_num, db_name):
 
 def verify_DB_creation_2(user_name, password, ip_address, port_num, db_name):
 
-    connection_db = pm.postgres_db_open(user_name, password, ip_address, port_num, db_name)
+    connection_db = pm.postgres_db_open()
     try:
-        _db_status = pm.db_table_creation_check(connection_db, "vnf_table_2")
+        _db_status = db.db_table_creation_check(connection_db, "vnf_table_2")
     except Exception:
         return None
 
     return _db_status
 
 
-def verify_DB_creation_hb_common(user_name, password, ip_address, port_num, db_name):
+def verify_DB_creation_hb_common():
 
-    connection_db = pm.postgres_db_open(user_name, password, ip_address, port_num, db_name)
+    connection_db = pm.postgres_db_open()
     try:
-        _db_status = pm.db_table_creation_check(connection_db, "hb_common")
+        _db_status = db.db_table_creation_check(connection_db, "hb_common")
     except Exception:
         return None
 
