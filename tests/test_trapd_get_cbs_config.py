@@ -77,7 +77,7 @@ class test_get_cbs_config(unittest.TestCase):
         "        ]"
         "    },"
         '    "streams_publishes": {'
-        '        "ves_heartbeat": {'
+        '        "dcae_cl_out": {'
         '            "dmaap_info": {'
         '                "topic_url": "http://message-router:3904/events/unauthenticated.DCAE_CL_OUTPUT/"'
         "            },"
@@ -85,18 +85,24 @@ class test_get_cbs_config(unittest.TestCase):
         "        }"
         "    },"
         '    "streams_subscribes": {'
-        '        "ves_heartbeat": {'
+        '        "ves-heartbeat": {'
         '            "dmaap_info": {'
         '                "topic_url": "http://message-router:3904/events/unauthenticated.SEC_HEARTBEAT_INPUT/"'
         "            },"
         '            "type": "message_router"'
         "        }"
-        "    }"
+        "    },"
+        '    "pg_ipAddress": "10.0.4.1",'
+        '    "pg_userName": "postgres",'
+        '    "pg_dbName": "postgres",'
+        '    "pg_passwd": "postgres",'
+        '    "pg_portNum": "5432"'
         "}"
     )
 
     # create copy of snmptrapd.json for pytest
-    pytest_json_config = "/tmp/opt/app/miss_htbt_service/etc/config.json"
+    #pytest_json_config = "/tmp/opt/app/miss_htbt_service/etc/config.json"
+    pytest_json_config = "test-config.json"
     with open(pytest_json_config, "w") as outfile:
         outfile.write(pytest_json_data)
 
