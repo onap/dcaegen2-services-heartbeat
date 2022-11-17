@@ -1,0 +1,11 @@
+#Postgres database input
+#pg_ipAddress: 127.0.0.1
+pg_ipAddress: 10.0.0.0
+pg_portNum: "1234"
+pg_userName: postgres-test
+pg_passwd: postgres-test
+pg_dbName: postgres
+
+#Periodic polling of CBS config download
+CBS_polling_allowed: "True"
+CBS_polling_interval: "300"
