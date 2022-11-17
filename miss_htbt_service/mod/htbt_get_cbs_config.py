@@ -36,7 +36,7 @@ prog_name = os.path.basename(__file__)
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-# function: trapd_get_config_sim
+# function: htbt_get_config_sim
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 
