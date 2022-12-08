@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d9d2771d_351e653f",
+        "filename": "test-config.json",
+        "patchSetId": 23
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2022-12-08T02:05:46Z",
+      "side": 1,
+      "message": "missing a newline at the end of the file",
+      "revId": "bcef669d5e3547aa16f1acb2c4677e472c8db588",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
