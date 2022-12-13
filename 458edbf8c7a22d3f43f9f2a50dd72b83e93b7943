@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6da4c481_ff370556",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 105
+      },
+      "writtenOn": "2022-12-13T15:50:07Z",
+      "side": 1,
+      "message": "I think this line can be removed",
+      "revId": "458edbf8c7a22d3f43f9f2a50dd72b83e93b7943",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    }
+  ]
+}
