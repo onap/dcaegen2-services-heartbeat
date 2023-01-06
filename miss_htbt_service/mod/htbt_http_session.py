@@ -1,7 +1,5 @@
-# ============LICENSE_START=======================================================)
-# Copyright (c) 2018-2022 AT&T Intellectual Property. All rights reserved.
-# Copyright (c) 2019 Pantheon.tech. All rights reserved.
-# Copyright (c) 2020 Deutsche Telekom. All rights reserved.
+# ============LICENSE_START=======================================================
+# Copyright (c) 2017-2023 AT&T Intellectual Property. All rights reserved.
 # ================================================================================
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,36 +15,39 @@
 # ============LICENSE_END=========================================================
 
 """
+htbt_http_session establishes an http session for future use in publishing
+messages to the dmaap cluster.
 """
 
 __docformat__ = "restructuredtext"
 
-# basics
-import datetime
 import os
+import requests
 
 prog_name = os.path.basename(__file__)
 
-# # # # # # # # # # # # #
-# fx: stdout_logger
-# # # # # # # # # # # # #
 
-
-def stdout_logger(_msg):
+# # # # # # # # # # # # #
+# fx: init_session_obj
+# # # # # # # # # # # # #
+def init_session_obj():
     """
-    Log info/errors to stdout.  This is done:
-      - for critical runtime issues
-
+    Initializes and returns a http request session object for later use
     :Parameters:
-      _msg
-         message to print
-    :Exceptions:
       none
+    :Exceptions:
+      session object creation
+        this function will throw an exception if unable to create
+        a new session object
     :Keywords:
-      log stdout
+      http request session
     :Variables:
+      none
     """
 
-    t_out = datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%S,%f")[:-3]
+    try:
+        _loc_session = requests.Session()
+    except Exception:
+        return None
 
-    print("%s %s" % (t_out, _msg))
+    return _loc_session

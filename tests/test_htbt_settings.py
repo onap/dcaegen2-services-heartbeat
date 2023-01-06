@@ -1,5 +1,5 @@
 # ============LICENSE_START=======================================================
-# Copyright (c) 2017-2022 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2017-2023 AT&T Intellectual Property. All rights reserved.
 # Copyright (c) 2019 Pantheon.tech. All rights reserved.
 # Copyright (c) 2021 Fujitsu Ltd.
 # ================================================================================
@@ -18,7 +18,7 @@
 
 import unittest
 
-from miss_htbt_service.mod import trapd_settings as tds
+from miss_htbt_service.mod import htbt_settings as tds
 
 pid_file = "/tmp/test_pid_file"
 pid_file_dne = "/tmp/test_pid_file_NOT"

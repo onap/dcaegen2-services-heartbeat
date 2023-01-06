@@ -1,5 +1,5 @@
 # ============LICENSE_START=======================================================
-# Copyright (c) 2018-2022 AT&T Intellectual Property. All rights reserved.
+# Copyright (c) 2018-2023 AT&T Intellectual Property. All rights reserved.
 # Copyright (c) 2019 Pantheon.tech. All rights reserved.
 # Copyright (c) 2020 Deutsche Telekom. All rights reserved.
 # Copyright (c) 2021 Samsung Electronics. All rights reserved.
@@ -28,15 +28,15 @@ __docformat__ = "restructuredtext"
 import json
 import os
 from onap_dcae_cbs_docker_client.client import get_config
-from mod import trapd_settings as tds
-from mod.trapd_exit import cleanup, cleanup_and_exit
-from mod.trapd_io import stdout_logger
+from mod import htbt_settings as tds
+from mod.htbt_exit import cleanup, cleanup_and_exit
+from mod.htbt_io import stdout_logger
 
 prog_name = os.path.basename(__file__)
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-# function: trapd_get_config_sim
+# function: htbt_get_config_sim
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 
