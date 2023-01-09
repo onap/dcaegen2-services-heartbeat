@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [2.6.0] - 2022/11/17
 - [DCAEGEN2-2953] Code refactoring
+- [DCAEGEN2-3321] Fix black reported formatting issues
 
 ## [2.5.0] - 2022/10/25
 - [DCAEGEN2-2952] Handle exception when MR is unavailable

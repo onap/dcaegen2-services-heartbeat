@@ -21,49 +21,60 @@ import logging
 import requests
 import tempfile
 import os
-import json 
+import json
 import unittest
 
 from unittest.mock import *
 from _pytest.outcomes import skip
 
 _logger = logging.getLogger(__name__)
+
+
 class Test_db_monitoring(unittest.TestCase):
-    
     def setUp(self):
-        htbtworker.configjsonfile = (os.path.dirname(__file__))+"/test-config.json"
-        
-    @patch('requests.post')
+        htbtworker.configjsonfile = (os.path.dirname(__file__)) + "/test-config.json"
+
+    @patch("requests.post")
     def test_sendControlLoopEvent(self, mock1):
         status = True
-        mock_resp = Mock()    
-        mock_resp.configure_mock(
-            **{
-                  "status_code": 200
-            }  
-         )
-        mock1.return_value = mock_resp  
-        db_monitoring.sendControlLoopEvent("ONSET", "ABC","1.0","vFW","vFW","VNF","NODE","1234567890","VFW","1.0","DCAE")
+        mock_resp = Mock()
+        mock_resp.configure_mock(**{"status_code": 200})
+        mock1.return_value = mock_resp
+        db_monitoring.sendControlLoopEvent(
+            "ONSET", "ABC", "1.0", "vFW", "vFW", "VNF", "NODE", "1234567890", "VFW", "1.0", "DCAE"
+        )
         self.assertEqual(status, True)
-        db_monitoring.sendControlLoopEvent("ONSET", "ABC","1.0","vFW","vFW","VM","NODE","1234567890","VFW","1.0","DCAE")
+        db_monitoring.sendControlLoopEvent(
+            "ONSET", "ABC", "1.0", "vFW", "vFW", "VM", "NODE", "1234567890", "VFW", "1.0", "DCAE"
+        )
         self.assertEqual(status, True)
-        db_monitoring.sendControlLoopEvent("ABATED", "ABC","1.0","vFW","vFW","VNF","NODE","1234567890","VFW","1.0","DCAE")
+        db_monitoring.sendControlLoopEvent(
+            "ABATED", "ABC", "1.0", "vFW", "vFW", "VNF", "NODE", "1234567890", "VFW", "1.0", "DCAE"
+        )
         self.assertEqual(status, True)
-        db_monitoring.sendControlLoopEvent("ABATED", "ABC","1.0","vFW","vFW","VM","NODE","1234567890","VFW","1.0","DCAE")
+        db_monitoring.sendControlLoopEvent(
+            "ABATED", "ABC", "1.0", "vFW", "vFW", "VM", "NODE", "1234567890", "VFW", "1.0", "DCAE"
+        )
         self.assertEqual(status, True)
 
-    @patch('misshtbtd.read_hb_common',return_value = ("1234","RUNNING", "XYZ", 1234))
-    @patch('htbtworker.postgres_db_open')
+    @patch("misshtbtd.read_hb_common", return_value=("1234", "RUNNING", "XYZ", 1234))
+    @patch("htbtworker.postgres_db_open")
     def test_db_monitoring(self, mock1, mock2):
         status = True
-        mock_cursor = Mock()        
+        mock_cursor = Mock()
         mock2.cursor.return_value = mock_cursor
-        db_monitoring.db_monitoring("111",htbtworker.configjsonfile ,"testuser","testpwd","10.0.0.0","1234","db_name")
+        db_monitoring.db_monitoring(
+            "111", htbtworker.configjsonfile, "testuser", "testpwd", "10.0.0.0", "1234", "db_name"
+        )
         self.assertEqual(status, True)
-        db_monitoring.db_monitoring("1234",htbtworker.configjsonfile ,"testuser","testpwd","10.0.0.0","1234","db_name")
+        db_monitoring.db_monitoring(
+            "1234", htbtworker.configjsonfile, "testuser", "testpwd", "10.0.0.0", "1234", "db_name"
+        )
         self.assertEqual(status, True)
-        mock1.cursor.return_value = ("1234","RECONFIGURATION", "XYZ", 1234)
-        db_monitoring.db_monitoring("1234",htbtworker.configjsonfile ,"testuser","testpwd","10.0.0.0","1234","db_name")
+        mock1.cursor.return_value = ("1234", "RECONFIGURATION", "XYZ", 1234)
+        db_monitoring.db_monitoring(
+            "1234", htbtworker.configjsonfile, "testuser", "testpwd", "10.0.0.0", "1234", "db_name"
+        )
         self.assertEqual(status, True)
 
     def test_db_monitoring_wrapper(self):
@@ -71,5 +82,6 @@ class Test_db_monitoring(unittest.TestCase):
         db_monitoring.db_monitoring_wrapper("111", htbtworker.configjsonfile, number_of_iterations=0)
         self.assertEqual(status, True)
 
-if __name__ == "__main__": # pragma: no cover
+
+if __name__ == "__main__":  # pragma: no cover
     unittest.main()

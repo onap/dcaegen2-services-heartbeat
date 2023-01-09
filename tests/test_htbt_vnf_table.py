@@ -52,39 +52,39 @@ class test_vnf_tables(unittest.TestCase):
     global ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval
     ip_address, port_num, user_name, password, db_name, cbs_polling_required, cbs_polling_interval = hb_properties()
 
-    @patch('htbtworker.postgres_db_open')
-    @patch('misshtbtd.db_table_creation_check', return_value=True)
+    @patch("htbtworker.postgres_db_open")
+    @patch("misshtbtd.db_table_creation_check", return_value=True)
     def test_validate_vnf_table_1(self, mock, mock1):
         result = verify_DB_creation_1(user_name, password, ip_address, port_num, db_name)
         self.assertEqual(result, True)
 
-    @patch('htbtworker.postgres_db_open')
-    @patch('misshtbtd.db_table_creation_check', return_value=True)
+    @patch("htbtworker.postgres_db_open")
+    @patch("misshtbtd.db_table_creation_check", return_value=True)
     def test_validate_vnf_table_2(self, mock, mock1):
         result = verify_DB_creation_2(user_name, password, ip_address, port_num, db_name)
         self.assertEqual(result, True)
 
-    @patch('htbtworker.postgres_db_open')
-    @patch('misshtbtd.db_table_creation_check', return_value=True)
+    @patch("htbtworker.postgres_db_open")
+    @patch("misshtbtd.db_table_creation_check", return_value=True)
     def test_validate_hb_common(self, mock, mock1):
         result = verify_DB_creation_hb_common()
         self.assertEqual(result, True)
-    
-    @patch('cbs_polling.poll_cbs')
+
+    @patch("cbs_polling.poll_cbs")
     def test_cbspolling(self, mock):
         # Check if no exception thrown
         verify_cbspolling()
 
-    @patch('misshtbtd.fetch_json_file')
+    @patch("misshtbtd.fetch_json_file")
     def test_fetch_json_file(self, mock1):
-        configjsonfile = (os.path.dirname(__file__))+"/test-config.json"
+        configjsonfile = (os.path.dirname(__file__)) + "/test-config.json"
         mock1.return_value = configjsonfile
-        
+
         result = verify_fetch_json_file()
         _logger.info(result)
         self.assertEqual(result, True)
 
-    @patch('misshtbtd.main')
+    @patch("misshtbtd.main")
     def test_misshtbtdmain(self, mock):
         result = verify_misshtbtdmain()
         _logger.info(result)
@@ -95,14 +95,14 @@ class test_vnf_tables(unittest.TestCase):
         _logger.info(result)
         self.assertEqual(result, True)
 
-    @patch('misshtbtd.fetch_json_file')
-    @patch('misshtbtd.read_hb_common')
-    @patch('db_monitoring.db_monitoring')
+    @patch("misshtbtd.fetch_json_file")
+    @patch("misshtbtd.read_hb_common")
+    @patch("db_monitoring.db_monitoring")
     def test_dbmonitoring(self, mock1, mock2, mock3):
-        configjsonfile = (os.path.dirname(__file__))+"/test-config.json"
+        configjsonfile = (os.path.dirname(__file__)) + "/test-config.json"
         mock1.return_value = configjsonfile
-        mock2.return_value = ("1234","RUNNING", "XYZ", 1234)
-        
+        mock2.return_value = ("1234", "RUNNING", "XYZ", 1234)
+
         result = verify_dbmonitoring()
         _logger.info(result)
         self.assertEqual(result, True)

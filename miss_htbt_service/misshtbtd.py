@@ -126,6 +126,7 @@ def create_update_hb_common(update_flg, process_id, state, user_name, password, 
         heartbeat.commit_and_close_db(connection_db)
         cur.close()
 
+
 def db_table_creation_check(connection_db, table_name):
     cur = connection_db.cursor()
     try:
@@ -141,7 +142,8 @@ def db_table_creation_check(connection_db, table_name):
         _logger.error(msg)
     finally:
         cur.close()
-    
+
+
 def create_update_vnf_table_1(jsfile, update_db, connection_db):
     with open(jsfile, "r") as outfile:
         cfg = json.load(outfile)
@@ -373,7 +375,6 @@ def create_process(job_list, jsfile, pid_current):
         msg = "MSHBD:jobs list is", job_list
         _logger.info(msg)
     return job_list
-
 
 
 def main():

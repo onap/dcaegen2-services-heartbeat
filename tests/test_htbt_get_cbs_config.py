@@ -105,7 +105,7 @@ class test_get_cbs_config(unittest.TestCase):
     )
 
     # create copy of snmphtbt.json for pytest
-    #pytest_json_config = "/tmp/opt/app/miss_htbt_service/etc/config.json"
+    # pytest_json_config = "/tmp/opt/app/miss_htbt_service/etc/config.json"
     pytest_json_config = "test-config.json"
     with open(pytest_json_config, "w") as outfile:
         outfile.write(pytest_json_data)
@@ -130,19 +130,18 @@ class test_get_cbs_config(unittest.TestCase):
         print("result: %s" % result)
         self.assertEqual(result, True)
 
-    @patch('misshtbtd.create_update_hb_common')
-    @patch('misshtbtd.read_hb_common')
+    @patch("misshtbtd.create_update_hb_common")
+    @patch("misshtbtd.read_hb_common")
     def test_poll_cbs(self, mock1, mock2):
         """
         TBD
         """
         status = True
         current_time = round(time.time())
-        mock1.return_value = ('1', 'RUNNING', 'AA', current_time)
+        mock1.return_value = ("1", "RUNNING", "AA", current_time)
         # configjsonfile = (os.path.dirname(__file__))+"/test-config.json"
         configjsonfile = "test-config.json"
         os.environ.update(CBS_HTBT_JSON=configjsonfile)
         os.environ["pytest"] = "test"
         cp.poll_cbs(1)
         self.assertEqual(status, True)
-

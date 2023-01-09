@@ -176,7 +176,9 @@ def db_monitoring(current_pid, json_file, user_name, password, ip_address, port_
         source_name = source_name + "-" + str(os.getenv("SERVICE_NAME", ""))
         connection_db = pm.postgres_db_open()
         cur = connection_db.cursor()
-        if int(current_pid) == int(hbc_pid) and source_name == hbc_src_name and hbc_state == "RUNNING":   # pragma: no cover
+        if (
+            int(current_pid) == int(hbc_pid) and source_name == hbc_src_name and hbc_state == "RUNNING"
+        ):  # pragma: no cover
             _logger.info("DBM: Active DB Monitoring Instance")
             cur.execute("SELECT event_name FROM vnf_table_1")
             vnf_list = [item[0] for item in cur.fetchall()]
@@ -221,7 +223,7 @@ def db_monitoring(current_pid, json_file, user_name, password, ip_address, port_
                         epoc_time_sec = row[0][0]
                         src_name = row[0][1]
                         cl_flag = row[0][2]
-                        if (epoc_time - epoc_time_sec) > comparision_time and cl_flag == 0: # pragma: no cover
+                        if (epoc_time - epoc_time_sec) > comparision_time and cl_flag == 0:  # pragma: no cover
                             sendControlLoopEvent(
                                 "ONSET",
                                 pol_url,
@@ -241,7 +243,7 @@ def db_monitoring(current_pid, json_file, user_name, password, ip_address, port_
                                 (cl_flag, event_name, (source_name_key + 1)),
                             )
                             connection_db.commit()
-                        elif (epoc_time - epoc_time_sec) < comparision_time and cl_flag == 1: # pragma: no cover
+                        elif (epoc_time - epoc_time_sec) < comparision_time and cl_flag == 1:  # pragma: no cover
                             sendControlLoopEvent(
                                 "ABATED",
                                 pol_url,
@@ -274,7 +276,7 @@ def db_monitoring(current_pid, json_file, user_name, password, ip_address, port_
                     """
         else:  # pragma: no cover
             msg = "DBM:Inactive instance or hb_common state is not RUNNING"
-            _logger.info(msg)       
+            _logger.info(msg)
         try:
             connection_db.commit()  # <--- makes sure the change is shown in the database
             connection_db.close()
@@ -282,11 +284,12 @@ def db_monitoring(current_pid, json_file, user_name, password, ip_address, port_
         except psycopg2.DatabaseError as e:
             msg = "COMMON:Error %s" % e
             _logger.error(msg)
-            return False   
+            return False
         cur.close()
         break
 
-def db_monitoring_wrapper (current_pid, jsfile, number_of_iterations=-1):
+
+def db_monitoring_wrapper(current_pid, jsfile, number_of_iterations=-1):
     get_logger.configure_logger("db_monitoring")
     _logger.info("DBM: DBM Process started")
     (
@@ -308,4 +311,4 @@ def db_monitoring_wrapper (current_pid, jsfile, number_of_iterations=-1):
 if __name__ == "__main__":
     current_pid = sys.argv[1]
     jsfile = sys.argv[2]
-    db_monitoring_wrapper (current_pid,jsfile)    
+    db_monitoring_wrapper(current_pid, jsfile)
