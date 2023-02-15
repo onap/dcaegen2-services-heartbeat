@@ -23,14 +23,83 @@ import tempfile
 import os
 import json
 import unittest
+import time
 
 from unittest.mock import *
 from _pytest.outcomes import skip
+from pickle import NONE
 
 _logger = logging.getLogger(__name__)
 
 
 class Test_db_monitoring(unittest.TestCase):
+    
+    class PseudoCursorCase1():
+        def execute(self, command,arg=None):
+            if command.startswith("SELECT validity_flag, source_name_count, heartbeat_interval,"):
+                self.fetchall_1 = [[1,1,300,1,"TEMP-CL", "1.0","TEMPPOLICY","TEMP","VM","TEMP","1.0"]]        
+            elif command.startswith ("SELECT last_epo_time, source_name, cl_flag FROM "):
+                millisec = time.time() * 1000
+                self.fetchall_1 = [[millisec -300 ,"testnodeA",0]] 
+            elif command.startswith ("SELECT event_name FROM vnf_table"):
+                self.fetchall_1 = [["Heartbeat_vDNS","Heartbeat_vFw"]] 
+            elif command.startswith ("SELECT current_state"):
+                self.fetchall_1 = [["RECONFIGURATION"]] 
+            elif command.startswith ("DELETE "):
+                self.fetchall_1 = None
+            elif command.startswith ("UPDATE"):
+                self.fetchall_1 = None
+            else:
+                raise RuntimeError("Unknown db execution") 
+        def fetchall (self):
+            return self.fetchall_1        
+        def close(self):
+            pass
+
+    class PseudoCursorCase2():
+        def execute(self, command,arg=None):
+            if command.startswith("SELECT validity_flag, source_name_count, heartbeat_interval,"):
+                self.fetchall_1 = [[1,1,300,1,"TEMP-CL", "1.0","TEMPPOLICY","TEMP","VM","TEMP","1.0"]]        
+            elif command.startswith ("SELECT last_epo_time, source_name, cl_flag FROM "):
+                millisec = time.time() * 1000
+                self.fetchall_1 = [[millisec -500 ,"testnodeA",0]] 
+            elif command.startswith ("SELECT event_name FROM vnf_table"):
+                self.fetchall_1 = [["Heartbeat_vDNS","Heartbeat_vFw"]] 
+            elif command.startswith ("SELECT current_state"):
+                self.fetchall_1 = [["RUNNING"]] 
+            elif command.startswith ("DELETE "):
+                self.fetchall_1 = None
+            elif command.startswith ("UPDATE"):
+                self.fetchall_1 = None
+            else:
+                raise RuntimeError("Unknown db execution") 
+        def fetchall (self):
+            return self.fetchall_1        
+        def close(self):
+            pass            
+ 
+    class PseudoCursorCase3():
+        def execute(self, command,arg=None):
+            if command.startswith("SELECT validity_flag, source_name_count, heartbeat_interval,"):
+                self.fetchall_1 = [[1,1,300,1,"TEMP-CL", "1.0","TEMPPOLICY","TEMP","VM","TEMP","1.0"]]        
+            elif command.startswith ("SELECT last_epo_time, source_name, cl_flag FROM "):
+                millisec = time.time() * 1000
+                self.fetchall_1 = [[millisec -20 ,"testnodeA",1]] 
+            elif command.startswith ("SELECT event_name FROM vnf_table"):
+                self.fetchall_1 = [["Heartbeat_vDNS","Heartbeat_vFw"]] 
+            elif command.startswith ("SELECT current_state"):
+                self.fetchall_1 = [["RUNNING"]] 
+            elif command.startswith ("DELETE "):
+                self.fetchall_1 = None
+            elif command.startswith ("UPDATE"):
+                self.fetchall_1 = None
+            else:
+                raise RuntimeError("Unknown db execution") 
+        def fetchall (self):
+            return self.fetchall_1        
+        def close(self):
+            pass                
+        
     def setUp(self):
         htbtworker.configjsonfile = (os.path.dirname(__file__)) + "/test-config.json"
 
@@ -57,12 +126,17 @@ class Test_db_monitoring(unittest.TestCase):
         )
         self.assertEqual(status, True)
 
-    @patch("misshtbtd.read_hb_common", return_value=("1234", "RUNNING", "XYZ", 1234))
+    @patch("misshtbtd.read_hb_common", return_value=("1234", "RUNNING", "XYZ-", 1234))
     @patch("htbtworker.postgres_db_open")
-    def test_db_monitoring(self, mock1, mock2):
+    @patch("socket.gethostname", return_value = "XYZ")
+    def test_db_monitoring(self, mock1, mock2, mock3):
         status = True
-        mock_cursor = Mock()
-        mock2.cursor.return_value = mock_cursor
+        
+        def temp_func1():
+            return Test_db_monitoring.PseudoCursorCase1()
+               
+        mock2.cursor.side_effect = temp_func1
+        
         db_monitoring.db_monitoring(
             "111", htbtworker.configjsonfile, "testuser", "testpwd", "10.0.0.0", "1234", "db_name"
         )
@@ -71,11 +145,39 @@ class Test_db_monitoring(unittest.TestCase):
             "1234", htbtworker.configjsonfile, "testuser", "testpwd", "10.0.0.0", "1234", "db_name"
         )
         self.assertEqual(status, True)
-        mock1.cursor.return_value = ("1234", "RECONFIGURATION", "XYZ", 1234)
+        mock1.cursor.return_value = ("1234", "RECONFIGURATION", "XYZ-", 1234)
         db_monitoring.db_monitoring(
             "1234", htbtworker.configjsonfile, "testuser", "testpwd", "10.0.0.0", "1234", "db_name"
         )
         self.assertEqual(status, True)
+        
+        def temp_func2():
+            return Test_db_monitoring.PseudoCursorCase2()
+               
+        mock2.cursor.side_effect = temp_func2
+    
+        db_monitoring.db_monitoring(
+            "1234", htbtworker.configjsonfile, "testuser", "testpwd", "10.0.0.0", "1234", "db_name"
+        )
+        self.assertEqual(status, True)
+        mock1.cursor.return_value = ("1234", "RECONFIGURATION", "XYZ-", 1234)
+        db_monitoring.db_monitoring(
+            "1234", htbtworker.configjsonfile, "testuser", "testpwd", "10.0.0.0", "1234", "db_name"
+        )
+        self.assertEqual(status, True)
+        
+        def temp_func3():
+            return Test_db_monitoring.PseudoCursorCase3()
+               
+        mock2.cursor.side_effect = temp_func3
+        db_monitoring.db_monitoring(
+            "1234", htbtworker.configjsonfile, "testuser", "testpwd", "10.0.0.0", "1234", "db_name"
+        )
+        self.assertEqual(status, True)
+        mock1.cursor.return_value = ("1234", "RECONFIGURATION", "XYZ-", 1234)
+        db_monitoring.db_monitoring(
+            "1234", htbtworker.configjsonfile, "testuser", "testpwd", "10.0.0.0", "1234", "db_name"
+        )
 
     def test_db_monitoring_wrapper(self):
         status = True
