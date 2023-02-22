@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "1a5950df_0c41db5a",
+        "filename": "miss_htbt_service/db_monitoring.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2023-02-22T21:03:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "43e787e3_08b766cc",
+      "revId": "0cad03f67b8d593089036f622f9416fc68d2d021",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8900fcd7_037c8353",
         "filename": "tests/test_db_monitoring.py",
         "patchSetId": 4
@@ -101,6 +119,24 @@
       "side": 1,
       "message": "Wondering what difference would that make? The method db_monitoring_singlepass() get called from the wrapper db_monitoring() and different conditions are excercised through varying input/mock.",
       "parentUuid": "d7fa7eb7_1148b83d",
+      "revId": "0cad03f67b8d593089036f622f9416fc68d2d021",
+      "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "773ab52d_101b0efa",
+        "filename": "tests/test_db_monitoring.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 93
+      },
+      "writtenOn": "2023-02-22T21:03:19Z",
+      "side": 1,
+      "message": "Reduced timeout to 1 sec in test",
+      "parentUuid": "ef4e6cdc_64595580",
       "revId": "0cad03f67b8d593089036f622f9416fc68d2d021",
       "serverId": "14b4e41f-c4e3-4fb9-9955-6a9b5656895a",
       "unresolved": true
