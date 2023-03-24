@@ -156,7 +156,6 @@ def sendControlLoopEvent(
     return True
 
 
-
 def db_monitoring(current_pid, json_file, user_name, password, ip_address, port_num, db_name, sleeptime=20):
     while True:
         time.sleep(sleeptime)
@@ -169,21 +168,18 @@ def db_monitoring(current_pid, json_file, user_name, password, ip_address, port_
             msg = "Json file process error : ", err
             _logger.error(msg)
             continue
-        db_monitoring_singlepass (current_pid, pol_url, user_name, password, ip_address, port_num, db_name)
+        db_monitoring_singlepass(current_pid, pol_url, user_name, password, ip_address, port_num, db_name)
         break
-    
-def db_monitoring_singlepass (current_pid, pol_url, user_name, password, ip_address, port_num, db_name) :
-    hbc_pid, hbc_state, hbc_src_name, hbc_time = db.read_hb_common(
-        user_name, password, ip_address, port_num, db_name
-    )
+
+
+def db_monitoring_singlepass(current_pid, pol_url, user_name, password, ip_address, port_num, db_name):
+    hbc_pid, hbc_state, hbc_src_name, hbc_time = db.read_hb_common(user_name, password, ip_address, port_num, db_name)
     source_name = socket.gethostname()
     source_name = source_name + "-" + str(os.getenv("SERVICE_NAME", ""))
-    
+
     connection_db = pm.postgres_db_open()
     cur = connection_db.cursor()
-    if (
-        int(current_pid) == int(hbc_pid) and source_name == hbc_src_name and hbc_state == "RUNNING"
-    ):  
+    if int(current_pid) == int(hbc_pid) and source_name == hbc_src_name and hbc_state == "RUNNING":
         _logger.info("DBM: Active DB Monitoring Instance")
         cur.execute("SELECT event_name FROM vnf_table_1")
         vnf_list = [item[0] for item in cur.fetchall()]
@@ -228,7 +224,7 @@ def db_monitoring_singlepass (current_pid, pol_url, user_name, password, ip_addr
                     epoc_time_sec = row[0][0]
                     src_name = row[0][1]
                     cl_flag = row[0][2]
-                    if (epoc_time - epoc_time_sec) > comparision_time and cl_flag == 0:  
+                    if (epoc_time - epoc_time_sec) > comparision_time and cl_flag == 0:
                         sendControlLoopEvent(
                             "ONSET",
                             pol_url,
@@ -248,7 +244,7 @@ def db_monitoring_singlepass (current_pid, pol_url, user_name, password, ip_addr
                             (cl_flag, event_name, (source_name_key + 1)),
                         )
                         connection_db.commit()
-                    elif (epoc_time - epoc_time_sec) < comparision_time and cl_flag == 1:  
+                    elif (epoc_time - epoc_time_sec) < comparision_time and cl_flag == 1:
                         sendControlLoopEvent(
                             "ABATED",
                             pol_url,
@@ -269,7 +265,7 @@ def db_monitoring_singlepass (current_pid, pol_url, user_name, password, ip_addr
                         )
                         connection_db.commit()
 
-            else: 
+            else:
                 msg = "DBM:DB Monitoring is ignored for %s since validity flag is 0" % event_name
                 _logger.info(msg)
 
@@ -279,7 +275,7 @@ def db_monitoring_singlepass (current_pid, pol_url, user_name, password, ip_addr
                 """
                 Delete the VNF entry in table1 and delete all the source ids related to vnfs in table2
                 """
-    else:  
+    else:
         msg = "DBM:Inactive instance or hb_common state is not RUNNING"
         _logger.info(msg)
     try:
@@ -291,7 +287,6 @@ def db_monitoring_singlepass (current_pid, pol_url, user_name, password, ip_addr
         _logger.error(msg)
         return False
     cur.close()
-
 
 
 def db_monitoring_wrapper(current_pid, jsfile, number_of_iterations=-1):
