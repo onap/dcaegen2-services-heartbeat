@@ -1,0 +1,9 @@
+distribution_type: 'container'
+container_release_tag: '2.6.1'
+project: 'dcaegen2/services/heartbeat'
+log_dir: 'dcaegen2-services-heartbeat-master-release-version-java-daily/1845'
+ref: f759989a43ddbc8991e45697f0682808716f8d16
+containers:
+    - name: 'org.onap.dcaegen2.services.heartbeat'
+      version: '2.6.1-SNAPSHOT-20230327T151255Z'
+git_tag: 2.6.1
